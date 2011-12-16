@@ -5,6 +5,7 @@ gemspec
 
 group :test do
   gem 'mocha'
+  gem "appraisal"
 end
 
 unless ENV["CI"]

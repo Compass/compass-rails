@@ -1,6 +1,7 @@
 module CompassRails
   module Test
     module RailsHelpers
+      VENDORED_RAILS_PATH = File.expand_path('../../fixtures/rails_versions', __FILE__)
 
     def debug(message)
       puts message if ENV['DEBUG']
@@ -26,6 +27,22 @@ module CompassRails
     def generate_rails_app(name, version='3.1')
       system "rails _#{version}_ new #{name}"
     end
+
+  private
+    
+    def find_rails_version_executable(version)
+      folder = find_rails_version_folder(version)
+      File.join(folder, 'bin', 'rails')
+    end
+
+    def find_rails_version_folder(version)
+      versions = Dir["VENDORED_RAILS_PATH/*"].map {|name| File.basename(name) }
+      unless path = versions.sort.detect { |v| v.include?(version)}
+        raise "Rails Version Not Found: #{version}"
+      end
+      File.join(VENDORED_RAILS_PATH, path)
+    end
+    
 
 
     end
