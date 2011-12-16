@@ -1,3 +1,4 @@
+require 'compass'
 require "compass-rails/version"
 
 module Compass
