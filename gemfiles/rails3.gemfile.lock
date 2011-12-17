@@ -1,12 +1,4 @@
 PATH
-  remote: ../../compass
-  specs:
-    compass (0.12.alpha.2.57dcbad)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-
-PATH
   remote: /Volumes/SSD/Work/compass-rails
   specs:
     compass-rails (0.0.1)
@@ -45,6 +37,10 @@ GEM
     arel (2.0.10)
     builder (2.1.2)
     chunky_png (1.2.5)
+    compass (0.12.alpha.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fssm (0.2.7)
@@ -98,7 +94,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  compass!
+  compass (~> 0.12.alpha)
   compass-rails!
   guard
   guard-test

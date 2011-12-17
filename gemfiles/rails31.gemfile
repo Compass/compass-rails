@@ -2,9 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "compass", :path=>"../../compass"
-gem "rb-fsevent"
-gem "ruby_gntp"
+gem "compass", "~> 0.12.alpha"
+gem "rb-fsevent", :require=>false
+gem "ruby_gntp", :require=>false
 gem "guard"
 gem "guard-test"
 gem "rails", "3.1.3"

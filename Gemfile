@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in compass-rails.gemspec
 gemspec
 
-gem 'compass', :path => '../compass'
+gem 'compass', '~> 0.12.alpha'
 
 group :test do
   gem 'mocha'
@@ -12,8 +12,8 @@ group :test do
 end
 
 unless ENV["CI"]
-  gem 'rb-fsevent'
-  gem 'ruby_gntp'
+  gem 'rb-fsevent', :require => false
+  gem 'ruby_gntp', :require => false
   gem 'guard'
   gem 'guard-test'
 end
