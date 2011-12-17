@@ -1,3 +1,4 @@
+require 'test/unit'
 require 'compass-rails'
 require 'rainbow'
 module CompassRails
