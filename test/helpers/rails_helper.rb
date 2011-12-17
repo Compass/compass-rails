@@ -1,49 +1,63 @@
+
 module CompassRails
   module Test
     module RailsHelpers
-      VENDORED_RAILS_PATH = File.expand_path('../../fixtures/rails_versions', __FILE__)
+      include FileHelper
+      include DebugHelper
+      include CommandHelper
 
-    def debug(message)
-      puts message if ENV['DEBUG']
-    end
+      RAILS_3_1 = "3.1"
+      RAILS_3 = "3.0"
+      RAILS_2 = "2.3"
 
-    def mkdir_p(dir)
-      debug("Creating Directory: #{dir}")
-      ::FileUtils.make_dir dir
-    end
-      
-    def new_rails_app(named, version='3.1', &block)
-      working_dir = File.expand_path('../../fixtures/rails-temp', __FILE__)
-      mkdir_p working_dir
-      Dir.chdir(working_dir) do
-        generate_rails_app(named, working_dir)
+      WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
+      GEMFILES = {
+        RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s,
+        RAILS_3   => GEMFILES_DIR.join("rails3.gemfile").to_s,
+        RAILS_2   => GEMFILES_DIR.join("rails2.gemfile").to_s
+      }
 
+      GENERTOR_OPTIONS = {
+        RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
+        RAILS_3 => ['-q', '-G', '-O', '--skip-bundle'],
+        RAILS_2 => ['-q']
+      }
+
+      GENERATOR_COMMAND = {
+        RAILS_3_1 => 'new',
+        RAILS_3 => 'new',
+        RAILS_2 => ''
+      }
+
+    def rails_command(options, version)
+      debug("Running Rails command with: rails #{options.join(' ')}".foreground(:cyan))
+      capture_output do
+        run_command("rails #{options.join(' ')}", GEMFILES[version])
       end
     end
 
     # Generate a rails application without polluting our current set of requires
     # with the rails libraries. This will allow testing against multiple versions of rails
     # by manipulating the load path.
-    def generate_rails_app(name, version='3.1')
-      system "rails _#{version}_ new #{name}"
+    def generate_rails_app(name, version, options=[])
+      options += GENERTOR_OPTIONS[version]
+      rails_command([GENERATOR_COMMAND[version], name, *options], version)
     end
 
-  private
-    
-    def find_rails_version_executable(version)
-      folder = find_rails_version_folder(version)
-      File.join(folder, 'bin', 'rails')
-    end
-
-    def find_rails_version_folder(version)
-      versions = Dir["VENDORED_RAILS_PATH/*"].map {|name| File.basename(name) }
-      unless path = versions.sort.detect { |v| v.include?(version)}
-        raise "Rails Version Not Found: #{version}"
+    def within_rails_app(named, version, run_bundler=false, &block)
+      dir = "#{named}-#{version}"
+      rm_rf File.join(WORKING_DIR, dir)
+      mkdir_p WORKING_DIR
+      cd(WORKING_DIR) do
+        generate_rails_app(dir, version)
+        cd(dir) do
+          bundle if run_bundler
+          yield dir
+        end
       end
-      File.join(VENDORED_RAILS_PATH, path)
+      rm_rf File.join(WORKING_DIR, dir)
     end
     
-
 
     end
   end
