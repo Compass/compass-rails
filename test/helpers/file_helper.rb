@@ -43,7 +43,7 @@ module CompassRails
       end
       
       def replace(destination, regexp, string)
-        content = File.binread(destination)
+        content = File.read(destination)
         content.gsub!(Regexp.new(regexp), string)
         File.open(destination, 'wb') { |file| file.write(content) }
       end
