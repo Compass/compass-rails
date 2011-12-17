@@ -5,10 +5,10 @@ module CompassRails
       include FileHelper
       include DebugHelper
       include CommandHelper
-
+      
       RAILS_3_1 = "3.1"
-      RAILS_3 = "3.0"
-      RAILS_2 = "2.3"
+      RAILS_3   = "3.0"
+      RAILS_2   = "2.3"
 
       WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
       GEMFILES = {
@@ -19,14 +19,14 @@ module CompassRails
 
       GENERTOR_OPTIONS = {
         RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
-        RAILS_3 => ['-q', '-G', '-O', '--skip-bundle'],
-        RAILS_2 => ['-q']
+        RAILS_3   => ['-q', '-G', '-O', '--skip-bundle'],
+        RAILS_2   => ['-q']
       }
 
       GENERATOR_COMMAND = {
         RAILS_3_1 => 'new',
-        RAILS_3 => 'new',
-        RAILS_2 => ''
+        RAILS_3   => 'new',
+        RAILS_2   => ''
       }
 
     def rails_command(options, version)

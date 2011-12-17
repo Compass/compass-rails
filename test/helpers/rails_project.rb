@@ -30,6 +30,10 @@ module CompassRails
         File.basename(directory)
       end
 
+      def has_file?(file)
+        File.exist? directory.join(file)
+      end
+
       # COMPASS METHODS
 
       def install_compass
