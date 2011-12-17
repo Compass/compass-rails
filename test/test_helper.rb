@@ -3,9 +3,12 @@ require 'rainbow'
 module CompassRails
   module Test
     ROOT_PATH = File.expand_path('../../', __FILE__)
+    TESTING_VERSION = '0.12.alpha'
   end
 end
 
 %w(debug file command rails).each do |helper|
   require File.join(File.expand_path('../', __FILE__), 'helpers', "#{helper}_helper")
 end
+
+require File.join(File.expand_path('../', __FILE__), 'helpers', "rails_project")

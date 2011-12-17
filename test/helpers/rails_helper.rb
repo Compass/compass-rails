@@ -52,7 +52,7 @@ module CompassRails
         generate_rails_app(dir, version)
         cd(dir) do
           bundle if run_bundler
-          yield dir
+          yield RailsProject.new(File.join(WORKING_DIR, dir), version)
         end
       end
       rm_rf File.join(WORKING_DIR, dir)
