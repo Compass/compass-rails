@@ -7,8 +7,7 @@ class Rails23Test < Test::Unit::TestCase
       project.install_compass
       project.has_gem?('compass')
       project.boots?
-      assert File.exists?(File.join(WORKING_DIR, project.directory_name, 'config', 'boot.rb'))
-      assert !File.exists?(File.join(WORKING_DIR, project.directory_name, 'config', 'applicaton.rb'))
+      assert project.rails2?
     end
   end
 end

@@ -7,7 +7,7 @@ class Rails31Test < Test::Unit::TestCase
       project.install_compass
       assert project.has_gem? 'compass'
       project.bundle
-      assert project.has_file?(File.join('config', 'application.rb'))
+      assert project.rails3?
     end
   end
 

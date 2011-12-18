@@ -6,7 +6,7 @@ class Rails3Test < Test::Unit::TestCase
     within_rails_app('test_railtie', RAILS_3) do |project|
       project.install_compass
       assert project.has_gem? 'compass'
-      assert project.has_file?(File.join('config', 'application.rb'))
+      assert project.rails3?
     end
   end
 
@@ -18,7 +18,7 @@ class Rails3Test < Test::Unit::TestCase
       project.bundle!
       assert project.has_generator?('rails')
       assert project.boots?
-      assert project.has_file?(File.join('config', 'application.rb'))
+      assert project.rails3?
     end
   end
 

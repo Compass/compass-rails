@@ -12,6 +12,8 @@ module CompassRails
       GEMFILE_LOCK = 'Gemfile.lock'
       ENVIRONMENT = 'config/environment.rb'
       COMPASS_CONFIG = 'config/compass.rb'
+      APPLICATION_FILE = 'config/application.rb'
+      BOOT_FILE = 'config/boot.rb'
 
 
       attr_reader :directory, :version
@@ -40,6 +42,14 @@ module CompassRails
 
       def has_generator?(name)
         rails_command(['g'], version).downcase.include?("#{name}:")
+      end
+
+      def rails3?
+        directory.join(APPLICATION_FILE).exist?
+      end
+
+      def rails2?
+        directory.join(BOOT_FILE).exist? && !directory.join(APPLICATION_FILE).exist?
       end
 
       def boots?
