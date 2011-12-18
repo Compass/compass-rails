@@ -97,6 +97,7 @@ class CompassRails::Test::CommandRunner
   end
 
   def announce
+    return
     if @gemfile
       puts ">> BUNDLE_GEMFILE=#{@gemfile} #{@command}"
     else
