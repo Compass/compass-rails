@@ -6,34 +6,32 @@ module CompassRails
       include DebugHelper
       include CommandHelper
       
-      RAILS_3_1 = "3.1"
-      RAILS_3   = "3.0"
-      RAILS_2   = "2.3"
+        RAILS_3_1   = "3.1"
+        RAILS_3     = "3.0"
+        RAILS_2     = "2.3"
+        WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
 
-      WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
-      GEMFILES = {
-        RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s,
-        RAILS_3   => GEMFILES_DIR.join("rails3.gemfile").to_s,
-        RAILS_2   => GEMFILES_DIR.join("rails2.gemfile").to_s
-      }
-
-      GENERTOR_OPTIONS = {
-        RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
-        RAILS_3   => ['-q', '-G', '-O', '--skip-bundle'],
-        RAILS_2   => ['-q']
-      }
-
-      GENERATOR_COMMAND = {
-        RAILS_3_1 => 'new',
-        RAILS_3   => 'new',
-        RAILS_2   => ''
-      }
+        GEMFILES = {
+          RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s,
+          RAILS_3   => GEMFILES_DIR.join("rails3.gemfile").to_s,
+          RAILS_2   => GEMFILES_DIR.join("rails2.gemfile").to_s
+        }
+        
+        GENERTOR_OPTIONS = {
+          RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
+          RAILS_3   => ['-q', '-G', '-O', '--skip-bundle'],
+          RAILS_2   => ['-q']
+        }
+        
+        GENERATOR_COMMAND = {
+          RAILS_3_1 => 'new',
+          RAILS_3   => 'new',
+          RAILS_2   => ''
+        }
 
     def rails_command(options, version)
       debug("Running Rails command with: rails #{options.join(' ')}".foreground(:cyan))
-      capture_output do
-        run_command("rails #{options.join(' ')}", GEMFILES[version])
-      end
+      run_command("rails #{options.join(' ')}", GEMFILES[version])
     end
 
     # Generate a rails application without polluting our current set of requires

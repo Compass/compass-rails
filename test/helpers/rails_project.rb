@@ -5,6 +5,7 @@ module CompassRails
       include DebugHelper
       include CommandHelper
       include RailsHelpers
+      include Kernal::Captures
 
 
       GEMFILE = 'Gemfile'
@@ -34,6 +35,12 @@ module CompassRails
         File.exist? directory.join(file)
       end
 
+      # RAILS METHDODS
+
+      def has_generator?(name)
+        rails_command(['g'], version).include?(name)
+      end
+
       # COMPASS METHODS
 
       def install_compass
@@ -58,7 +65,7 @@ module CompassRails
 
       ## GEM METHODS
 
-      def bundle
+      def bundle!
         capture_output do
           case version
           when RAILS_3_1, RAILS_3
