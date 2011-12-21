@@ -40,6 +40,44 @@ module CompassRails
 
       # RAILS METHDODS
 
+      class Request
+        attr_reader :status
+
+        def initialize(status)
+          @status = status
+        end
+
+        def success?
+          status.to_i == 200
+        end
+
+      end
+
+      def get(path)
+        case version
+        when RAILS_3_1, RAILS_3
+          Request.new(runner(get_rails_3(path)))
+        when RAILS_2
+          Request.new(runner(get_rails_2(path)))
+        end
+      end
+
+      def get_rails_2(path)
+        <<-RUBY
+          require "console_app";
+          puts app.get("#{path}")
+        RUBY
+      end
+
+      def get_rails_3(path)
+        <<-RUBY
+          require APP_PATH;
+          Rails.application.require_environment!;
+          Rails.application.load_console;
+          puts app.get("#{path}");
+        RUBY
+      end
+
       def has_generator?(name)
         rails_command(['g'], version).downcase.include?("#{name}:")
       end
@@ -53,13 +91,23 @@ module CompassRails
       end
 
       def boots?
-        test_string = "THIS IS MY RANDOM AWESOME TEST STRING"
-        matcher = %r{#{test_string}}
+        string = 'THIS IS MY RANDOM AWESOME TEST STRING'
+        test_string = "puts \"#{string}\""
+        matcher = %r{#{string}}
+        r = runner(test_string)
+        if r =~ matcher
+          return true
+        else
+          return false
+        end
+      end
+
+      def runner(string)
         case version
         when RAILS_3_1, RAILS_3
-          rails_command(['runner', "'puts \"#{test_string}\"'"], version) =~ matcher
+          rails_command(['runner', "'#{string}'"], version)
         when RAILS_2
-          run_command("script/runner 'puts \"#{test_string}\"'", GEMFILES[version]) =~ matcher
+          run_command("script/runner '#{string}'", GEMFILES[version])
         end
       end
 

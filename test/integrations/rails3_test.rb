@@ -7,6 +7,7 @@ class Rails3Test < Test::Unit::TestCase
       project.install_compass
       assert project.has_gem? 'compass'
       assert project.rails3?
+      assert project.get('/').success?
     end
   end
 
@@ -16,7 +17,6 @@ class Rails3Test < Test::Unit::TestCase
       project.install_compass
       assert project.has_gem? 'compass'
       project.bundle!
-      assert project.has_generator?('rails')
       assert project.boots?
       assert project.rails3?
     end
