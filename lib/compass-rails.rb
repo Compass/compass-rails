@@ -1,22 +1,42 @@
 require 'compass'
 require "compass-rails/version"
+require "compass-rails/configuration"
 
-module Compass
-  module Rails
+module CompassRails
+
+    RAILS_31 = %r{3.1}
+    RAILS_23 = %r{2.3}
+    RAILS_3 = %r{3.0}
+
     extend self
 
+    def rails3?
+      ::Rails.version =~ RAILS_3
+    end
+
+    def rails31?
+      ::Rails.version =~ RAILS_31
+    end
+
+    def rails2?
+      ::Rails.version =~ RAILS_23
+    end
+
     def booted!
-      Compass::AppIntegration::Rails.const_set(:BOOTED, true)
+      CompassRails.const_set(:BOOTED, true)
     end
 
     def booted?
-      defined?(Compass::AppIntegration::Rails::BOOTED) && Compass::AppIntegration::Rails::BOOTED
+      defined?(CompassRails::BOOTED) && CompassRails::BOOTED
     end
 
     def configuration
       config = Compass::Configuration::Data.new('rails')
-      config.extend(ConfigurationDefaults)
-      config.extend(ConfigurationDefaultsWithAssetPipeline) if Sass::Util.ap_geq?('3.1.0') || Sass::Util.ap_geq?('3.1.0.rc') || Sass::Util.ap_geq?('3.1.0.beta')
+      config.extend(Configuration::Default)
+      if rails31?
+        require "compass-rails/configuration/3_1"
+        config.extend(Configuration::Rails3_1)
+      end
       config
     end
 
@@ -74,8 +94,18 @@ module Compass
       Compass.handle_configuration_change! if sass_plugin_enabled? || rails_compilation_enabled?
     end
 
-  end
+    def configure_rails!(app)
+      return unless app.config.respond_to?(:sass)
+      app.config.compass.to_sass_engine_options.each do |key, value|
+        app.config.sass.send(:"#{key}=", value)
+      end
+    end
+
 end
+
+Compass::AppIntegration.register(:rails, "::CompassRails")
+
+require "compass-rails/railties"
 
 
 

@@ -75,14 +75,14 @@ class Rails::Railtie::Configuration
   end
 end
 
-module Compass
+module CompassRails
   class Railtie < Rails::Railtie
     initializer "compass.initialize_rails", :group => :all do |app|
       # Configure compass for use within rails, and provide the project configuration
       # that came via the rails boot process.
       CompassRails.check_for_double_boot!
       Compass.discover_extensions!
-      Compass.configure_rails!(app)
+      CompassRails.configure_rails!(app)
     end
   end
 end

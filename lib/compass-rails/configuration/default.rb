@@ -59,7 +59,7 @@ module CompassRails
       end
 
       def default_project_path
-        project_path = Compass::AppIntegration::Rails.root
+        project_path = CompassRails.root
       end
 
       def default_http_path
