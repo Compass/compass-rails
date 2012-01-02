@@ -34,8 +34,10 @@ module CompassRails
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
       if rails31?
-        require "compass-rails/configuration/3_1"
-        config.extend(Configuration::Rails3_1)
+        if asset_pipeline_enabled?
+          require "compass-rails/configuration/3_1"
+          config.extend(Configuration::Rails3_1)
+        end
       end
       config
     end
@@ -100,7 +102,12 @@ module CompassRails
         app.config.sass.send(:"#{key}=", value)
       end
     end
+  private
 
+    def assets_pipeline_enabled?
+      rails_config = ::Rails.application.config
+      rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+    end
 end
 
 Compass::AppIntegration.register(:rails, "::CompassRails")
