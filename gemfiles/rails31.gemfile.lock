@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/chriseppstein/compass.git
+  revision: 810a543400b21d0d6f94a0851ea87e5385140d5d
+  branch: no_rails_integration
+  specs:
+    compass (0.12.alpha.3.810a543)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+
 PATH
   remote: /Volumes/SSD/Work/compass-rails
   specs:
@@ -38,10 +48,6 @@ GEM
     arel (2.2.1)
     builder (3.0.0)
     chunky_png (1.2.5)
-    compass (0.12.alpha.2)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
     erubis (2.7.0)
     fssm (0.2.7)
     guard (0.8.8)
@@ -105,7 +111,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  compass (~> 0.12.alpha)
+  compass!
   compass-rails!
   guard
   guard-test
