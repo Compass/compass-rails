@@ -19,7 +19,7 @@ module CompassRails
       end
 
       def default_http_path
-        CompasRails.prefix
+        CompassRails.prefix
       end
 
       def default_http_images_path

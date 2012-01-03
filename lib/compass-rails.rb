@@ -77,7 +77,7 @@ module CompassRails
     end
 
     def sass_plugin_enabled?
-      unless Sass::Util.ap_geq?('3.1.0.beta')
+      unless rails31?
         defined?(Sass::Plugin) && !Sass::Plugin.options[:never_update]
       end
     end
@@ -104,7 +104,7 @@ module CompassRails
     end
   private
 
-    def assets_pipeline_enabled?
+    def asset_pipeline_enabled?
       rails_config = ::Rails.application.config
       rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
     end

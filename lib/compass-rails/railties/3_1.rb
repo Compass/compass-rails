@@ -77,6 +77,11 @@ end
 
 module CompassRails
   class Railtie < Rails::Railtie
+
+    generators do
+      require 'compass-rails/generators'
+    end
+
     initializer "compass.initialize_rails", :group => :all do |app|
       # Configure compass for use within rails, and provide the project configuration
       # that came via the rails boot process.
