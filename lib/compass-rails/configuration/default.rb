@@ -2,7 +2,7 @@ module CompassRails
   module Configuration
     module Default
       
-     def project_type_without_default
+      def project_type_without_default
         :rails
       end
 
