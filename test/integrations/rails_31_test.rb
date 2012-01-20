@@ -8,6 +8,7 @@ class Rails31Test < Test::Unit::TestCase
       assert project.has_gem? 'compass'
       project.bundle
       assert project.rails3?
+      assert project.has_generator?('compas')
     end
   end
 
