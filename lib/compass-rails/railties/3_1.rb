@@ -1,6 +1,6 @@
 #3.1.3
 require 'compass'
-require 'rails'
+require 'rails/railtie'
 
 class Rails::Railtie::Configuration
   # Adds compass configuration accessor to the application configuration.

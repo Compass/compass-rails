@@ -4,9 +4,10 @@ require "compass-rails/configuration"
 
 module CompassRails
 
-    RAILS_31 = %r{3.1}
-    RAILS_23 = %r{2.3}
-    RAILS_3 = %r{3.0}
+    RAILS_32 = %r{^3.2}
+    RAILS_31 = %r{^3.1}
+    RAILS_23 = %r{^2.3}
+    RAILS_3 = %r{^3.0}
 
     extend self
 
@@ -40,6 +41,10 @@ module CompassRails
 
     def rails31?
       ::Rails.version =~ RAILS_31
+    end
+
+    def rails32?
+      ::Rails.version =~ RAILS_32
     end
 
     def rails2?
