@@ -60,7 +60,7 @@ module CompassRails
     end
 
     def configuration
-      load_rails
+      load_rails unless rails2?
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
       if rails31? || rails32?

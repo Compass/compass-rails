@@ -1,5 +1,5 @@
-#rails 2.x doesn't have railties so gona d othis the long way
-require "sass/plugin/rack" unless defined?(Sass::Plugin::Rack)
+#rails 2.x doesn't have railties so gona do this the long way
+require "sass/plugin/rack" #unless defined?(Sass::Plugin::Rack)
 
 module ActionController
   class Base
@@ -47,3 +47,6 @@ class Sass::Script::Functions::EvaluationContext
   private
   include ActionView::Helpers::AssetTagHelper
 end
+
+
+CompassRails.initialize! #kick this pig
