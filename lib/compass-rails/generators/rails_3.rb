@@ -25,7 +25,7 @@ module CompassRails
 
         if CompassRails.rails3?
           create_file File.join(Compass.configuration.sass_dir, "screen.scss"), compass_imports
-        elsif CompassRails.rails31?
+        elsif CompassRails.rails31? || CompassRails.rails32?
           append_file File.join(Compass.configuration.sass_dir, "screen.scss"), compass_imports
         end
       end
