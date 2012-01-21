@@ -86,8 +86,20 @@ module CompassRails
         rails_command(['g', command, '--force'], version)
       end
 
-      def has_scss_file?(file)
-        directory.join('app', 'assets', 'stylesheets', file).exist?
+      def screen_file
+        if rails3?
+          directory.join('app', 'assets', 'stylesheets', 'screen.scss')
+        else
+          directory.join('app', 'stylesheets', 'screen.scss')
+        end
+      end
+
+      def has_screen_file?
+        screen_file.exist?
+      end
+
+      def has_compass_import?
+        File.read(screen_file).include?("compass/reset")
       end
 
       def rails3?
