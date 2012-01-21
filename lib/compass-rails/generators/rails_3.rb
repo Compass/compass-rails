@@ -6,9 +6,7 @@ module CompassRails
       source_root File.expand_path("../templates", __FILE__)
 
       def init_compass
-        data = Compass::Configuration::Data.new("rails_config")
-        data.project_type = :rails
-        Compass.add_configuration(data)
+        Compass.add_configuration(CompassRails.configuration)
       end
        
       def copy_config_file
@@ -23,10 +21,10 @@ module CompassRails
 @import "compass/reset";
         SCSS
 
-        if CompassRails.rails3?
-          create_file File.join(Compass.configuration.sass_dir, "screen.scss"), compass_imports
-        elsif CompassRails.rails31? || CompassRails.rails32?
-          append_file File.join(Compass.configuration.sass_dir, "screen.scss"), compass_imports
+        if File.exist?(file = File.join(Compass.configuration.sass_dir, "screen.scss"))
+          append_file file, compass_imports
+        else
+          create_file file, compass_imports
         end
       end
 

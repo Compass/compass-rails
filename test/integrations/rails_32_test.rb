@@ -8,8 +8,20 @@ class Rails32Test < Test::Unit::TestCase
       assert project.has_gem? 'compass'
       project.bundle
       assert project.rails3?
+      assert project.boots?
       assert project.has_generator?('compass_rails')
     end
   end
+
+
+def test_generator_installs_compass
+  within_rails_app('test_railtie', RAILS_3_2) do |project|
+    project.install_compass
+    project.bundle
+    project.generate('compass_rails:install')
+    assert project.has_scss_file?('screen.scss')
+  end
+end
+
 
 end

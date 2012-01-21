@@ -55,7 +55,7 @@ module CompassRails
 
       def get(path)
         case version
-        when RAILS_3_1, RAILS_3
+        when RAILS_3_1, RAILS_3, RAILS_3_2
           Request.new(runner(get_rails_3(path)))
         when RAILS_2
           Request.new(runner(get_rails_2(path)))
@@ -82,6 +82,14 @@ module CompassRails
         rails_command(['g'], version).downcase.include?("#{name}:")
       end
 
+      def generate(command)
+        rails_command(['g', command, '--force'], version)
+      end
+
+      def has_scss_file?(file)
+        directory.join('app', 'assets', 'stylesheets', file).exist?
+      end
+
       def rails3?
         directory.join(APPLICATION_FILE).exist?
       end
@@ -104,7 +112,7 @@ module CompassRails
 
       def runner(string)
         case version
-        when RAILS_3_1, RAILS_3
+        when RAILS_3_1, RAILS_3, RAILS_3_2
           rails_command(['runner', "'#{string}'"], version)
         when RAILS_2
           run_command("script/runner '#{string}'", GEMFILES[version])
