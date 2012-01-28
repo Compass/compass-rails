@@ -112,10 +112,6 @@ module CompassRails
       end
     end
 
-    def rails_compilation_enabled?
-      Sass::Util.ap_geq?('3.1.0.beta') && defined?(Sass::Rails) # XXX check if there's some other way(s) to disable the asset pipeline.
-    end
-
     # Rails 2.x projects use this in their compass initializer.
     def initialize!(config = nil)
       check_for_double_boot!
@@ -123,7 +119,7 @@ module CompassRails
       Compass.add_project_configuration(config, :project_type => :rails)
       Compass.discover_extensions!
       Compass.configure_sass_plugin!
-      Compass.handle_configuration_change! if sass_plugin_enabled? || rails_compilation_enabled?
+      Compass.handle_configuration_change! if sass_plugin_enabled?
     end
 
     def configure_rails!(app)
