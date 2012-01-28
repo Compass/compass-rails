@@ -133,6 +133,13 @@ module CompassRails
       end
     end
 
+    def boot_config
+      config = Compass::Configuration::Data.new("compass_rails_boot")
+      config.project_type = :rails
+
+      config
+    end
+
   private
 
     def asset_pipeline_enabled?
@@ -142,8 +149,9 @@ module CompassRails
 end
 
 Compass::AppIntegration.register(:rails, "::CompassRails")
+Compass.add_configuration(CompassRails.boot_config)
 
 require "compass-rails/railties"
-require "compass-rails/installers"
+require "compass-rails/installer"
 
 
