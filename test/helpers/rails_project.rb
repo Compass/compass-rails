@@ -87,11 +87,7 @@ module CompassRails
       end
 
       def screen_file
-        if rails3?
-          directory.join('app', 'assets', 'stylesheets', 'screen.scss')
-        else
-          directory.join('app', 'stylesheets', 'screen.scss')
-        end
+        directory.join('app', 'assets', 'stylesheets', 'screen.scss')
       end
 
       def has_screen_file?

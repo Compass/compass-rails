@@ -6,10 +6,6 @@ module CompassRails
         {:custom => {:resolver => Sass::Rails::Resolver.new(CompassRails.context)}}
       end
 
-      def default_sass_dir
-        File.join("app", "assets", "stylesheets")
-      end
-
       def default_images_dir
         File.join("app", "assets", "images")
       end
