@@ -20,7 +20,7 @@ module CompassRails
       end
       #load the rails config
       require "#{rails_config_path}/config/application.rb"
-      require 'sass-rails' unless rails3? || rails2?
+      require 'sass-rails' unless rails3?
     end
 
     def context
@@ -32,7 +32,7 @@ module CompassRails
     end
 
     def installer(*args)
-      OpenStruct.new(:completed_configuration => configuration)
+      CompassRails::Installer.new(*args)
     end
 
     def rails3?
@@ -132,7 +132,7 @@ module CompassRails
         app.config.sass.send(:"#{key}=", value)
       end
     end
-    
+
   private
 
     def asset_pipeline_enabled?
@@ -144,6 +144,6 @@ end
 Compass::AppIntegration.register(:rails, "::CompassRails")
 
 require "compass-rails/railties"
-
+require "compass-rails/installers"
 
 
