@@ -20,7 +20,7 @@ module CompassRails
       end
       #load the rails config
       require "#{rails_config_path}/config/application.rb"
-      require 'sass-rails'
+      require 'sass-rails' unless rails3? || rails2?
     end
 
     def context

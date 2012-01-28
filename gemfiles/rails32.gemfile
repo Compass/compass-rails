@@ -8,5 +8,6 @@ gem "ruby_gntp", :require=>false
 gem "guard"
 gem "guard-test"
 gem "rails", "~> 3.2"
+gem "sass-rails"
 
 gemspec :path=>"../"

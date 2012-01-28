@@ -150,7 +150,7 @@ module CompassRails
         unless File.exist?(directory.join(GEMFILE_LOCK))
           bundle
         end
-        run_command("compass #{command}", directory.join(GEMFILE))
+        run_command("compass #{command}", GEMFILES[version])
       end
 
       def set_compass(property, value)
@@ -210,9 +210,7 @@ module CompassRails
       end
 
       def bundle!
-        capture_output do
-          `bundle install`
-        end
+        bundle(directory.join(GEMFILE).to_s)
       end
 
       def has_gem?(name)
@@ -225,6 +223,7 @@ module CompassRails
 
       def install_compass_gem
         install_gem('compass', "'~> 0.12.alpha'")
+        install_gem('compass-rails', ":path =>'#{File.expand_path('../../../', __FILE__)}'")
       end
 
     private
