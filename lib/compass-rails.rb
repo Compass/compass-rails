@@ -132,6 +132,7 @@ module CompassRails
         app.config.sass.send(:"#{key}=", value)
       end
     end
+    
   private
 
     def asset_pipeline_enabled?
