@@ -7,18 +7,27 @@ class Rails3Test < Test::Unit::TestCase
       project.install_compass
       assert project.has_gem? 'compass'
       assert project.rails3?
-      assert project.get('/').success?
+      assert project.boots?
     end
   end
 
-
-  def test_rails_generator_install
+  def test_generator_installs_compass
     within_rails_app('test_railtie', RAILS_3) do |project|
       project.install_compass
-      assert project.has_gem? 'compass'
       project.bundle!
-      assert project.boots?
-      assert project.rails3?
+      project.generate('compass_rails:install')
+      assert project.has_screen_file?
+      assert project.has_compass_import?
+    end
+  end
+
+  def test_compass_compile
+    within_rails_app('test_railtie', RAILS_3) do |project|
+      project.install_compass
+      project.bundle!
+      project.generate('compass_rails:install')
+      project.run_compass('compile')
+      assert project.directory.join('public/stylesheets/screen.css').exist?
     end
   end
 

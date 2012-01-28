@@ -7,7 +7,7 @@ module CompassRails
       end
 
       def default_sass_dir
-        File.join("app", "stylesheets")
+        File.join("app", "assets", "stylesheets")
       end
 
       def default_css_dir

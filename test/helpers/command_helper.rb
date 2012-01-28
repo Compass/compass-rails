@@ -47,8 +47,8 @@ module CompassRails
         capture_all_output { CompassRails::Test::CommandRunner.new(command, gemfile).run }
       end
 
-      def bundle
-        run_command(BUNDLER_COMMAND)
+      def bundle(gemfile=nil)
+        run_command(BUNDLER_COMMAND, gemfile)
       end
 
     end
