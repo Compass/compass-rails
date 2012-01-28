@@ -1,5 +1,4 @@
-class CompassRails::Generators::Base < Rails::Generator::NamedBase
-class InstallGenerator < CompassRails::Generators::Base
+class InstallGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
       # Do something
