@@ -35,6 +35,10 @@ module CompassRails
       CompassRails::Installer.new(*args)
     end
 
+    def rails_loaded?
+      defined?(::Rails)
+    end
+
     def rails_version
       Gem.loaded_specs["rails"].version.to_s
     end
@@ -70,7 +74,7 @@ module CompassRails
       load_rails unless rails2?
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
-      if rails31? || rails32?
+      if (rails31? || rails32?)
         if asset_pipeline_enabled?
           require "compass-rails/configuration/3_1"
           config.extend(Configuration::Rails3_1)
@@ -101,6 +105,8 @@ module CompassRails
           ::Rails.root
         elsif defined?(RAILS_ROOT)
           Pathname.new(RAILS_ROOT)
+        else
+          Pathname.new(Dir.pwd)
         end
       end
     end
@@ -144,6 +150,7 @@ module CompassRails
     end
 
   def asset_pipeline_enabled?
+    return false unless rails_loaded?
     rails_config = ::Rails.application.config
     rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
   end
@@ -152,6 +159,7 @@ end
 
 Compass::AppIntegration.register(:rails, "::CompassRails")
 Compass.add_configuration(CompassRails.boot_config)
+
 
 require "compass-rails/railties"
 require "compass-rails/installer"

@@ -3,7 +3,10 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in compass-rails.gemspec
 gemspec
 
-gem 'compass', :git => 'git://github.com/chriseppstein/compass.git', :branch => 'no_rails_integration'
+group :assets do
+  gem 'compass', :git => 'git://github.com/chriseppstein/compass.git', :branch => 'no_rails_integration'
+  gem 'compass-rails', :path => '.'
+end
 
 group :test do
   gem 'mocha'
