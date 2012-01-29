@@ -16,6 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = CompassRails::VERSION
 
   gem.add_dependency 'rails'
-  gem.add_dependency 'compass', '~> 0.12.alpha'
+  gem.add_dependency 'compass', '~> 0.12.rc.0'
 
 end
