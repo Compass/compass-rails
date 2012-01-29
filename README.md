@@ -35,6 +35,20 @@ If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [bl
 
 Note that the `compass init` step is optional if you have a project running Rails 3.0 or greater.
 
+## Upgrading existing rails projects using Compass to CompassRails
+
+First and foremost, follow the installation instructions above.
+
+CompassRails uses the rails convention for stylesheet locations even in
+older versions of rails that do not use the assets pipeline.
+If you have your stylesheets already in `app/stylesheets`, you have two choices:
+
+1. Move your stylesheets to `app/assets/stylesheets`.
+2. Configure your project to look in `app/assets/stylesheets` by setting
+   `config.compass.sass_dir = "app/stylesheets"` in your rails
+configuration or by setting `sass_dir = "app/stylesheets"` in your
+compass configuration file.
+
 ## Configuration
 
 If you have a compass configuration file (recommended) then you can
