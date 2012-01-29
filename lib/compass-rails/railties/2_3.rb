@@ -48,5 +48,9 @@ class Sass::Script::Functions::EvaluationContext
   include ActionView::Helpers::AssetTagHelper
 end
 
-
-CompassRails.initialize!(CompassRails.configuration) #kick this pig
+unless Compass.detect_configuration_file.nil?
+  Compass.add_configuration(CompassRails.configuration)
+  CompassRails.initialize!
+else
+  CompassRails.initialize!(CompassRails.configuration)
+end
