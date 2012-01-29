@@ -35,6 +35,20 @@ If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [bl
 
 Note that the `compass init` step is optional if you have a project running Rails 3.0 or greater.
 
+## Upgrading existing rails projects using Compass to CompassRails
+
+First and foremost, follow the installation instructions above.
+
+CompassRails uses the rails convention for stylesheet locations even in
+older versions of rails that do not use the assets pipeline.
+If you have your stylesheets already in `app/stylesheets`, you have two choices:
+
+1. Move your stylesheets to `app/assets/stylesheets`.
+2. Configure your project to look in `app/assets/stylesheets` by setting
+   `config.compass.sass_dir = "app/stylesheets"` in your rails
+configuration or by setting `sass_dir = "app/stylesheets"` in your
+compass configuration file.
+
 ## Configuration
 
 If you have a compass configuration file (recommended) then you can
@@ -95,12 +109,42 @@ doing things like requiring. These **must not** be used with Sass files.
 Instead use the sass `@import` directive. In rails projects, the
 `@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails REAME](https://github.com/rails/sass-rails/blob/master/README.markdown)
 
+## Rails 3.0 Caviats
+
+If you want rails to compile your stylesheets (instead of using the
+compass watcher) you need to edit `config/application.rb` and change:
+
+    Bundler.require(:default, Rails.env) if defined?(Bundler)
+
+to this:
+
+    Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
+
 ## Rails 2.3 Caviats
 
 Compass requires that your rails 2.3 project is using Bundler to manage
 your rubygems. If you haven't yet set up your rails 2.3 project to use Bundler,
 please do so prior to upgrading. [Bundler installation guide for rails
 2.3](http://gembundler.com/rails23.html).
+
+After following the instructions there, if you want rails to compile
+your stylesheets (instead of using the compass watcher) you need
+edit `config/boot.rb` and change this:
+
+    Rails::Initializer.class_eval do
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, Rails.env
+      end
+    end
+
+To this:
+
+    Rails::Initializer.class_eval do
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, :assets, Rails.env
+      end
+    end
+
 
 ## Contributing
 
