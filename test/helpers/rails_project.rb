@@ -158,10 +158,6 @@ module CompassRails
           end
         PREINIT
         inject_at_bottom(directory.join('config/preinitializer.rb'), preinit)
-
-        touch directory.join('Gemfile')
-        install_gem 'rails', "'#{version}'"
-
       end
 
       def bundle
