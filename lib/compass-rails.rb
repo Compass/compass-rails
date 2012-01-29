@@ -136,12 +136,11 @@ module CompassRails
       config
     end
 
-  private
+  def asset_pipeline_enabled?
+    rails_config = ::Rails.application.config
+    rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+  end
 
-    def asset_pipeline_enabled?
-      rails_config = ::Rails.application.config
-      rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
-    end
 end
 
 Compass::AppIntegration.register(:rails, "::CompassRails")

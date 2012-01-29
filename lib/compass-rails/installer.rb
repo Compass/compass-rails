@@ -1,18 +1,19 @@
 module CompassRails
   class Installer < Compass::Installers::ManifestInstaller
 
-    SASS_FILE_REGEX = %r{(.+).(sass|scss)}
+    SASS_FILE_REGEX = %r{(.*)(?:\.css)?\.(sass|scss)}
 
     def completed_configuration
       @completed_configuration ||= CompassRails.configuration
     end
-    # Will finish
-    # def install_stylesheet(from, to, options)
-    #   _, name, ext = SASS_FILE_REGEX.match(to)
-    #   to = "#{name}.css.#{ext}"
-    #   puts to
-    #   super(from, to, options)
-    # end
+
+    def install_stylesheet(from, to, options)
+      if CompassRails.asset_pipeline_enabled?
+        _, name, ext = SASS_FILE_REGEX.match(to).to_a
+        to = "#{name}.css.#{ext}"
+      end
+      super(from, to, options)
+    end
 
   end
 end
