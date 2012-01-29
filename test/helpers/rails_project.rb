@@ -38,56 +38,13 @@ module CompassRails
         File.exist? directory.join(file)
       end
 
-      # RAILS METHDODS
-
-      class Request
-        attr_reader :status
-
-        def initialize(status)
-          @status = status
-        end
-
-        def success?
-          status.to_i == 200
-        end
-
-      end
-
-      def get(path)
-        case version
-        when RAILS_3_1, RAILS_3, RAILS_3_2
-          Request.new(runner(get_rails_3(path)))
-        when RAILS_2
-          Request.new(runner(get_rails_2(path)))
-        end
-      end
-
-      def get_rails_2(path)
-        <<-RUBY
-          require "console_app";
-          puts app.get("#{path}")
-        RUBY
-      end
-
-      def get_rails_3(path)
-        <<-RUBY
-          require APP_PATH;
-          Rails.application.require_environment!;
-          Rails.application.load_console;
-          puts app.get("#{path}");
-        RUBY
-      end
-
-      def has_generator?(name)
-        rails_command(['g'], version).downcase.include?("#{name}:")
-      end
-
-      def generate(command)
-        rails_command(['g', command, '--force'], version)
-      end
-
       def screen_file
-        directory.join('app', 'assets', 'stylesheets', 'screen.scss')
+        case version
+        when RAILS_3_1, RAILS_3_2
+          return directory.join('app', 'assets', 'stylesheets', 'screen.css.scss')
+        when RAILS_2, RAILS_3
+          return directory.join('app', 'assets', 'stylesheets','screen.scss')
+        end
       end
 
       def has_screen_file?
@@ -97,6 +54,12 @@ module CompassRails
       def has_compass_import?
         File.read(screen_file).include?("compass/reset")
       end
+
+      def has_config?
+        directory.join('config', 'compass.rb').exist?
+      end
+
+      # RAILS METHODS
 
       def rails3?
         directory.join(APPLICATION_FILE).exist?
@@ -127,24 +90,7 @@ module CompassRails
         end
       end
 
-      # SASS METHODS
-
-      def has_sass_middleware?
-        case version
-        when RAILS_3_1, RAILS_3
-        when RAILS_2
-        end
-      end
-
       # COMPASS METHODS
-
-      def install_compass
-        install_compass_gem
-        touch directory.join(COMPASS_CONFIG)
-        inject_at_bottom directory.join(COMPASS_CONFIG), <<-CONFIG
-          project_type = :rails
-        CONFIG
-      end
 
       def run_compass(command)
         run_command("compass #{command}", GEMFILES[version])
@@ -152,7 +98,19 @@ module CompassRails
 
       def set_compass(property, value)
         file = directory.join(COMPASS_CONFIG)
-        inject_at_bottom(file, "#{property} = #{value}")
+        unless file.exist?
+          touch file
+        end
+        inject_at_bottom(file, "#{property} = '#{value}'")
+      end
+
+      def set_rails(property, value)
+        value = if value.is_a?(Symbol)
+          "\n    config.#{property} = :#{value}\n"
+        else
+          "\n    config.#{property} = '#{value}'\n"
+        end
+        inject_into_file(directory.join(APPLICATION_FILE), value, :after, '# Enable the asset pipeline')
       end
 
       ## GEM METHODS
@@ -210,33 +168,9 @@ module CompassRails
         raise "NO BUNDLE FOR U"
       end
 
-      def has_gem?(name)
-        File.read(directory.join(GEMFILE)).include? "gem '#{name}'"
-      end
-
-      def install_gem(name, requirements=nil)
-        add_to_gemfile(name, requirements)
-      end
-
-      def install_compass_gem
-        install_gem('compass', "'~> 0.12.alpha'")
-        install_gem('compass-rails', ":path =>'#{File.expand_path('../../../', __FILE__)}'")
-      end
-
     private
 
       ## GEM METHODS
-
-      def add_to_environment(name, requirements)
-        file = directory.join(ENVIRONMENT)
-        debug("Adding gem #{name} to file: #{file}".foreground(:green))
-        if requirements
-          gem_string = "  config.gem '#{name}', :version => #{requirements}\n"
-        else
-          gem_string = "  config.gem '#{name}'\n"
-        end
-        inject_into_file(file, gem_string, :after, "Rails::Initializer.run do |config|")
-      end
 
       def add_to_gemfile(name, requirements)
         gemfile = directory.join(GEMFILE)
