@@ -46,6 +46,10 @@ module CompassRails
         "#{top_level.http_path}"
       end
 
+      def default_preferred_syntax
+        ::Rails.application.config.sass.preferred_syntax rescue nil
+      end
+
     end
   end
 end
