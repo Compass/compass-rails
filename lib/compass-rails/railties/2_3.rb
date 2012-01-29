@@ -49,4 +49,4 @@ class Sass::Script::Functions::EvaluationContext
 end
 
 
-CompassRails.initialize! #kick this pig
+CompassRails.initialize!(CompassRails.configuration) #kick this pig
