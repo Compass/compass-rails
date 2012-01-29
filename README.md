@@ -11,24 +11,29 @@ please read the caviats below.
 
 ## Installation
 
-Add the `compass-rails` gem line to a group called `:assets` in your application's Gemfile:
+Add the `compass-rails` gem line to a group called `:assets` in your application's Gemfile (Rails 3.1+ users should already have the `:assets` group):
 
     group :assets do
       gem 'compass-rails'
     end
 
+If you are using any Compass extensions, add them to this group in your
+Gemfile.
+
 And then execute:
 
     $ bundle
 
-If you have a Rails 2.3 project you must now run:
+To set up your project with starter stylesheets and a configuration
+file:
 
-    $ ./script/generate compass_rails:install
+    $ bundle exec compass init
 
-Optionally, if you have a project running Rails 3.0 or greater and you want
-a compass configuration file and starter stylesheets, run:
+If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option:
 
-    $ rails generate compass_rails:install
+    $ bundle exec compass init --using blueprint
+
+Note that the `compass init` step is optional if you have a project running Rails 3.0 or greater.
 
 ## Configuration
 
