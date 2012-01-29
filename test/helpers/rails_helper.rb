@@ -46,14 +46,13 @@ module CompassRails
       rails_command([GENERATOR_COMMAND[version], name, *options], version)
     end
 
-    def within_rails_app(named, version, run_bundler=false, &block)
+    def within_rails_app(named, version, &block)
       dir = "#{named}-#{version}"
       rm_rf File.join(WORKING_DIR, dir)
       mkdir_p WORKING_DIR
       cd(WORKING_DIR) do
         generate_rails_app(dir, version)
         cd(dir) do
-          bundle if run_bundler
           yield RailsProject.new(File.join(WORKING_DIR, dir), version)
         end
       end

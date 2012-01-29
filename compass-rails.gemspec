@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Compass::Rails::VERSION
 
+  gem.add_dependency 'rails'
   gem.add_dependency 'compass', '~> 0.12.alpha'
 
 end

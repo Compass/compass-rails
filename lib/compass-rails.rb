@@ -35,20 +35,27 @@ module CompassRails
       CompassRails::Installer.new(*args)
     end
 
+    def rails_version
+      Gem.loaded_specs["rails"].version.to_s
+    end
+
     def rails3?
-      ::Rails.version =~ RAILS_3
+      return false unless defined?(::Rails)
+      rails_version =~ RAILS_3
     end
 
     def rails31?
-      ::Rails.version =~ RAILS_31
+      return false unless defined?(::Rails)
+      rails_version =~ RAILS_31
     end
 
     def rails32?
-      ::Rails.version =~ RAILS_32
+      return false unless defined?(::Rails)
+      rails_version =~ RAILS_32
     end
 
     def rails2?
-      ::Rails.version =~ RAILS_23
+      rails_version =~ RAILS_23
     end
 
     def booted!

@@ -4,20 +4,13 @@ class Rails31Test < Test::Unit::TestCase
 
   def test_rails_app_created
     within_rails_app('test_railtie', RAILS_3_1) do |project|
-      project.install_compass
-      assert project.has_gem? 'compass'
-      project.bundle!
-      assert project.rails3?
       assert project.boots?
-      assert project.has_generator?('compass_rails')
     end
   end
 
   def test_generator_installs_compass
     within_rails_app('test_railtie', RAILS_3_1) do |project|
-      project.install_compass
-      project.bundle!
-      project.generate('compass_rails:install')
+      project.run_compass('init')
       assert project.has_screen_file?
       assert project.has_compass_import?
     end
@@ -25,11 +18,17 @@ class Rails31Test < Test::Unit::TestCase
 
   def test_compass_compile
     within_rails_app('test_railtie', RAILS_3_1) do |project|
-      project.install_compass
-      project.bundle!
-      project.generate('compass_rails:install')
+      project.run_compass('init')
       project.run_compass('compile')
       assert project.directory.join('public/assets/screen.css').exist?
+    end
+  end
+
+    def test_install_blueprint
+    within_rails_app('test_railtie', RAILS_3_1) do |project|
+      project.run_compass('init')
+      project.run_compass('install blueprint --force')
+      assert project.directory.join('app/assets/stylesheets/partials').directory?
     end
   end
 
