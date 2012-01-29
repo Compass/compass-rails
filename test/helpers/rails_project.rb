@@ -147,9 +147,6 @@ module CompassRails
       end
 
       def run_compass(command)
-        unless File.exist?(directory.join(GEMFILE_LOCK))
-          bundle
-        end
         run_command("compass #{command}", GEMFILES[version])
       end
 
@@ -161,7 +158,7 @@ module CompassRails
       ## GEM METHODS
 
       def configure_for_bundler!
-        return if [RAILS_3_1, RAILS_3].include?(version)
+        return if [RAILS_3_1, RAILS_3, RAILS_3_2].include?(version)
         bundle = <<-BUNDLER
         class Rails::Boot
           def run
@@ -209,8 +206,8 @@ module CompassRails
 
       end
 
-      def bundle!
-        #bundle(directory.join(GEMFILE).to_s)
+      def bundle
+        raise "NO BUNDLE FOR U"
       end
 
       def has_gem?(name)

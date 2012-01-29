@@ -13,6 +13,7 @@ PATH
   specs:
     compass-rails (0.0.1)
       compass (~> 0.12.alpha)
+      rails
 
 GEM
   remote: https://rubygems.org/
