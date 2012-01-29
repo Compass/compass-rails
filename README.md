@@ -1,4 +1,4 @@
-# Compass::Rails
+# CompassRails
 
 Compass rails is an adapter for the [Compass Stylesheet Authoring
 Framework](http://compass-style.org) for [Ruby on Rails](http://http://rubyonrails.org/).
