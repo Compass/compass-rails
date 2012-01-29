@@ -210,7 +210,7 @@ module CompassRails
       end
 
       def bundle!
-        bundle(directory.join(GEMFILE).to_s)
+        #bundle(directory.join(GEMFILE).to_s)
       end
 
       def has_gem?(name)
