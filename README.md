@@ -109,12 +109,42 @@ doing things like requiring. These **must not** be used with Sass files.
 Instead use the sass `@import` directive. In rails projects, the
 `@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails REAME](https://github.com/rails/sass-rails/blob/master/README.markdown)
 
+## Rails 3.0 Caviats
+
+If you want rails to compile your stylesheets (instead of using the
+compass watcher) you need to edit `config/application.rb` and change:
+
+    Bundler.require(:default, Rails.env) if defined?(Bundler)
+
+to this:
+
+    Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
+
 ## Rails 2.3 Caviats
 
 Compass requires that your rails 2.3 project is using Bundler to manage
 your rubygems. If you haven't yet set up your rails 2.3 project to use Bundler,
 please do so prior to upgrading. [Bundler installation guide for rails
 2.3](http://gembundler.com/rails23.html).
+
+After following the instructions there, if you want rails to compile
+your stylesheets (instead of using the compass watcher) you need
+edit `config/boot.rb` and change this:
+
+    Rails::Initializer.class_eval do
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, Rails.env
+      end
+    end
+
+To this:
+
+    Rails::Initializer.class_eval do
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, :assets, Rails.env
+      end
+    end
+
 
 ## Contributing
 
