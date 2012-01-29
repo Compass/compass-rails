@@ -83,9 +83,11 @@ server -- superceding the normal rails compilation.
 In this mode, rails 3.0 or earlier users will experience a slight
 speed up by disabling the `Sass::Plugin` like so:
 
-    config.after_initialize do
-      Sass::Plugin.options[:never_update] = true
-    end
+```ruby
+config.after_initialize do
+  Sass::Plugin.options[:never_update] = true
+end
+```
 
 To return to using the Rails-based compilation mode, simply delete
 the compiled stylesheets and remove any configuration changes.
