@@ -107,7 +107,7 @@ module CompassRails
 
     def check_for_double_boot!
       if booted?
-        Compass::Util.compass_warn("Warning: Compass was booted twice. Compass has a Railtie now; please remove your initializer.")
+        Compass::Util.compass_warn("Warning: Compass was booted twice. Compass-rails has got your back; please remove your compass initializer.")
       else
         booted!
       end
