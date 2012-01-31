@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/chriseppstein/compass.git
-  revision: 0e74efb13e17b2c10fcbc9113d383787b0dbb965
-  branch: no_rails_integration
+  revision: addbc94716e95a7e6f200baa980b48c7e7a1a568
+  branch: master
   specs:
-    compass (0.12.rc.4.0e74efb)
+    compass (0.12.rc.4.addbc94)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
