@@ -31,6 +31,7 @@ class Rails::Railtie::Configuration
         Compass::Configuration::Data.new("rails_config")
       end
       data.project_type = :rails # Forcing this makes sure all the rails defaults will be loaded.
+      data.inherit_from!(Compass.configuration) #force this
       Compass.add_project_configuration(data)
       Compass.configuration.on_sprite_saved do |filename|
         # This is a huge hack based on reading through the sprockets internals.

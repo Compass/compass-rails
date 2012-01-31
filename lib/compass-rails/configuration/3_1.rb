@@ -2,10 +2,6 @@ module CompassRails
   module Configuration
     module Rails3_1
 
-      def default_sass_options
-        {:custom => {:resolver => Sass::Rails::Resolver.new(CompassRails.context)}}
-      end
-
       def default_images_dir
         File.join("app", "assets", "images")
       end
@@ -23,7 +19,7 @@ module CompassRails
       end
 
       def default_http_path
-        File.join('public', CompassRails.prefix)
+        File.join(CompassRails.prefix)
       end
 
       def default_http_images_path

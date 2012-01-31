@@ -20,10 +20,6 @@ module CompassRails
       unless config_file.exist?
         write_file config_file.to_s, CompassRails.configuration.serialize
       end
-      # if CompassRails.rails2?
-      #   directory File.dirname(targetize('config/initializers/compass.rb'))
-      #   write_file targetize('config/initializers/compass.rb'), initializer_contents
-      # end
     end
 
     def prepare

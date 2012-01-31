@@ -19,16 +19,50 @@ module CompassRails
         rails_config_path = File.join(rails_config_path, '..')
       end
       #load the rails config
+      unless rails3?
+        require 'sass-rails' 
+        require 'sprockets/railtie'
+        require 'rails/engine'
+      end
       require "#{rails_config_path}/config/application.rb"
-      require 'sass-rails' unless rails3?
+      @app ||= ::Rails.application.initialize!(:assets)
+    end
+
+
+    def setup_fake_rails_env_paths(sprockets_env)
+      return unless rails_loaded?
+      keys = ['app/assets', 'lib/assets', 'vendor/assets']
+      local = keys.map {|path| ::Rails.root.join(path) }.map { |path| [File.join(path, 'images'), File.join(path, 'stylesheets')] }.flatten!
+      sprockets_env.send(:trail).paths.unshift(*local)
+      paths = []
+      ::Rails::Engine.subclasses.each do |subclass|
+        paths = subclass.paths
+        keys.each do |key|
+          sprockets_env.send(:trail).paths.unshift(*paths[key].existent_directories)
+        end
+      end
+    end
+
+    def sass_config
+      load_rails
+      ::Rails.application.config.sass
+    end
+
+    def sprockets
+      ::Rails.application.assets
     end
 
     def context
-      require "sprockets/helpers/rails_helper"
-      klass = ::Sprockets::Environment.new(root.to_s).context_class
-      klass.extend(::Sprockets::Helpers::IsolatedHelper)
-      klass.extend(::Sprockets::Helpers::RailsHelper)
-      klass
+      load_rails
+      sprockets.version = ::Rails.env + "-#{sprockets.version}"
+      setup_fake_rails_env_paths(sprockets)
+      context = ::Rails.application.assets.context_class
+      context.extend(::Sprockets::Helpers::IsolatedHelper)
+      context.extend(::Sprockets::Helpers::RailsHelper)
+      context.extend(::Sass::Rails::Railtie::SassContext)
+      context.sass_config = sass_config
+
+      context
     end
 
     def installer(*args)
@@ -138,14 +172,19 @@ module CompassRails
     def configure_rails!(app)
       return unless app.config.respond_to?(:sass)
       app.config.compass.to_sass_engine_options.each do |key, value|
+        puts key.inspect
+        puts value.inspect
         app.config.sass.send(:"#{key}=", value)
       end
     end
 
     def boot_config
-      config = Compass::Configuration::Data.new("compass_rails_boot")
-      config.project_type = :rails
-
+      config = if (config_file = Compass.detect_configuration_file) && (config_data = Compass.configuration_for(config_file))
+        config_data
+      else
+        Compass::Configuration::Data.new("compass_rails_boot")
+      end
+      config.top_level.project_type = :rails
       config
     end
 
@@ -160,7 +199,7 @@ end
 Compass::AppIntegration.register(:rails, "::CompassRails")
 Compass.add_configuration(CompassRails.boot_config)
 
-
+require "compass-rails/patches"
 require "compass-rails/railties"
 require "compass-rails/installer"
 
