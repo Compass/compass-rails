@@ -2,11 +2,11 @@
 require File.expand_path('../lib/compass-rails/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Scott Davis"]
-  gem.email         = ["jetviper21@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.authors       = ["Scott Davis", "Chris Eppstein"]
+  gem.email         = ["jetviper21@gmail.com", "chris@eppsteins.net"]
+  gem.description   = %q{Integrate Compass into Rails 2.3 and up.}
+  gem.summary       = %q{Integrate Compass into Rails 2.3 and up.}
+  gem.homepage      = "https://github.com/Compass/compass-rails"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
