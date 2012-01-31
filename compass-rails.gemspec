@@ -13,9 +13,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "compass-rails"
   gem.require_paths = ["lib"]
-  gem.version       = Compass::Rails::VERSION
+  gem.version       = CompassRails::VERSION
 
   gem.add_dependency 'rails'
-  gem.add_dependency 'compass', '~> 0.12.alpha'
+  gem.add_dependency 'compass', '~> 0.12.rc.0'
 
 end

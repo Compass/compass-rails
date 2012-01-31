@@ -1,4 +1,4 @@
-# Compass::Rails
+# CompassRails
 
 Compass rails is an adapter for the [Compass Stylesheet Authoring
 Framework](http://compass-style.org) for [Ruby on Rails](http://http://rubyonrails.org/).
@@ -6,16 +6,18 @@ Framework](http://compass-style.org) for [Ruby on Rails](http://http://rubyonrai
 Since Compass v0.12, this adapter is the only way to install compass
 into your rails application.
 
-This adapter supports rails versions 2.3 and greater. Rails 2.3 users
+This adapter supports rails versions 2.3 and greater. Rails 2.3 and 3.0 users
 please read the caviats below.
 
 ## Installation
 
 Add the `compass-rails` gem line to a group called `:assets` in your application's Gemfile (Rails 3.1+ users should already have the `:assets` group):
 
-    group :assets do
-      gem 'compass-rails'
-    end
+```ruby
+group :assets do
+  gem 'compass-rails'
+end
+```
 
 If you are using any Compass extensions, add them to this group in your
 Gemfile.
@@ -29,7 +31,7 @@ file:
 
     $ bundle exec compass init
 
-If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option:
+If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option to set thi:
 
     $ bundle exec compass init --using blueprint
 
@@ -81,9 +83,11 @@ server -- superceding the normal rails compilation.
 In this mode, rails 3.0 or earlier users will experience a slight
 speed up by disabling the `Sass::Plugin` like so:
 
-    config.after_initialize do
-      Sass::Plugin.options[:never_update] = true
-    end
+```ruby
+config.after_initialize do
+  Sass::Plugin.options[:never_update] = true
+end
+```
 
 To return to using the Rails-based compilation mode, simply delete
 the compiled stylesheets and remove any configuration changes.
@@ -102,6 +106,31 @@ It is suggested that you compile your stylesheets as part of the deploy
 or build process. However, some people choose to check in their compiled
 stylesheets.
 
+### Installing Compass extensions
+
+Step 1: If the extension is a rubygem, Add it to your Gemfile in the
+`:assets` group and run the `bundle` command to install it.
+If the extension is a zip file, unzip it into the
+`vendor/plugins/compass_extensions` directory of your project.
+
+Step 2: Install the extension's assets: `bundle exec compass install 
+<extension/template>`
+
+For example, if you want to use susy.
+
+```ruby
+# Gemfile
+group :assets do
+  gem 'compass-rails'
+  gem 'compass-susy-plugin'
+end
+```
+
+then run:
+
+    $ bundle
+    $ bundle exec compass install susy
+
 ### Notes On Sprockets Directives
 
 Sprockets, used by the rails asset pipeline, provides directives for
@@ -114,11 +143,15 @@ Instead use the sass `@import` directive. In rails projects, the
 If you want rails to compile your stylesheets (instead of using the
 compass watcher) you need to edit `config/application.rb` and change:
 
-    Bundler.require(:default, Rails.env) if defined?(Bundler)
+```ruby
+Bundler.require(:default, Rails.env) if defined?(Bundler)
+```
 
 to this:
 
-    Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
+```ruby
+Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
+```
 
 ## Rails 2.3 Caviats
 
@@ -131,20 +164,23 @@ After following the instructions there, if you want rails to compile
 your stylesheets (instead of using the compass watcher) you need
 edit `config/boot.rb` and change this:
 
-    Rails::Initializer.class_eval do
-      def load_gems
-        @bundler_loaded ||= Bundler.require :default, Rails.env
-      end
-    end
+```ruby
+Rails::Initializer.class_eval do
+  def load_gems
+    @bundler_loaded ||= Bundler.require :default, Rails.env
+  end
+end
+```
 
 To this:
 
-    Rails::Initializer.class_eval do
-      def load_gems
-        @bundler_loaded ||= Bundler.require :default, :assets, Rails.env
-      end
-    end
-
+```ruby
+Rails::Initializer.class_eval do
+  def load_gems
+    @bundler_loaded ||= Bundler.require :default, :assets, Rails.env
+  end
+end
+```
 
 ## Contributing
 
