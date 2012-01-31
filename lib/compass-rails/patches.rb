@@ -1,3 +1,6 @@
 if CompassRails.rails31? || CompassRails.rails32?
-    require 'compass-rails/patches/importer'
+  unless CompassRails.rails_loaded? 
+    CompassRails.load_rails
+  end
+  require 'compass-rails/patches/importer'
 end

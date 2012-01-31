@@ -19,13 +19,13 @@ module CompassRails
         rails_config_path = File.join(rails_config_path, '..')
       end
       #load the rails config
+      require "#{rails_config_path}/config/application.rb"
       if rails31? || rails32?
         require 'sass-rails' 
         require 'sprockets/railtie'
         require 'rails/engine'
         @app ||= ::Rails.application.initialize!(:assets)
       end
-      require "#{rails_config_path}/config/application.rb"
     end
 
 
@@ -49,20 +49,23 @@ module CompassRails
     end
 
     def sprockets
-      ::Rails.application.assets
+      load_rails
+      @sprockets ||= ::Rails.application.assets
     end
 
     def context
       load_rails
-      sprockets.version = ::Rails.env + "-#{sprockets.version}"
-      setup_fake_rails_env_paths(sprockets)
-      context = ::Rails.application.assets.context_class
-      context.extend(::Sprockets::Helpers::IsolatedHelper)
-      context.extend(::Sprockets::Helpers::RailsHelper)
-      context.extend(::Sass::Rails::Railtie::SassContext)
-      context.sass_config = sass_config
+      @context ||= begin
+        sprockets.version = ::Rails.env + "-#{sprockets.version}"
+        setup_fake_rails_env_paths(sprockets)
+        context = ::Rails.application.assets.context_class
+        context.extend(::Sprockets::Helpers::IsolatedHelper)
+        context.extend(::Sprockets::Helpers::RailsHelper)
+        context.extend(::Sass::Rails::Railtie::SassContext)
+        context.sass_config = sass_config
 
-      context
+        context
+      end
     end
 
     def installer(*args)
@@ -172,8 +175,6 @@ module CompassRails
     def configure_rails!(app)
       return unless app.config.respond_to?(:sass)
       app.config.compass.to_sass_engine_options.each do |key, value|
-        puts key.inspect
-        puts value.inspect
         app.config.sass.send(:"#{key}=", value)
       end
     end
