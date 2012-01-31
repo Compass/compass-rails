@@ -19,13 +19,13 @@ module CompassRails
         rails_config_path = File.join(rails_config_path, '..')
       end
       #load the rails config
-      unless rails3?
+      if rails31? || rails32?
         require 'sass-rails' 
         require 'sprockets/railtie'
         require 'rails/engine'
+        @app ||= ::Rails.application.initialize!(:assets)
       end
       require "#{rails_config_path}/config/application.rb"
-      @app ||= ::Rails.application.initialize!(:assets)
     end
 
 
