@@ -7,7 +7,7 @@ Since Compass v0.12, this adapter is the only way to install compass
 into your rails application.
 
 This adapter supports rails versions 2.3 and greater. Rails 2.3 and 3.0 users
-please read the caviats below.
+please read the caveats below.
 
 ## Installation
 
@@ -138,7 +138,7 @@ doing things like requiring. These **must not** be used with Sass files.
 Instead use the sass `@import` directive. In rails projects, the
 `@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails REAME](https://github.com/rails/sass-rails/blob/master/README.markdown)
 
-## Rails 3.0 Caviats
+## Rails 3.0 Caveats
 
 If you want rails to compile your stylesheets (instead of using the
 compass watcher) you need to edit `config/application.rb` and change:
@@ -153,7 +153,7 @@ to this:
 Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
 ```
 
-## Rails 2.3 Caviats
+## Rails 2.3 Caveats
 
 Compass requires that your rails 2.3 project is using Bundler to manage
 your rubygems. If you haven't yet set up your rails 2.3 project to use Bundler,
