@@ -9,7 +9,7 @@ gem "guard-test"
 gem "rails", "3.0.11"
 
 group :assets do
-  gem "compass", :git=>"git://github.com/chriseppstein/compass.git", :branch=>:master
+  gem "compass"
   gem "compass-rails", :path=>".."
 end
 group :test do
