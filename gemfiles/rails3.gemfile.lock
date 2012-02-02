@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/chriseppstein/compass.git
-  revision: addbc94716e95a7e6f200baa980b48c7e7a1a568
-  branch: master
-  specs:
-    compass (0.12.rc.4.addbc94)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-
-GIT
   remote: git://github.com/scottdavis/appraisal.git
   revision: b39ce49f69e330ccd5a1cb48e690f00e800a45d3
   specs:
@@ -19,16 +9,8 @@ GIT
 PATH
   remote: ..
   specs:
-    compass-rails (1.0.0.rc.0)
+    compass-rails (1.0.0.rc.1)
       compass (~> 0.12.rc.0)
-      rails
-
-PATH
-  remote: ..
-  specs:
-    compass-rails (1.0.0.rc.0)
-      compass (~> 0.12.rc.0)
-      rails
 
 GEM
   remote: https://rubygems.org/
@@ -63,6 +45,10 @@ GEM
     arel (2.0.10)
     builder (2.1.2)
     chunky_png (1.2.5)
+    compass (0.12.rc.0)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     ffi (1.0.11)
@@ -123,7 +109,7 @@ PLATFORMS
 
 DEPENDENCIES
   appraisal!
-  compass!
+  compass
   compass-rails!
   guard
   guard-test

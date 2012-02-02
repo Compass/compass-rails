@@ -10,7 +10,7 @@ gem "rails", "~> 3.2"
 gem "sass-rails"
 
 group :assets do
-  gem "compass", :git=>"git://github.com/chriseppstein/compass.git", :branch=>:master
+  gem "compass"
   gem "compass-rails", :path=>".."
 end
 group :test do
