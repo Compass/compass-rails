@@ -77,7 +77,9 @@ module CompassRails
     end
 
     def rails_version
-      (Gem.loaded_specs["railties"] || Gem.loaded_specs["rails"]).version.to_s
+      rails_spec = (Gem.loaded_specs["railties"] || Gem.loaded_specs["rails"])
+      raise "You have to require Rails before compass" unless rails_spec
+      rails_spec.version.to_s
     end
 
     def rails3?
