@@ -21,7 +21,7 @@ module CompassRails
       #load the rails config
       require "#{rails_config_path}/config/application.rb"
       if rails31? || rails32?
-        require 'sass-rails' 
+        require 'sass-rails'
         require 'sprockets/railtie'
         require 'rails/engine'
         @app ||= ::Rails.application.initialize!(:assets)
@@ -77,7 +77,7 @@ module CompassRails
     end
 
     def rails_version
-      Gem.loaded_specs["railties"].version.to_s
+      (Gem.loaded_specs["railties"] || Gem.loaded_specs["rails"]).version.to_s
     end
 
     def rails3?
