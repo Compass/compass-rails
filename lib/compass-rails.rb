@@ -77,7 +77,7 @@ module CompassRails
     end
 
     def rails_version
-      Gem.loaded_specs["rails"].version.to_s
+      Gem.loaded_specs["railties"].version.to_s
     end
 
     def rails3?
