@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :assets do
-  gem 'compass', :git => 'git://github.com/chriseppstein/compass.git', :branch => :master
+  gem 'compass'
   gem 'compass-rails', :path => '.'
 end
 
