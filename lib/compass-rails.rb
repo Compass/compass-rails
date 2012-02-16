@@ -12,7 +12,8 @@ module CompassRails
     extend self
 
     def load_rails
-      return if defined?(::Rails) && !::Rails.application.nil?
+      return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
+
       rails_config_path = Dir.pwd
       until File.exists?(File.join(rails_config_path, 'config', 'application.rb')) do
         raise 'Rails application not found' if rails_config_path == '/'
