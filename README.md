@@ -46,7 +46,7 @@ older versions of rails that do not use the assets pipeline.
 If you have your stylesheets already in `app/stylesheets`, you have two choices:
 
 1. Move your stylesheets to `app/assets/stylesheets`.
-2. Configure your project to look in `app/assets/stylesheets` by setting
+2. Configure your project to look in `app/stylesheets` by setting
    `config.compass.sass_dir = "app/stylesheets"` in your rails
 configuration or by setting `sass_dir = "app/stylesheets"` in your
 compass configuration file.
