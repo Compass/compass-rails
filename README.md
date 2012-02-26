@@ -15,6 +15,7 @@ Add the `compass-rails` gem line to a group called `:assets` in your application
 
 ```ruby
 group :assets do
+  gem 'sass-rails' # if running rails 3.1 or greater
   gem 'compass-rails'
 end
 ```
