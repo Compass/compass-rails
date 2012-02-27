@@ -139,6 +139,11 @@ doing things like requiring. These **must not** be used with Sass files.
 Instead use the sass `@import` directive. In rails projects, the
 `@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails REAME](https://github.com/rails/sass-rails/blob/master/README.markdown)
 
+## Rails 3.1 Caveats
+
+There was a bug in rails 3.1.0 -- please make sure you are running 3.1.1
+at the earliest for this version of rails.
+
 ## Rails 3.0 Caveats
 
 If you want rails to compile your stylesheets (instead of using the
