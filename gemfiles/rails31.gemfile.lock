@@ -9,7 +9,7 @@ GIT
 PATH
   remote: ..
   specs:
-    compass-rails (1.0.0.rc.1)
+    compass-rails (1.0.0.rc.3)
       compass (~> 0.12.rc.0)
 
 GEM
