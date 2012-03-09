@@ -59,15 +59,23 @@ class Rails::Railtie::Configuration
         if Rails.application.config.assets.digest && # if digesting is enabled
             caller.grep(/static_compiler/).any? && #OMG HAX - check if we're being precompiled
             Compass.configuration.generated_images_path[Compass.configuration.images_path] # if the generated images path is not in the assets images directory, we don't have to do these backflips
-          asset         = Rails.application.assets.find_asset(filename)
-          pathname      = Pathname.new(filename)
-          logical_path  = filename[(Compass.configuration.images_path.length+1)..-1]
 
-          target = Pathname.new(File.join(Rails.public_path, Rails.application.config.assets.prefix))
-          Sprockets::StaticCompiler.generated_sprites[logical_path] = asset.digest_path
-          filename = target.join(asset.digest_path)
-          FileUtils.mkdir_p File.dirname(filename)
-          asset.write_to filename
+          # Clear entries in Hike::Index for this sprite's directory.
+          # This makes sure the asset can be found by find_assets
+          Rails.application.assets.send(:trail).instance_variable_get(:@entries).delete(File.dirname(filename))
+
+          pathname      = Pathname.new(filename)
+          logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path))
+          asset         = Rails.application.assets.find_asset(logical_path)
+          target        = File.join(Rails.public_path, Rails.application.config.assets.prefix, asset.digest_path)
+
+          # Adds the asset to the manifest file.
+          Sprockets::StaticCompiler.generated_sprites[logical_path.to_s] = asset.digest_path
+
+          # Adds the fingerprinted asset to the public directory
+          FileUtils.mkdir_p File.dirname(target)
+          asset.write_to target
+
         end
       end
       data
