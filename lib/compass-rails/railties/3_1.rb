@@ -62,12 +62,9 @@ class Rails::Railtie::Configuration
           asset         = Rails.application.assets.find_asset(filename)
           pathname      = Pathname.new(filename)
           logical_path  = filename[(Compass.configuration.images_path.length+1)..-1]
-          # Force the asset into the cache so find_asset will find it.
-          cached_assets = Rails.application.assets.instance_variable_get("@assets")
-          cached_assets[logical_path] = cached_assets[filename] = asset
 
           target = Pathname.new(File.join(Rails.public_path, Rails.application.config.assets.prefix))
-          asset = Rails.application.assets.find_asset(logical_path)
+          Sprockets::StaticCompiler.generated_sprites[logical_path] = asset.digest_path
           filename = target.join(asset.digest_path)
           FileUtils.mkdir_p File.dirname(filename)
           asset.write_to filename

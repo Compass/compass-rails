@@ -16,7 +16,7 @@ module Compass
           end
         end
       end
-      
+
       old
     end
 
