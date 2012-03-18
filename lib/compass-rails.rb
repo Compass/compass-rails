@@ -190,6 +190,9 @@ module CompassRails
       }.each do |compass_option, sass_option|
         set_maybe sass_config, compass_config, sass_option, compass_option
       end
+      compass_config.sass_options.each do |config, value|
+        sass_config.send("#{config}=", value)
+      end
     end
 
     def boot_config
