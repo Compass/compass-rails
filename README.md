@@ -6,7 +6,7 @@ Framework](http://compass-style.org) for [Ruby on Rails](http://http://rubyonrai
 Since Compass v0.12, this adapter is the only way to install compass
 into your rails application.
 
-This adapter supports rails versions 2.3 and greater. Rails 2.3 and 3.0 users
+This adapter supports rails versions 3.2 and greater. Rails 2.3, 3.0 and 3.1 users
 please read the caveats below.
 
 ## Installation
