@@ -32,7 +32,7 @@ file:
 
     $ bundle exec compass init
 
-If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option to set thi:
+If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option to set this:
 
     $ bundle exec compass init --using blueprint
 
