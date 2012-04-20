@@ -2,8 +2,13 @@ module CompassRails
   module Configuration
     module Rails3_1
 
+      # this requires compass' multiple_image_dirs branch.
       def default_images_dir
-        File.join("app", "assets", "images")
+        [
+          File.join("app", "assets", "images"),
+          File.join("lib", "assets", "images"),
+          File.join("vendor", "assets", "images")
+        ]
       end
 
       def default_fonts_dir
