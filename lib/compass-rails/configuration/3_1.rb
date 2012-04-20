@@ -7,7 +7,8 @@ module CompassRails
         [
           File.join("app", "assets", "images"),
           File.join("lib", "assets", "images"),
-          File.join("vendor", "assets", "images")
+          File.join("vendor", "assets", "images"),
+          File.join("public", "images")
         ]
       end
 
