@@ -131,6 +131,15 @@ then run:
 
     $ bundle
     $ bundle exec compass install susy
+    
+if you are using the rails configuration files you should add:
+
+```ruby
+config.compass.require "susy"
+```
+
+to your application.rb configuration file.
+
 
 ### Notes On Sprockets Directives
 
