@@ -153,6 +153,17 @@ Instead use the sass `@import` directive. In rails projects, the
 There was a bug in rails 3.1.0 -- please make sure you are running 3.1.1
 at the earliest for this version of rails.
 
+If you want to exclude the generated sprites from Git, you will want to generated them in a directory that can be ignored. Do so by customizing the ``generated_images_dir`` in your application.rb. (Example)
+
+```ruby
+config.compass.generated_images_dir = 'app/assets/images/sprites'
+```
+Following that, make sure to add the sprites directory to your ``assets.paths`` so the sprites are accessible via HTTP (Example)
+
+```ruby
+config.assets.paths << Rails.root.join("app", "assets", "images", "sprites")
+```
+
 ## Rails 3.0 Caveats
 
 If you want rails to compile your stylesheets (instead of using the
