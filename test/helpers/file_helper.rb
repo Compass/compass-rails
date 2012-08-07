@@ -32,6 +32,7 @@ module CompassRails
       end
       
       def inject_into_file(file_name, replacment, position, anchor)
+        puts anchor
         case position
         when :after
           replace(file_name, Regexp.escape(anchor), "#{anchor}#{replacment}")
