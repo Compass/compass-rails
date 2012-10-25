@@ -1,5 +1,6 @@
 #rails 2.x doesn't have railties so gona do this the long way
 require "sass/plugin/rack" #unless defined?(Sass::Plugin::Rack)
+require "action_controller"
 
 module ActionController
   class Base
