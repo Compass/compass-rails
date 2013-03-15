@@ -7,9 +7,9 @@ GIT
       rake
 
 PATH
-  remote: /Users/sdavis/Work/compass-rails
+  remote: /Volumes/SSD/Work/compass-rails
   specs:
-    compass-rails (1.0.2)
+    compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
 
 GEM
