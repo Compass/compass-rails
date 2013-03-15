@@ -40,7 +40,7 @@ module CompassRails
 
       def screen_file
         case version
-        when RAILS_3_1, RAILS_3_2
+        when RAILS_3_1, RAILS_3_2, RAILS_4_0
           return directory.join('app', 'assets', 'stylesheets', 'screen.css.scss')
         when RAILS_2, RAILS_3
           return directory.join('app', 'assets', 'stylesheets','screen.scss')
@@ -83,7 +83,7 @@ module CompassRails
 
       def runner(string)
         case version
-        when RAILS_3_1, RAILS_3, RAILS_3_2
+        when RAILS_3_1, RAILS_3, RAILS_3_2, RAILS_4_0
           rails_command(['runner', "'#{string}'"], version)
         when RAILS_2
           run_command("script/runner '#{string}'", GEMFILES[version])
@@ -110,13 +110,13 @@ module CompassRails
         else
           "\n    config.#{property} = '#{value}'\n"
         end
-        inject_into_file(directory.join(APPLICATION_FILE), value, :after, '# Enable the asset pipeline')
+        inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
       end
 
       ## GEM METHODS
 
       def configure_for_bundler!
-        return if [RAILS_3_1, RAILS_3, RAILS_3_2].include?(version)
+        return if [RAILS_3_1, RAILS_3, RAILS_3_2, RAILS_4_0].include?(version)
         bundle = <<-BUNDLER
         class Rails::Boot
           def run
