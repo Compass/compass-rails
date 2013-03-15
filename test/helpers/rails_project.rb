@@ -16,11 +16,12 @@ module CompassRails
       BOOT_FILE = 'config/boot.rb'
 
 
-      attr_reader :directory, :version
+      attr_reader :directory, :version, :asset_pipeline_enabled
 
-      def initialize(directory, version)
+      def initialize(directory, version, asset_pipeline_enabled = true)
         @directory = Pathname.new(directory)
         @version = version
+        @asset_pipeline_enabled = asset_pipeline_enabled
       end
 
       ## FILE METHODS
@@ -38,10 +39,9 @@ module CompassRails
       end
 
       def screen_file
-        case version
-        when RAILS_3_1, RAILS_3_2
+        if asset_pipeline_enabled
           return directory.join('app', 'assets', 'stylesheets', 'screen.css.scss')
-        when RAILS_3
+        else
           return directory.join('app', 'assets', 'stylesheets','screen.scss')
         end
       end

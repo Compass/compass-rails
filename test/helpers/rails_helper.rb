@@ -17,7 +17,7 @@ module CompassRails
           RAILS_3   => GEMFILES_DIR.join("rails3.gemfile").to_s
         }
         
-        GENERTOR_OPTIONS = {
+        GENERATOR_OPTIONS = {
           RAILS_3_2 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3   => ['-q', '-G', '-O', '--skip-bundle']
@@ -38,18 +38,18 @@ module CompassRails
     # with the rails libraries. This will allow testing against multiple versions of rails
     # by manipulating the load path.
     def generate_rails_app(name, version, options=[])
-      options += GENERTOR_OPTIONS[version]
+      options += GENERATOR_OPTIONS[version]
       rails_command([GENERATOR_COMMAND[version], name, *options], version)
     end
 
-    def within_rails_app(named, version, &block)
+    def within_rails_app(named, version, asset_pipeline_enabled = true, &block)
       dir = "#{named}-#{version}"
       rm_rf File.join(WORKING_DIR, dir)
       mkdir_p WORKING_DIR
       cd(WORKING_DIR) do
-        generate_rails_app(dir, version)
+        generate_rails_app(dir, version, asset_pipeline_enabled ? [] : ["-S"])
         cd(dir) do
-          yield RailsProject.new(File.join(WORKING_DIR, dir), version)
+          yield RailsProject.new(File.join(WORKING_DIR, dir), version, asset_pipeline_enabled)
         end
       end
       rm_rf File.join(WORKING_DIR, dir)
