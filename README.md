@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Compass/compass-rails.png?branch=stable)](https://travis-ci.org/Compass/compass-rails)
 
 Compass rails is an adapter for the [Compass Stylesheet Authoring
-Framework](http://compass-style.org) for [Ruby on Rails](http://http://rubyonrails.org/).
+Framework](http://compass-style.org) for [Ruby on Rails](http://rubyonrails.org/).
 
 Since Compass v0.12, this adapter is the only way to install compass
 into your rails application.
