@@ -10,8 +10,9 @@ gem "rails", "~> 3.2"
 gem "sass-rails"
 
 group :assets do
-  gem "compass"
+  gem "compass", "~> 0.13.alpha.0"
   gem "compass-rails", :path=>".."
+  gem "compass-blueprint"
 end
 group :test do
   gem "mocha"

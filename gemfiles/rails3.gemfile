@@ -9,8 +9,9 @@ gem "guard-test"
 gem "rails", "3.0.11"
 
 group :assets do
-  gem "compass"
+  gem "compass", "~> 0.13.alpha.0"
   gem "compass-rails", :path=>".."
+  gem "compass-blueprint"
 end
 group :test do
   gem "mocha"
