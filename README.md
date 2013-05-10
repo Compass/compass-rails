@@ -67,7 +67,7 @@ configuration object exposed to rails within any configuration block.
 ### Developing with Rails-based Compilation
 
 By default, your sass files in `app/assets/stylesheets` will be
-automatically compiled by the the [`Sass::Plugin`](http://sass-lang.com/docs/yardoc/Sass/Plugin.html) or the [Rails asset
+automatically compiled by the [`Sass::Plugin`](http://sass-lang.com/docs/yardoc/Sass/Plugin.html) or the [Rails asset
 pipeline](http://guides.rubyonrails.org/asset_pipeline.html) depending on the version of rails that you use.
 
 When using this approach you will need to reload your webpage in order
