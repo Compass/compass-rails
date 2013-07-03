@@ -13,6 +13,7 @@ module CompassRails
     extend self
 
     def load_rails
+      return true if rails_loaded?
       return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
 
       rails_config_path = Dir.pwd
@@ -90,26 +91,34 @@ module CompassRails
 
     def rails3?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_3
+      version_match RAILS_3
     end
 
     def rails31?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_31
+      version_match RAILS_31
     end
 
     def rails32?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_32
+      version_match RAILS_32
     end
 
     def rails4?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_4
+      version_match RAILS_4
     end
 
     def rails2?
-      rails_version =~ RAILS_23
+      version_match RAILS_23
+    end
+
+    def version_match(version)
+      if (rails_version =~ version).nil?
+        return false
+      end
+
+      true
     end
 
     def booted!
@@ -220,7 +229,11 @@ module CompassRails
   def asset_pipeline_enabled?
     return false unless rails_loaded?
     rails_config = ::Rails.application.config
-    rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+    unless rails4?
+      rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+    else
+      rails_config.respond_to?(:assets)
+    end
   end
 
   private
