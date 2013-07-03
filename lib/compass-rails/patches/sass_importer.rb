@@ -8,7 +8,7 @@ module Sprockets
       paths += ::Rails.application.config.sass.load_paths
 
 
-      options = {
+      options = CompassRails.sass_config.merge( {
         :filename => eval_file,
         :line => line,
         :syntax => syntax,
@@ -19,7 +19,7 @@ module Sprockets
           :context => context,
           :environment => context.environment
         }
-      }
+      })
 
       ::Sass::Engine.new(data, options).render
     rescue ::Sass::SyntaxError => e
