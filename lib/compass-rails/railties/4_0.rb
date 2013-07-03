@@ -70,10 +70,8 @@ class Rails::Railtie::Configuration
           target        = File.join(Rails.public_path, Rails.application.config.assets.prefix, asset.digest_path)
 
           # Adds the asset to the manifest file.
-          puts filename
-          manifest = nil
-          ObjectSpace.each_object(::Sprockets::Manifest) { |o| manifest ||= o}
-          
+
+          manifest = ActionView::Base.assets_manifest
           manifest.assets[logical_path.to_s] = asset.digest_path
 
 
