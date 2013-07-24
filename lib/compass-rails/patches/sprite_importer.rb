@@ -1,38 +1,26 @@
 require 'sprockets'
 require 'compass/sprite_importer'
 
-module Compass
-  class SpriteImporter < Sass::Importers::Base
+module CompassRails
+  class SpriteImporter < Compass::SpriteImporter
+    attr_reader :context, :root
 
-    alias :old_find :find
+    def initialize(context, root)
+      @context = context
+      @root = root
+    end
 
     def find(uri, options)
-
-      if old = old_find(uri, options)
-        @_options = options
+      if old = super(uri, options)
         self.class.files(uri).each do |file|
-          if pathname = resolve(file)
-            context.depend_on(pathname)
+          relative_path = Pathname.new(file).relative_path_from(Pathname.new(root))
+          if pathname = context.resolve(relative_path)
+            context.depend_on_asset(pathname)
           end
         end
       end
 
       old
     end
-
-  private
-
-    def resolve(uri)
-      resolver.resolve(Pathname.new(uri))
-    end
-
-    def context
-     resolver.context
-    end
-
-    def resolver
-      @_options[:custom][:resolver]
-    end
-
   end
 end

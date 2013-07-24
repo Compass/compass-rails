@@ -1,5 +1,4 @@
 require 'sprockets/static_compiler'
-
 module Sprockets
   class StaticCompiler
     cattr_accessor :generated_sprites
@@ -10,3 +9,4 @@ module Sprockets
     alias_method_chain :write_manifest, :sprites
   end
 end
+

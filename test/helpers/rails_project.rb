@@ -100,7 +100,7 @@ module CompassRails
         else
           "\n    config.#{property} = '#{value}'\n"
         end
-        inject_into_file(directory.join(APPLICATION_FILE), value, :after, '# Enable the asset pipeline')
+        inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
       end
 
     private
