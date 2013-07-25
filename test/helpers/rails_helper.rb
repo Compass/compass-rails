@@ -19,7 +19,7 @@ module CompassRails
           RAILS_3   => GEMFILES_DIR.join("rails3.gemfile").to_s
         }
         
-        GENERTOR_OPTIONS = {
+        GENERATOR_OPTIONS = {
           RAILS_4_0 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3_2 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],

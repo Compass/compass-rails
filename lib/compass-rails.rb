@@ -25,11 +25,7 @@ module CompassRails
       require "#{rails_config_path}/config/application.rb"
       if rails31? || rails32? || rails4?
         require 'sass-rails'
-        if rails4?
-          require 'sprockets-rails'
-        else
-          require 'sprockets/railtie'
-        end
+        require 'sprockets/railtie'
         require 'rails/engine'
         @app ||= ::Rails.application.initialize!(:assets)
       end
