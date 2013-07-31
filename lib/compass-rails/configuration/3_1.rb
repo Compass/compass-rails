@@ -42,6 +42,10 @@ module CompassRails
         ::Rails.application.config.sass.preferred_syntax rescue nil
       end
 
+      def default_sprite_load_path
+        CompassRails.sprockets.paths
+      end
+
     end
   end
 end
