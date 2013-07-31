@@ -13,9 +13,13 @@ module CompassRails
     def find(uri, options)
       if old = super(uri, options)
         self.class.files(uri).each do |file|
+          puts file.inspect
           relative_path = Pathname.new(file).relative_path_from(Pathname.new(root))
-          if pathname = context.resolve(relative_path)
+          begin
+            pathname = context.resolve(relative_path)
             context.depend_on_asset(pathname)
+          rescue Sprockets::FileNotFound
+
           end
         end
       end
