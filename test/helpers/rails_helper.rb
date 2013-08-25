@@ -5,6 +5,7 @@ module CompassRails
       include FileHelper
       include DebugHelper
       include CommandHelper
+        RAILS_4_1   = "4.1"
         RAILS_4_0   = "4.0"
         RAILS_3_2   = "3.2"
         RAILS_3_1   = "3.1"
@@ -13,6 +14,7 @@ module CompassRails
         WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
 
         GEMFILES = {
+          RAILS_4_1 => GEMFILES_DIR.join("rails41.gemfile").to_s,
           RAILS_4_0 => GEMFILES_DIR.join("rails40.gemfile").to_s,
           RAILS_3_2 => GEMFILES_DIR.join("rails32.gemfile").to_s,
           RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s,
@@ -20,6 +22,7 @@ module CompassRails
         }
         
         GENERATOR_OPTIONS = {
+          RAILS_4_1 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_4_0 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3_2 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
@@ -27,6 +30,7 @@ module CompassRails
         }
         
         GENERATOR_COMMAND = {
+          RAILS_4_1 => 'new',
           RAILS_4_0 => 'new',
           RAILS_3_2 => 'new',
           RAILS_3_1 => 'new',

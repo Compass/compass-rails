@@ -1,4 +1,4 @@
-#4.0.0
+#4.1.0.beta
 require 'compass'
 require 'rails/railtie'
 
@@ -91,7 +91,7 @@ module CompassRails
   class Railtie < Rails::Railtie
 
     initializer "compass.initialize_rails", :group => :all do |app|
-      require 'compass-rails/patches/4_0'
+      require 'compass-rails/patches/4_1'
       # Configure compass for use within rails, and provide the project configuration
       # that came via the rails boot process.
       CompassRails.check_for_double_boot!
