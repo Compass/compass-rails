@@ -146,7 +146,7 @@ to your application.rb configuration file.
 Sprockets, used by the rails asset pipeline, provides directives for
 doing things like requiring. These **must not** be used with Sass files.
 Instead use the sass `@import` directive. In rails projects, the
-`@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails README](https://github.com/rails/sass-rails/blob/master/README.markdown)
+`@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails README](https://github.com/rails/sass-rails/blob/master/README.md)
 
 ## Rails 3.1 Caveats
 
