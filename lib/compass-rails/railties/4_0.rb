@@ -58,7 +58,7 @@ class Rails::Railtie::Configuration
         # sprites and always just use the logical_path + data version of the api.
         if Rails.application.config.assets.digest && # if digesting is enabled
             caller.grep(%r{/sprockets/rails/task.rb}).any? && #OMG HAX - check if we're being precompiled
-            Compass.configuration.generated_images_path[Compass.configuration.images_path] # if the generated images path is not in the assets images directory, we don't have to do these backflips
+            Compass.configuration.generated_images_path[Compass.configuration.images_path.to_s] # if the generated images path is not in the assets images directory, we don't have to do these backflips
 
           # Clear entries in Hike::Index for this sprite's directory.
           # This makes sure the asset can be found by find_assets
