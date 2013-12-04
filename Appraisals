@@ -13,11 +13,6 @@ appraise "rails32" do
 end
 
 appraise "rails40" do
-  gem "rails", '~> 4.0'
+  gem "rails", "~> 4.0.0"
   gem "sass-rails"
-  gem 'sprockets-rails', "~> 2.0.0"
-  gem "compass", '~> 0.13.alpha.0'
-  gem "compass-rails", :path=>"."
-  gem 'compass-blueprint'
 end
-

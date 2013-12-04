@@ -25,7 +25,7 @@ module CompassRails
       end
 
       ## FILE METHODS
-        
+
       def to_s
         directory_name
       end
@@ -101,6 +101,16 @@ module CompassRails
           "\n    config.#{property} = '#{value}'\n"
         end
         inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
+      end
+
+      ## GEM METHODS
+
+      def configure_for_bundler!
+        Rails.logger.warn("This method is deprecated") && return
+      end
+
+      def bundle
+        raise "NO BUNDLE FOR U"
       end
 
     private

@@ -4,7 +4,7 @@ require "compass-rails/configuration"
 
 module CompassRails
 
-    RAILS_4 = %r{^4.0}
+    RAILS_4 = %r{^4.[0|1]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
     RAILS_23 = %r{^2.3}
@@ -105,10 +105,6 @@ module CompassRails
       version_match RAILS_4
     end
 
-    def rails2?
-      version_match RAILS_23
-    end
-
     def version_match(version)
       if (rails_version =~ version).nil?
         return false
@@ -126,7 +122,7 @@ module CompassRails
     end
 
     def configuration
-      load_rails unless rails2?
+      load_rails
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
       if (rails31? || rails32? || rails4?)

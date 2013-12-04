@@ -6,12 +6,8 @@ gem "rb-fsevent", :require=>false
 gem "ruby_gntp", :require=>false
 gem "guard"
 gem "guard-test"
-gem "rails", "~> 4.0"
+gem "rails", "~> 4.0.0"
 gem "sass-rails"
-gem "sprockets-rails", "~> 2.0.0"
-gem "compass", "~> 0.13.alpha.0"
-gem "compass-rails", :path=>".."
-gem "compass-blueprint"
 
 group :assets do
   gem "compass", "~> 0.13.alpha.0"
