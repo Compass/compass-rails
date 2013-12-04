@@ -25,11 +25,7 @@ module CompassRails
       require "#{rails_config_path}/config/application.rb"
       if rails31? || rails32? || rails4?
         require 'sass-rails'
-        if rails4?
-          require 'sprockets-rails'
-        else
-          require 'sprockets/railtie'
-        end
+        require 'sprockets/railtie'
         require 'rails/engine'
         @app ||= ::Rails.application.initialize!(:assets)
       end
@@ -109,10 +105,6 @@ module CompassRails
       version_match RAILS_4
     end
 
-    def rails2?
-      version_match RAILS_23
-    end
-
     def version_match(version)
       if (rails_version =~ version).nil?
         return false
@@ -130,7 +122,7 @@ module CompassRails
     end
 
     def configuration
-      load_rails unless rails2?
+      load_rails
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
       if (rails31? || rails32? || rails4?)
