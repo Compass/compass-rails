@@ -13,10 +13,12 @@ appraise "rails32" do
 end
 
 appraise "rails40" do
-  gem "rails", :github => "rails/rails"
-  gem "journey", :github => "rails/journey"
-  gem "active_record_deprecated_finders", :github => "rails/active_record_deprecated_finders"
-  gem "sass-rails", :github => "rails/sass-rails"
-  gem "sprockets-rails", :github => "rails/sprockets-rails"
+  gem "rails", "~> 4.0.0"
+  gem "sass-rails"
+end
+
+appraise "rails41" do
+  gem "rails", "~> 4.1.0"
+  gem "sass-rails"
 end
 
