@@ -1,5 +1,5 @@
 module CompassRails
   unless defined?(::CompassRails::VERSION)
-    VERSION = "2.0.alpha.0"
+    VERSION = "1.1.0.pre"
   end
 end
