@@ -16,6 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = CompassRails::VERSION
   gem.license       = "MIT"
 
-  gem.add_dependency 'compass', '>= 0.12.2', '< 0.14'
+  gem.add_dependency 'compass', '>= 0.12.2'
 
 end
