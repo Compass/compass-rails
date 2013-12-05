@@ -29,6 +29,8 @@ And then execute:
 
     $ bundle
 
+## Optional
+
 To set up your project with starter stylesheets and a configuration
 file:
 
@@ -40,21 +42,28 @@ If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [bl
 
 Note that the `compass init` step is optional if you have a project running Rails 3.0 or greater.
 
-## Upgrading existing rails projects using Compass to CompassRails
+## Usage
 
-First and foremost, follow the installation instructions above.
+Change your `application.css` to `application.css.scss` or `application.css.sass` and use `@import` to your hearts content. Ex:
 
-CompassRails uses the rails convention for stylesheet locations even in
-older versions of rails that do not use the assets pipeline.
-If you have your stylesheets already in `app/stylesheets`, you have two choices:
+```scss
+@import "project/mixins";
+@import "project/base";
 
-1. Move your stylesheets to `app/assets/stylesheets`.
-2. Configure your project to look in the **legacy location** of
-   `app/stylesheets` by setting `config.compass.sass_dir =
-   "app/stylesheets"` in your rails configuration or by setting
-   `sass_dir = "app/stylesheets"` in your compass configuration file.
+```
 
-## Configuration
+*or*
+
+Use `application.css` to require files that use compass features. Ex:
+```css
+/*
+ *= require styleguide_full_of_compass_stuff
+ */
+```
+
+*Don't* use `*= require something` within your SCSS or SASS files. You're gonna have a bad time.
+
+### Configuration
 
 If you have a compass configuration file (recommended) then you can
 use the [Compass configuration 
@@ -64,7 +73,12 @@ files, then you should understand that the compass configuration
 options explained there will be methods and properties on the `config.compass`
 configuration object exposed to rails within any configuration block.
 
-## Usage
+### Notes On Sprockets Directives
+
+Sprockets, used by the rails asset pipeline, provides directives for
+doing things like requiring. These **must not** be used with Sass files.
+Instead use the sass `@import` directive. In rails projects, the
+`@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails README](https://github.com/rails/sass-rails/blob/master/README.md)
 
 ### Developing with Rails-based Compilation
 
@@ -95,11 +109,7 @@ end
 To return to using the Rails-based compilation mode, simply delete
 the compiled stylesheets and remove any configuration changes.
 
-### Compiling for Production
-
-If using the Rails asset pipeline run:
-
-    $ rake assets:precompile
+### Compiling for Production without Asset Pipeline
 
 If not using the asset pipeline run:
 
@@ -111,10 +121,7 @@ stylesheets.
 
 ### Installing Compass extensions
 
-Step 1: If the extension is a rubygem, Add it to your Gemfile in the
-`:assets` group and run the `bundle` command to install it.
-If the extension is a zip file, unzip it into the
-`vendor/plugins/compass_extensions` directory of your project.
+Step 1: Add it to your Gemfile in the `:assets` group and run the `bundle` command to install it.
 
 Step 2: Install the extension's assets: `bundle exec compass install 
 <extension/template>`
@@ -142,18 +149,9 @@ config.compass.require "susy"
 
 to your application.rb configuration file.
 
-
-### Notes On Sprockets Directives
-
-Sprockets, used by the rails asset pipeline, provides directives for
-doing things like requiring. These **must not** be used with Sass files.
-Instead use the sass `@import` directive. In rails projects, the
-`@import` directive is configured to work with sprockets via `sass-rails`. For more information on importing in rails 3.1 or greater see the [Sass-Rails README](https://github.com/rails/sass-rails/blob/master/README.md)
-
 ## Rails 3.1 Caveats
 
-There was a bug in rails 3.1.0 -- please make sure you are running 3.1.1
-at the earliest for this version of rails.
+compass-rails requires Rails 3.1.1 and greater. Also, Rails 3.1 is out of support so consider upgrading.
 
 ## Rails 3.0 Caveats
 
@@ -169,6 +167,22 @@ to this:
 ```ruby
 Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
 ```
+
+ Also, Rails 3.0 is out of support so consider upgrading.
+
+## Upgrading Rails 3.0 and older projects to compass-rails
+
+First and foremost, follow the installation instructions above.
+
+CompassRails uses the rails convention for stylesheet locations even in
+older versions of rails that do not use the assets pipeline.
+If you have your stylesheets already in `app/stylesheets`, you have two choices:
+
+1. Move your stylesheets to `app/assets/stylesheets`.
+2. Configure your project to look in the **legacy location** of
+   `app/stylesheets` by setting `config.compass.sass_dir =
+   "app/stylesheets"` in your rails configuration or by setting
+   `sass_dir = "app/stylesheets"` in your compass configuration file.
 
 ## Contributing
 
