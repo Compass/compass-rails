@@ -4,13 +4,14 @@ source 'https://rubygems.org'
 gemspec
 
 group :assets do
-  gem 'compass'
-  gem 'compass-rails', :path => '.'
+  gem "compass", '~> 0.13.alpha.0'
+  gem "compass-rails", :path=>"."
+  gem 'compass-blueprint'
 end
 
 group :test do
   gem 'mocha'
-  gem "appraisal", :git => 'git://github.com/scottdavis/appraisal.git'
+  gem "appraisal", :git => 'https://github.com/scottdavis/appraisal.git'
   gem 'rainbow'
 end
 

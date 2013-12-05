@@ -4,6 +4,7 @@ require "compass-rails/configuration"
 
 module CompassRails
 
+    RAILS_4 = %r{^4.[0|1]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
     RAILS_23 = %r{^2.3}
@@ -12,6 +13,7 @@ module CompassRails
     extend self
 
     def load_rails
+      return true if rails_loaded?
       return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
 
       rails_config_path = Dir.pwd
@@ -21,7 +23,7 @@ module CompassRails
       end
       #load the rails config
       require "#{rails_config_path}/config/application.rb"
-      if rails31? || rails32?
+      if rails31? || rails32? || rails4?
         require 'sass-rails'
         require 'sprockets/railtie'
         require 'rails/engine'
@@ -85,21 +87,30 @@ module CompassRails
 
     def rails3?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_3
+      version_match RAILS_3
     end
 
     def rails31?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_31
+      version_match RAILS_31
     end
 
     def rails32?
       return false unless defined?(::Rails)
-      rails_version =~ RAILS_32
+      version_match RAILS_32
     end
 
-    def rails2?
-      rails_version =~ RAILS_23
+    def rails4?
+      return false unless defined?(::Rails)
+      version_match RAILS_4
+    end
+
+    def version_match(version)
+      if (rails_version =~ version).nil?
+        return false
+      end
+
+      true
     end
 
     def booted!
@@ -111,10 +122,10 @@ module CompassRails
     end
 
     def configuration
-      load_rails unless rails2?
+      load_rails
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
-      if (rails31? || rails32?)
+      if (rails31? || rails32? || rails4?)
         if asset_pipeline_enabled?
           require "compass-rails/configuration/3_1"
           config.extend(Configuration::Rails3_1)
@@ -210,7 +221,11 @@ module CompassRails
   def asset_pipeline_enabled?
     return false unless rails_loaded?
     rails_config = ::Rails.application.config
-    rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+    unless rails4?
+      rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+    else
+      rails_config.respond_to?(:assets)
+    end
   end
 
   private
