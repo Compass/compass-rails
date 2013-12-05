@@ -2,7 +2,7 @@
 require File.expand_path('../lib/compass-rails/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Scott Davis", "Chris Eppstein"]
+  gem.authors       = ["Scott Davis", "Chris Eppstein", "Craig McNamara"]
   gem.email         = ["jetviper21@gmail.com", "chris@eppsteins.net", "craig.mcnamara@gmail.com"]
   gem.description   = %q{Integrate Compass into Rails 3.0 and up.}
   gem.summary       = %q{Integrate Compass into Rails 3.0 and up.}
