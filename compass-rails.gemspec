@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "compass-rails"
   gem.require_paths = ["lib"]
   gem.version       = CompassRails::VERSION
+  gem.license       = "MIT"
 
   gem.add_dependency 'compass', '>= 0.12.2', '< 0.14'
 
