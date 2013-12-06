@@ -220,10 +220,10 @@ module CompassRails
   def asset_pipeline_enabled?
     return false unless rails_loaded?
     rails_config = ::Rails.application.config
-    unless rails4?
-      rails_config.respond_to?(:assets) && rails_config.assets.try(:enabled)
+    if rails_config.respond_to?(:assets)
+      rails_config.assets.enabled != false
     else
-      rails_config.respond_to?(:assets)
+      false
     end
   end
 
