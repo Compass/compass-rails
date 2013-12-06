@@ -1,6 +1,6 @@
 module CompassRails
   module Configuration
-    module Rails3_1
+    module AssetPipeline
 
       def default_images_dir
         File.join("app", "assets", "images")

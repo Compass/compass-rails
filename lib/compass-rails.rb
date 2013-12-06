@@ -124,11 +124,9 @@ module CompassRails
       load_rails
       config = Compass::Configuration::Data.new('rails')
       config.extend(Configuration::Default)
-      if (rails31? || rails32? || rails4?)
-        if asset_pipeline_enabled?
-          require "compass-rails/configuration/3_1"
-          config.extend(Configuration::Rails3_1)
-        end
+      if asset_pipeline_enabled?
+        require "compass-rails/configuration/asset_pipeline"
+        config.extend(Configuration::AssetPipeline)
       end
       config
     end
