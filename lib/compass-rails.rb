@@ -7,7 +7,6 @@ module CompassRails
     RAILS_4 = %r{^4.[0|1]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
-    RAILS_23 = %r{^2.3}
     RAILS_3 = %r{^3.0}
 
     extend self

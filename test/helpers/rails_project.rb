@@ -103,16 +103,6 @@ module CompassRails
         inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
       end
 
-      ## GEM METHODS
-
-      def configure_for_bundler!
-        Rails.logger.warn("This method is deprecated") && return
-      end
-
-      def bundle
-        raise "NO BUNDLE FOR U"
-      end
-
     private
 
       ## GEM METHODS
