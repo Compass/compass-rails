@@ -1,8 +1,16 @@
 require 'compass-rails/patches/sass_importer'
 require 'compass-rails/patches/sprite_importer'
+
 module Sass::Script::Functions
   def generated_image_url(path, only_path = nil)
+    cachebust_generated_images
     asset_url(path)
+  end
+
+  def cachebust_generated_images
+    generated_images_path = Rails.root.join(Compass.configuration.generated_images_dir).to_s
+    sprockets_entries = options[:sprockets][:environment].send(:trail).instance_variable_get(:@entries)
+    sprockets_entries.delete(generated_images_path) if sprockets_entries.has_key? generated_images_path
   end
 end
 
