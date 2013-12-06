@@ -175,7 +175,7 @@ module CompassRails
       end
     end
 
-    # Rails 2.x projects use this in their compass initializer.
+    # Rails projects without asset pipeline use this in their compass initializer.
     def initialize!(config = nil)
       check_for_double_boot!
       config ||= Compass.detect_configuration_file(root)
