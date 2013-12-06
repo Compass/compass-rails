@@ -30,18 +30,18 @@ module CompassRails
         debug("Touching File: #{file}".foreground(:green))
         ::FileUtils.touch(file)
       end
-      
-      def inject_into_file(file_name, replacment, position, anchor)
+
+      def inject_into_file(file_name, replacement, position, anchor)
         case position
         when :after
-          replace(file_name, Regexp.escape(anchor), "#{anchor}#{replacment}")
+          replace(file_name, Regexp.escape(anchor), "#{anchor}#{replacement}")
         when :before
-          replace(file_name, Regexp.escape(anchor), "#{replacment}#{anchor}")
+          replace(file_name, Regexp.escape(anchor), "#{replacement}#{anchor}")
         else
           raise Compass::FilesystemConflict.new("You need to specify :before or :after")
         end
       end
-      
+
       def replace(destination, regexp, string)
         content = File.read(destination)
         content.gsub!(Regexp.new(regexp), string)
