@@ -1,3 +1,4 @@
+require 'compass-rails/patches/compass'
 require 'compass-rails/patches/static_compiler'
 
 module Sass::Script::Functions
@@ -8,20 +9,6 @@ module Sass::Script::Functions
            end
 
     asset_url(path, Sass::Script::String.new("image"))
-  end
-end
-
-
-module Compass::RailsImageFunctionPatch
-  private
-
-  def image_path_for_size(image_file)
-    begin
-      file = ::Rails.application.assets.find_asset(image_file)
-      return file
-    rescue ::Sprockets::FileOutsidePaths
-      return super(image_file)
-    end
   end
 end
 
