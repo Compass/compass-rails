@@ -9,10 +9,22 @@ Framework](http://compass-style.org) for [Ruby on Rails](http://rubyonrails.org/
 Since Compass v0.12, this adapter is the only way to install compass
 into your rails application.
 
-This adapter supports rails versions 3.0 and greater. Rails 3.0 users
+This adapter supports rails versions 3.x and 4.x. Rails 3.0 users
 please read the caveats below.
 
 ## Installation
+
+### Rails 4
+
+In your `Gemfile` add the lines:
+
+```ruby
+gem install 'compass-rails', '>= 1.1.0'
+```
+
+N.B. the `2.0.alpha.0` alpha version was yanked in favor of the `1.1.0` production version.  This also replaces the `github.com/milgner/compass-rails` fork.
+
+### Rails 3.1.x and Rails 3.2.x
 
 Add the `compass-rails` gem line to a group called `:assets` in your application's Gemfile (Rails 3.1+ users should already have the `:assets` group):
 
