@@ -29,19 +29,6 @@ And then execute:
 
     $ bundle
 
-## Optional
-
-To set up your project with starter stylesheets and a configuration
-file:
-
-    $ bundle exec compass init
-
-If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option to set this:
-
-    $ bundle exec compass init --using blueprint
-
-Note that the `compass init` step is optional if you have a project running Rails 3.0 or greater.
-
 ## Usage
 
 Change your `application.css` to `application.css.scss` or `application.css.sass` and use `@import` to your hearts content. Ex:
@@ -62,6 +49,19 @@ Use `application.css` to require files that use compass features. Ex:
 ```
 
 *Don't* use `*= require something` within your SCSS or SASS files. You're gonna have a bad time.
+
+## Optional
+
+To set up your project with starter stylesheets and a configuration
+file:
+
+    $ bundle exec compass init
+
+If using a compass-based framework (like [susy](http://susy.oddbird.net/) or [blueprint](http://compass-style.org/reference/blueprint/)) then you can use the `--using` option to set this:
+
+    $ bundle exec compass init --using blueprint
+
+Note that the `compass init` step is optional if you have a project running Rails 3.0 or greater.
 
 ### Configuration
 
