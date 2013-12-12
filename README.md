@@ -61,10 +61,6 @@ files, then you should understand that the compass configuration
 options explained there will be methods and properties on the `config.compass`
 configuration object exposed to rails within any configuration block.
 
-### Notes On Sprockets Directives
-
-The Rails asset-pipeline, provides directives for doing things like requiring. These **must not** be used outside of your asset-pipeline mainfest files.
-
 ### Installing Compass extensions
 
 Step 1: Add it to your Gemfile in the `:assets` group and run the `bundle` command to install it.
