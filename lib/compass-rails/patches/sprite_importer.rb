@@ -13,7 +13,6 @@ module CompassRails
     def find(uri, options)
       if old = super(uri, options)
         self.class.files(uri).each do |file|
-          puts file.inspect
           relative_path = Pathname.new(file).relative_path_from(Pathname.new(root))
           begin
             pathname = context.resolve(relative_path)
