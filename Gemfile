@@ -12,7 +12,7 @@ end
 group :test do
   gem 'mocha'
   gem "appraisal", :git => 'https://github.com/scottdavis/appraisal.git'
-  gem 'rainbow'
+  gem 'rainbow', "~> 1.99"
 end
 
 unless ENV["CI"]

@@ -16,3 +16,8 @@ appraise "rails40" do
   gem "rails", "~> 4.0.0"
   gem "sass-rails"
 end
+
+appraise "rails402" do
+  gem "rails", "~> 4.0.2"
+  gem "sass-rails"
+end

@@ -6,7 +6,7 @@ gem "rb-fsevent", :require=>false
 gem "ruby_gntp", :require=>false
 gem "guard"
 gem "guard-test"
-gem "rails", "~> 4.0.0"
+gem "rails", "~> 4.0.2"
 gem "sass-rails"
 
 group :assets do
