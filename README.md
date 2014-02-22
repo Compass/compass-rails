@@ -13,7 +13,7 @@ Since Compass v0.12.0, this is the only way to use compass with your rails appli
 Supports Rails 3.x, 4.x releases.
 
 ## Installation
-
+### Rails 3.x
 Add the `compass-rails` gem line to a group called `:assets` in your application's Gemfile (Rails 3.1+ users should already have the `:assets` group):
 
 ```ruby
@@ -25,6 +25,18 @@ end
 
 If you are using any Compass extensions, add them to this group in your
 Gemfile.
+
+And then execute:
+
+    $ bundle
+
+### Rails 4.x
+Starting with Rails 4, the `:assets` group from the Gemfile has been [removed](http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0-gemfile). Simply add the `compass-rails` gem line to the Gemfile:
+
+```ruby
+gem 'sass-rails' # included by default in Rails 4
+gem 'compass-rails'
+```
 
 And then execute:
 
