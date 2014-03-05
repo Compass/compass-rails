@@ -3,7 +3,7 @@ module CompassRails
     module DebugHelper
 
       def debug(message)
-       puts "#{message}\n".bright #if ENV['DEBUG']
+       puts Rainbow("#{message}\n").bright #if ENV['DEBUG']
        $stdout.flush
       end
 
