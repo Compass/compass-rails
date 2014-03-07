@@ -43,7 +43,7 @@ module CompassRails
       BUNDLER_COMMAND = 'bundle'
 
       def run_command(command, gemfile=nil)
-        debug("Running: #{command} with gemfile: #{gemfile}".foreground(:cyan))
+        debug(Rainbow("Running: #{command} with gemfile: #{gemfile}").foreground(:cyan))
         capture_all_output { CompassRails::Test::CommandRunner.new(command, gemfile).run }
       end
 
@@ -116,5 +116,3 @@ class CompassRails::Test::CommandRunner
     @original_env.each { |key, value| ENV[key] = value }
   end
 end
-
-

@@ -109,7 +109,7 @@ module CompassRails
 
       def add_to_gemfile(name, requirements)
         gemfile = directory.join(GEMFILE)
-        debug("Adding gem #{name} to file: #{gemfile}".foreground(:green))
+        debug(Rainbow("Adding gem #{name} to file: #{gemfile}").foreground(:green))
         if requirements
           gem_string = "  gem '#{name}', #{requirements}\n"
         else
