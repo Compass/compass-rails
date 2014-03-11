@@ -13,7 +13,6 @@ module CompassRails
 
     def load_rails
       return true if rails_loaded?
-      return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
 
       rails_config_path = Dir.pwd
       until File.exists?(File.join(rails_config_path, 'config', 'application.rb')) do
@@ -75,7 +74,7 @@ module CompassRails
     end
 
     def rails_loaded?
-      defined?(::Rails) && Rails.application
+      defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
     end
 
     def rails_version
@@ -243,5 +242,3 @@ Compass.add_configuration(CompassRails.boot_config)
 require "compass-rails/patches"
 require "compass-rails/railties"
 require "compass-rails/installer"
-
-
