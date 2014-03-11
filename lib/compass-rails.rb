@@ -13,6 +13,7 @@ module CompassRails
 
     def load_rails
       return true if rails_loaded?
+      return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
 
       rails_config_path = Dir.pwd
       until File.exists?(File.join(rails_config_path, 'config', 'application.rb')) do
@@ -74,7 +75,7 @@ module CompassRails
     end
 
     def rails_loaded?
-      defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
+      defined?(::Rails)
     end
 
     def rails_version
@@ -215,7 +216,7 @@ module CompassRails
     end
 
   def asset_pipeline_enabled?
-    return false unless rails_loaded?
+    return false unless rails_loaded? && ::Rails.respond_to?(:application) && !::Rails.application.nil?
     rails_config = ::Rails.application.config
     if rails_config.respond_to?(:assets)
       rails_config.assets.enabled != false
@@ -242,3 +243,5 @@ Compass.add_configuration(CompassRails.boot_config)
 require "compass-rails/patches"
 require "compass-rails/railties"
 require "compass-rails/installer"
+
+
