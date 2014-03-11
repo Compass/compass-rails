@@ -26,7 +26,7 @@ module CompassRails
         require 'sass-rails'
         require 'sprockets/railtie'
         require 'rails/engine'
-        @app ||= ::Rails.application.initialize!(:assets)
+        @app ||= ::Rails.application.initialize!
       end
     end
 
