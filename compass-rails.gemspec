@@ -17,6 +17,6 @@ Gem::Specification.new do |gem|
   gem.license       = "MIT"
 
   gem.add_dependency 'compass', '>= 0.12.2'
-  gem.add_dependency 'sprockets', '<= 2.11.0'  
+  gem.add_dependency 'sprockets', '<= 2.11.0'
 
 end
