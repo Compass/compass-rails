@@ -1,6 +1,8 @@
 require 'test_helper'
+
 class Rails32WithoutPipelineTest < Test::Unit::TestCase
   include CompassRails::Test::RailsHelpers
+
   RAILS_VERSION = RAILS_3_2
 
   def test_rails_app_created
@@ -33,5 +35,4 @@ class Rails32WithoutPipelineTest < Test::Unit::TestCase
       assert project.directory.join('app/assets/stylesheets/partials').directory?
     end
   end
-
 end

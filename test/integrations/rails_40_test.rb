@@ -1,6 +1,8 @@
 require 'test_helper'
+
 class Rails40Test < Test::Unit::TestCase
   include CompassRails::Test::RailsHelpers
+
   RAILS_VERSION = RAILS_4_0
 
   def test_rails_app_created
@@ -8,7 +10,6 @@ class Rails40Test < Test::Unit::TestCase
       assert project.boots?
     end
   end
-
 
   def test_installs_compass
     within_rails_app('test_railtie', RAILS_VERSION) do |project|
@@ -42,5 +43,4 @@ class Rails40Test < Test::Unit::TestCase
       assert project.directory.join('app/assets/stylesheets/screen.css.sass').exist?
     end
   end
-
 end

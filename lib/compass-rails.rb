@@ -7,7 +7,6 @@ module CompassRails
     RAILS_4 = %r{^4.[0|1|2]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
-    RAILS_3 = %r{^3.0}
 
     extend self
 
@@ -22,12 +21,10 @@ module CompassRails
       end
       #load the rails config
       require "#{rails_config_path}/config/application.rb"
-      if rails31? || rails32? || rails4?
-        require 'sass-rails'
-        require 'sprockets/railtie'
-        require 'rails/engine'
-        @app ||= ::Rails.application.initialize!
-      end
+      require 'sass-rails'
+      require 'sprockets/railtie'
+      require 'rails/engine'
+      @app ||= ::Rails.application.initialize!
     end
 
 
@@ -82,11 +79,6 @@ module CompassRails
       rails_spec = (Gem.loaded_specs["railties"] || Gem.loaded_specs["rails"])
       raise "You have to require Rails before compass" unless rails_spec
       rails_spec.version.to_s
-    end
-
-    def rails3?
-      return false unless defined?(::Rails)
-      version_match RAILS_3
     end
 
     def rails31?

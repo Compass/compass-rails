@@ -1,4 +1,5 @@
 require 'test_helper'
+
 class Rails31Test < Test::Unit::TestCase
   include CompassRails::Test::RailsHelpers
 
@@ -35,13 +36,11 @@ class Rails31Test < Test::Unit::TestCase
     end
   end
 
-
   def test_compass_preferred_syntax
     within_rails_app('test_railtie', RAILS_VERSION) do |project|
       project.set_rails('sass.preferred_syntax', :sass)
       project.run_compass('init')
       assert project.directory.join('app/assets/stylesheets/screen.css.sass').exist?
-    end    
+    end
   end
-
 end
