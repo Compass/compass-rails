@@ -34,7 +34,7 @@ module CompassRails
         }
 
     def rails_command(options, version)
-      debug("Running Rails command with: rails #{options.join(' ')}".foreground(:cyan))
+      debug(Rainbow("Running Rails command with: rails #{options.join(' ')}").foreground(:cyan))
       run_command("rails #{options.join(' ')}", GEMFILES[version])
     end
 

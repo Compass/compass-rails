@@ -4,7 +4,7 @@ require "compass-rails/configuration"
 
 module CompassRails
 
-    RAILS_4 = %r{^4.[0|1]}
+    RAILS_4 = %r{^4.[0|1|2]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
     RAILS_3 = %r{^3.0}
@@ -26,7 +26,7 @@ module CompassRails
         require 'sass-rails'
         require 'sprockets/railtie'
         require 'rails/engine'
-        @app ||= ::Rails.application.initialize!(:assets)
+        @app ||= ::Rails.application.initialize!
       end
     end
 
@@ -216,7 +216,7 @@ module CompassRails
     end
 
   def asset_pipeline_enabled?
-    return false unless rails_loaded?
+    return false unless rails_loaded? && ::Rails.respond_to?(:application) && !::Rails.application.nil?
     rails_config = ::Rails.application.config
     if rails_config.respond_to?(:assets)
       rails_config.assets.enabled != false
