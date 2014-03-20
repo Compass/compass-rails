@@ -115,16 +115,8 @@ module CompassRails
     def configuration
       load_rails
       config = Compass::Configuration::Data.new('rails')
-      config.extend(Configuration::Default)
-      if asset_pipeline_enabled?
-        require "compass-rails/configuration/asset_pipeline"
-        config.extend(Configuration::AssetPipeline)
-      end
+      config.extend(CompassRails::Configuration)
       config
-    end
-
-    def env
-      env_production? ? :production : :development
     end
 
     def prefix
