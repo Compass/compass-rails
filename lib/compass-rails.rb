@@ -7,7 +7,6 @@ module CompassRails
     RAILS_4 = %r{^4.[0|1|2]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
-    RAILS_3 = %r{^3.0}
 
     extend self
 
@@ -22,12 +21,10 @@ module CompassRails
       end
       #load the rails config
       require "#{rails_config_path}/config/application.rb"
-      if rails31? || rails32? || rails4?
-        require 'sass-rails'
-        require 'sprockets/railtie'
-        require 'rails/engine'
-        @app ||= ::Rails.application.initialize!
-      end
+      require 'sass-rails'
+      require 'sprockets/railtie'
+      require 'rails/engine'
+      @app ||= ::Rails.application.initialize!
     end
 
 
@@ -84,11 +81,6 @@ module CompassRails
       rails_spec.version.to_s
     end
 
-    def rails3?
-      return false unless defined?(::Rails)
-      version_match RAILS_3
-    end
-
     def rails31?
       return false unless defined?(::Rails)
       version_match RAILS_31
@@ -123,16 +115,8 @@ module CompassRails
     def configuration
       load_rails
       config = Compass::Configuration::Data.new('rails')
-      config.extend(Configuration::Default)
-      if asset_pipeline_enabled?
-        require "compass-rails/configuration/asset_pipeline"
-        config.extend(Configuration::AssetPipeline)
-      end
+      config.extend(CompassRails::Configuration)
       config
-    end
-
-    def env
-      env_production? ? :production : :development
     end
 
     def prefix
@@ -206,13 +190,18 @@ module CompassRails
     end
 
     def boot_config
-      config = if (config_file = Compass.detect_configuration_file) && (config_data = Compass.configuration_for(config_file))
-        config_data
-      else
-        Compass::Configuration::Data.new("compass_rails_boot")
+      config = begin
+        if (config_file = Compass.detect_configuration_file) &&
+            (config_data = Compass.configuration_for(config_file))
+          config_data
+        else
+          Compass::Configuration::Data.new("compass_rails_boot")
+        end
       end
-      config.top_level.project_type = :rails
-      config
+
+      config.tap do |c|
+        c.top_level.project_type = :rails
+      end
     end
 
   def asset_pipeline_enabled?

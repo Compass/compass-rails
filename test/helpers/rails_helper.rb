@@ -8,29 +8,25 @@ module CompassRails
         RAILS_4_0   = "4.0"
         RAILS_3_2   = "3.2"
         RAILS_3_1   = "3.1"
-        RAILS_3     = "3.0"
 
         WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
 
         GEMFILES = {
           RAILS_4_0 => GEMFILES_DIR.join("rails40.gemfile").to_s,
           RAILS_3_2 => GEMFILES_DIR.join("rails32.gemfile").to_s,
-          RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s,
-          RAILS_3   => GEMFILES_DIR.join("rails3.gemfile").to_s
+          RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s
         }
 
         GENERATOR_OPTIONS = {
           RAILS_4_0 => ['-q', '-G', '-O', '--skip-bundle'],
           RAILS_3_2 => ['-q', '-G', '-O', '--skip-bundle'],
-          RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle'],
-          RAILS_3   => ['-q', '-G', '-O', '--skip-bundle']
+          RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle']
         }
 
         GENERATOR_COMMAND = {
           RAILS_4_0 => 'new',
           RAILS_3_2 => 'new',
-          RAILS_3_1 => 'new',
-          RAILS_3   => 'new'
+          RAILS_3_1 => 'new'
         }
 
     def rails_command(options, version)
