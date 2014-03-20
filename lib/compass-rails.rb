@@ -190,13 +190,18 @@ module CompassRails
     end
 
     def boot_config
-      config = if (config_file = Compass.detect_configuration_file) && (config_data = Compass.configuration_for(config_file))
-        config_data
-      else
-        Compass::Configuration::Data.new("compass_rails_boot")
+      config = begin
+        if (config_file = Compass.detect_configuration_file) &&
+            (config_data = Compass.configuration_for(config_file))
+          config_data
+        else
+          Compass::Configuration::Data.new("compass_rails_boot")
+        end
       end
-      config.top_level.project_type = :rails
-      config
+
+      config.tap do |c|
+        c.top_level.project_type = :rails
+      end
     end
 
   def asset_pipeline_enabled?
