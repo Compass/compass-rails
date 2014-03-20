@@ -1,10 +1,10 @@
 require 'test/unit'
 require 'compass-rails'
 require 'rainbow'
+
 module CompassRails
   module Test
     ROOT_PATH = File.expand_path('../../', __FILE__)
-    TESTING_VERSION = '0.12.alpha'
   end
 end
 
