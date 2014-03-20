@@ -2,7 +2,7 @@
 
 **We Take Pull Requests!**
 
-[![Build Status](https://travis-ci.org/Compass/compass-rails.png?branch=stable)](https://travis-ci.org/Compass/compass-rails)
+[![Build Status](https://travis-ci.org/Compass/compass-rails.png?branch=master)](https://travis-ci.org/Compass/compass-rails)
 [![Code Climate](https://codeclimate.com/github/Compass/compass-rails.png)](https://codeclimate.com/github/Compass/compass-rails)
 
 Compass rails is an adapter for the [Compass Stylesheet Authoring
@@ -10,17 +10,15 @@ Framework](http://compass-style.org) for [Ruby on Rails](http://rubyonrails.org/
 
 Since Compass v0.12.0, this is the only way to use compass with your rails application.
 
-Supports Rails 3.x, 4.x releases.
+Supports Rails 3.2, 4.x releases.
 
 ## Installation
 
-Add the `compass-rails` gem line to a group called `:assets` in your application's Gemfile (Rails 3.1+ users should already have the `:assets` group):
+Add the `compass-rails` gem line to your application's Gemfile
 
 ```ruby
-group :assets do
-  gem 'sass-rails' # if running rails 3.1 or greater
-  gem 'compass-rails'
-end
+gem 'sass-rails'
+gem 'compass-rails'
 ```
 
 If you are using any Compass extensions, add them to this group in your
@@ -63,7 +61,7 @@ configuration object exposed to rails within any configuration block.
 
 ### Installing Compass extensions
 
-Step 1: Add it to your Gemfile in the `:assets` group and run the `bundle` command to install it.
+Step 1: Add it to your Gemfile and run the `bundle` command to install it.
 
 Step 2: Install the extension's assets: `bundle exec compass install 
 <extension/template>`
@@ -72,17 +70,15 @@ For example, if you want to use susy.
 
 ```ruby
 # Gemfile
-group :assets do
-  gem 'compass-rails'
-  gem 'compass-susy-plugin'
-end
+gem 'compass-rails'
+gem 'compass-susy-plugin'
 ```
 
 then run:
 
     $ bundle
     $ bundle exec compass install susy
-    
+
 if you are using the rails configuration files you should add:
 
 ```ruby
