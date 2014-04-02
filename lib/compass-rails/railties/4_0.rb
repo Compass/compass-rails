@@ -62,7 +62,7 @@ class Rails::Railtie::Configuration
 
           # Clear entries in Hike::Index for this sprite's directory.
           # This makes sure the asset can be found by find_assets
-          Rails.application.assets.send(:trail).instance_variable_get(:@entries).delete(File.dirname(filename))
+          Rails.application.assets.send(:trail).instance_variable_get(:@entries).try(:delete, File.dirname(filename))
 
           pathname      = Pathname.new(filename)
           logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path))
