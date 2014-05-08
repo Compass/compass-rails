@@ -30,7 +30,7 @@ And then execute:
 
 ## Usage
 
-Change your `application.css` to `application.css.scss` or `application.css.sass` and use `@import` to your hearts content. Ex:
+Change your `application.css` to `application.css.scss` or `application.css.sass` and use `@import` to your heart's content. Ex:
 
 ```scss
 @import "project/mixins";
