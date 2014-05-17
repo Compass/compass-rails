@@ -30,12 +30,13 @@ And then execute:
 
 ## Usage
 
-Change your `application.css` to `application.css.scss` or `application.css.sass` and use `@import` to your hearts content. Ex:
+Change your `application.css` to `application.css.scss` or `application.css.sass` and then `@import compass` and your own stylesheets to your hearts content. E.g.:
 
 ```scss
-@import "project/mixins";
-@import "project/base";
+@import "compass";
 
+@import "your_project/mixins";
+@import "your_project/base";
 ```
 
 *or*
