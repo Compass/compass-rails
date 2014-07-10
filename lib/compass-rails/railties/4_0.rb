@@ -28,7 +28,9 @@ module CompassRails
 
             # Clear entries in Hike::Index for this sprite's directory.
             # This makes sure the asset can be found by find_assets
-            Rails.application.assets.send(:trail).instance_variable_get(:@entries).delete(File.dirname(filename))
+            trail = Rails.application.assets.send(:trail)
+            trail.instance_variable_get(:@entries).delete(File.dirname(filename))
+            trail.instance_variable_get(:@stats).delete(filename)
 
             pathname      = Pathname.new(filename)
             logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path))
