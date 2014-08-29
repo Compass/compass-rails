@@ -10,7 +10,7 @@ end
 
 group :test do
   gem 'mocha'
-  gem "appraisal", :git => 'https://github.com/scottdavis/appraisal.git'
+  gem "appraisal"
   gem 'rainbow'
 end
 
