@@ -2,7 +2,7 @@ require 'compass-rails/patches/compass'
 require 'compass-rails/patches/sass_importer'
 require 'compass-rails/patches/sprite_importer'
 
-module Sass::Script::Functions
+Compass::Core::SassExtensions::Functions::Urls::GeneratedImageUrl.module_eval do
   def generated_image_url(path, only_path = nil)
     pathobject = Pathname.new(path.to_s)
     subdirectory = pathobject.dirname.to_s
@@ -33,13 +33,4 @@ module Sass::Script::Functions
       options[:sprockets][:environment].send(:trail).instance_variable_get(:@stats).delete(bust_image_stat_path)
     end
   end
-end
-
-module Sass::Script::Functions
-  include Compass::RailsImageFunctionPatch
-end
-
-# Wierd that this has to be re-included to pick up sub-modules. Ruby bug?
-class Sass::Script::Functions::EvaluationContext
-  include Sass::Script::Functions
 end

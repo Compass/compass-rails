@@ -1,4 +1,4 @@
-module Compass::RailsImageFunctionPatch
+Compass::Core::SassExtensions::Functions::ImageSize.class_eval do
   private
 
   def image_path_for_size(image_file)
