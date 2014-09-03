@@ -55,7 +55,7 @@ Use `application.css` to require files that use compass features. Ex:
 
 If you have a compass configuration file (recommended) then you can
 use the [Compass configuration 
-reference](http://compass-style.org/help/tutorials/configuration-reference/)
+reference](http://compass-style.org/help/documentation/configuration-reference/)
 as is. If you choose to configure compass from your rails configuration
 files, then you should understand that the compass configuration
 options explained there will be methods and properties on the `config.compass`
