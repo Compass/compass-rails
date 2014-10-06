@@ -14,17 +14,20 @@ module CompassRails
       return true if rails_loaded?
       return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
 
-      rails_config_path = Dir.pwd
-      until File.exists?(File.join(rails_config_path, 'config', 'application.rb')) do
+      rails_path = Dir.pwd
+      if File.exists?(File.join(rails_path, 'config', 'application.rb'))
         raise 'Rails application not found' if rails_config_path == '/'
         rails_config_path = File.join(rails_config_path, '..')
+        #load the rails config
+        require "#{rails_config_path}/config/application.rb"
+        require 'sass-rails'
+        require 'sprockets/railtie'
+        @app ||= ::Rails.application.initialize!
+        require 'rails/engine'
+        return true
       end
-      #load the rails config
-      require "#{rails_config_path}/config/application.rb"
-      require 'sass-rails'
-      require 'sprockets/railtie'
-      require 'rails/engine'
-      @app ||= ::Rails.application.initialize!
+
+      false
     end
 
 
@@ -226,11 +229,12 @@ module CompassRails
 
 end
 
-Compass::AppIntegration.register(:rails, "::CompassRails")
-Compass.add_configuration(CompassRails.boot_config)
+if defined?(::Rails)
+  Compass::AppIntegration.register(:rails, "::CompassRails")
+  Compass.add_configuration(CompassRails.boot_config)
 
-require "compass-rails/patches"
-require "compass-rails/railties"
-require "compass-rails/installer"
-
+  require "compass-rails/patches"
+  require "compass-rails/railties"
+  require "compass-rails/installer"
+end
 
