@@ -1,8 +1,8 @@
 klass = if defined?(Sass::Rails::SassTemplate)
-          Sass::Rails::SassTemplate
-        else
-          Sprockets::SassTemplate
-        end
+  Sass::Rails::SassTemplate
+else
+  Sprockets::SassTemplate
+end
 
 klass.class_eval do
   def evaluate(context, locals, &block)
