@@ -7,7 +7,7 @@ klass = if defined?(Sass::Rails::SassTemplate)
 klass.class_eval do
   def evaluate(context, locals, &block)
     # Use custom importer that knows about Sprockets Caching
-    cache_store = Sprockets::SassCacheStore.try(:new, context.environment) ||
+    cache_store = begin Sprockets::SassCacheStore.new(context.environment); rescue; nil; end ||
         Sprockets::SassCacheStore.new(context.environment, "1")
     paths  = context.environment.paths.map { |path| CompassRails::SpriteImportertr.new(context, path) }
     paths += context.environment.paths.map { |path| sass_importer(context, path) }
@@ -36,7 +36,7 @@ klass.class_eval do
 
   private
   def sass_importer(context, path)
-    self.class.parent::SassImporter.try(:new, context, path) ||
+    begin self.class.parent::SassImporter.new(context, path); rescue; nil; end ||
         self.class.parent::SassImporter.new(path)
   end
 end    
