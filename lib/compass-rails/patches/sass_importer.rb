@@ -8,7 +8,7 @@ klass.class_eval do
   def evaluate(context, locals, &block)
     # Use custom importer that knows about Sprockets Caching
     cache_store = begin Sprockets::SassCacheStore.new(context.environment); rescue; nil; end ||
-        Sprockets::SassProcessor::CacheStore.new(sprockets_cache_store, Sprockets::Cache::VERSION)
+        Sprockets::SassProcessor::CacheStore.new(sprockets_cache_store, context.environment)
     paths  = context.environment.paths.map { |path| CompassRails::SpriteImporter.new(context, path) }
     paths += context.environment.paths.map { |path| sass_importer(context, path) }
     paths += ::Rails.application.config.sass.load_paths
