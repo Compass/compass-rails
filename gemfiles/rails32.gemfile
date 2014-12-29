@@ -2,21 +2,21 @@
 
 source "https://rubygems.org"
 
-gem "rb-fsevent", :require=>false
-gem "ruby_gntp", :require=>false
+gem "rb-fsevent", :require => false
+gem "ruby_gntp", :require => false
 gem "guard"
 gem "guard-test"
 gem "rails", "~> 3.2"
 gem "sass-rails"
 
 group :assets do
-  gem "compass-rails", :path=>".."
   gem "compass-blueprint"
 end
+
 group :test do
   gem "mocha"
-  gem "appraisal", :git=>"https://github.com/scottdavis/appraisal.git"
+  gem "appraisal"
   gem "rainbow"
 end
 
-gemspec :path=>"../"
+gemspec :path => "../"
