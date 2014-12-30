@@ -15,7 +15,6 @@ module CompassRails
       APPLICATION_FILE = 'config/application.rb'
       BOOT_FILE = 'config/boot.rb'
 
-
       attr_reader :directory, :version, :asset_pipeline_enabled
 
       def initialize(directory, version, asset_pipeline_enabled = true)
@@ -32,6 +31,10 @@ module CompassRails
 
       def directory_name
         File.basename(directory)
+      end
+
+      def file(path)
+        directory.join(path)
       end
 
       def has_file?(file)
@@ -65,19 +68,16 @@ module CompassRails
       end
 
       def boots?
-        string = 'THIS IS MY RANDOM AWESOME TEST STRING'
-        test_string = "puts \"#{string}\""
-        matcher = %r{#{string}}
-        r = runner(test_string)
-        if r =~ matcher
-          return true
-        else
-          return false
-        end
+        rails_property("compass.project_type") == "rails"
       end
 
-      def runner(string)
-        rails_command(['runner', "'#{string}'"], version)
+      def precompiles?
+        run_command("rake assets:precompile", GEMFILES[version])
+        !Dir[file("public/assets/application*.css")].empty?
+      end
+
+      def rails_property(key)
+        rails_command(['runner', "'puts Rails.application.config.#{key}'"]).chomp
       end
 
       # COMPASS METHODS
@@ -95,11 +95,7 @@ module CompassRails
       end
 
       def set_rails(property, value)
-        value = if value.is_a?(Symbol)
-          "\n    config.#{property} = :#{value}\n"
-        else
-          "\n    config.#{property} = '#{value}'\n"
-        end
+        value = "\n    config.#{property} = #{value.inspect}\n"
         inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
       end
 

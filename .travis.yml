@@ -1,5 +1,9 @@
+language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1.0
-script: "bundle exec rake appraisal:install test"
+  - 2.1
+gemfile:
+  - gemfiles/rails31.gemfile
+  - gemfiles/rails32.gemfile
+  - gemfiles/rails40.gemfile
