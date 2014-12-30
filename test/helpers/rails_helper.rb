@@ -4,6 +4,7 @@ module CompassRails
       include FileHelper
       include DebugHelper
       include CommandHelper
+        RAILS_4_2   = "4.2"
         RAILS_4_0   = "4.0"
         RAILS_3_2   = "3.2"
         RAILS_3_1   = "3.1"
@@ -11,29 +12,22 @@ module CompassRails
         WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
 
         VERSION_LOOKUP = {
+          RAILS_4_2 => %r{^4\.2\.},
           RAILS_4_0 => %r{^4\.0\.},
           RAILS_3_2 => %r{^3\.2\.},
           RAILS_3_1 => %r{^3\.1\.},
         }
 
         GEMFILES = {
+          RAILS_4_2 => GEMFILES_DIR.join("rails42.gemfile").to_s,
           RAILS_4_0 => GEMFILES_DIR.join("rails40.gemfile").to_s,
           RAILS_3_2 => GEMFILES_DIR.join("rails32.gemfile").to_s,
           RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s
         }
 
-        GENERATOR_OPTIONS = {
-          RAILS_4_0 => ['-q', '-G', '-O', '--skip-bundle'],
-          RAILS_3_2 => ['-q', '-G', '-O', '--skip-bundle'],
-          RAILS_3_1 => ['-q', '-G', '-O', '--skip-bundle']
-        }
+        GENERATOR_OPTIONS = Hash.new(['-q', '-G', '-O', '--skip-bundle'])
 
-        GENERATOR_COMMAND = {
-          RAILS_4_0 => 'new',
-          RAILS_3_2 => 'new',
-          RAILS_3_1 => 'new'
-        }
-
+        GENERATOR_COMMAND = Hash.new("new")
 
     def rails_command(options)
       debug(Rainbow("Running Rails command with: rails #{options.join(' ')}").foreground(:cyan))
