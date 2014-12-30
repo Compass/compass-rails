@@ -35,9 +35,19 @@ klass.class_eval do
   end
 
   private
+
+  def sass_importer_artiy
+    @sass_importer_artiy ||= self.class.parent::SassImporter.method(:initialize).arity
+  end
+
+
   def sass_importer(context, path)
-    begin self.class.parent::SassImporter.new(context, path); rescue; nil; end ||
-        self.class.parent::SassImporter.new(path)
+    case sass_importer_artiy
+    when 1
+      self.class.parent::SassImporter.new(path)
+    else
+      self.class.parent::SassImporter.new(context, path)
+    end 
   end
 
   def sprockets_cache_store
