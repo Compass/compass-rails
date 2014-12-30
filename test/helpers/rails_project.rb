@@ -15,7 +15,6 @@ module CompassRails
       APPLICATION_FILE = 'config/application.rb'
       BOOT_FILE = 'config/boot.rb'
 
-
       attr_reader :directory, :version, :asset_pipeline_enabled
 
       def initialize(directory, version, asset_pipeline_enabled = true)
@@ -32,6 +31,10 @@ module CompassRails
 
       def directory_name
         File.basename(directory)
+      end
+
+      def file(path)
+        directory.join(path)
       end
 
       def has_file?(file)
@@ -66,6 +69,11 @@ module CompassRails
 
       def boots?
         rails_property("compass.project_type") == "rails"
+      end
+
+      def precompiles?
+        run_command("rake assets:precompile", GEMFILES[version])
+        !Dir[file("public/assets/application*.css")].empty?
       end
 
       def rails_property(key)

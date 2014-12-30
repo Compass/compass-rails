@@ -9,6 +9,12 @@ module CompassRails
         assert File.directory?(dir), "mkdir_p: #{dir} failed"
       end
 
+      def rm(path)
+        debug(Rainbow("Removing: #{path}").foreground(:red))
+        ::FileUtils.rm(path)
+        assert !File.file?(path), "rm: #{path} failed"
+      end
+
       def rm_rf(path)
         debug(Rainbow("Removing: #{path}").foreground(:red))
         ::FileUtils.rm_rf(path)

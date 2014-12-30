@@ -9,6 +9,15 @@ class RailsTest < Test::Unit::TestCase
     end
   end
 
+  def test_rails_assets_precompile
+    within_rails_app('test_railtie') do |project|
+      rm(project.file("app/assets/javascripts/application.js"))
+      rm(project.file("app/assets/stylesheets/application.css"))
+      touch(project.file("app/assets/stylesheets/application.css.sass"))
+      assert project.precompiles?, "Missing compiled css after assets:precompile"
+    end
+  end
+
   def test_sass_preferred_syntax
     within_rails_app('test_railtie') do |project|
       assert_equal "scss", project.rails_property("sass.preferred_syntax")
