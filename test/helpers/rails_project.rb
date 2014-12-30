@@ -69,7 +69,7 @@ module CompassRails
       end
 
       def rails_property(key)
-        rails_command(['runner', "'puts Rails.application.config.#{key}'"], version).chomp
+        rails_command(['runner', "'puts Rails.application.config.#{key}'"]).chomp
       end
 
       # COMPASS METHODS
