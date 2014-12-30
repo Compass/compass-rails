@@ -1,8 +1,14 @@
 language: ruby
 rvm:
   - 1.9.3
-  - 2.0.0
+  - 2.0
   - 2.1
+  - 2.2
+
+matrix:
+  allow_failures:
+    - rvm: 2.2
+
 gemfile:
   - gemfiles/rails31.gemfile
   - gemfiles/rails32.gemfile
