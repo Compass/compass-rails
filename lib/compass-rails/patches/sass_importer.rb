@@ -42,7 +42,7 @@ klass.class_eval do
 
 
   def sass_importer(context, path)
-    case sass_importer_artiy
+    case sass_importer_artiy.abs
     when 1
       self.class.parent::SassImporter.new(path)
     else
