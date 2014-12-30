@@ -16,7 +16,7 @@ module CompassRails
       end
 
       def cd(path, &block)
-        debug(Rainbow("Entered: #{path}").foreground(:yellow))
+        debug(Rainbow("Entering: #{path}").foreground(:yellow))
         Dir.chdir(path, &block)
       end
 

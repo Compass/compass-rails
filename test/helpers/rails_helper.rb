@@ -1,4 +1,3 @@
-
 module CompassRails
   module Test
     module RailsHelpers
@@ -10,6 +9,12 @@ module CompassRails
         RAILS_3_1   = "3.1"
 
         WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
+
+        VERSION_LOOKUP = {
+          RAILS_4_0 => %r{^4\.0\.},
+          RAILS_3_2 => %r{^3\.2\.},
+          RAILS_3_1 => %r{^3\.1\.},
+        }
 
         GEMFILES = {
           RAILS_4_0 => GEMFILES_DIR.join("rails40.gemfile").to_s,
