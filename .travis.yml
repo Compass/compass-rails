@@ -4,11 +4,11 @@ rvm:
   - 2.0
   - 2.1
   - 2.2
-  - jruby-19mode
+  - jruby-head
 
 matrix:
   allow_failures:
-    - rvm: jruby-19mode
+    - rvm: jruby-head
 
 gemfile:
   - gemfiles/rails31.gemfile
