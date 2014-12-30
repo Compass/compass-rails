@@ -4,25 +4,25 @@ module CompassRails
       include DebugHelper
 
       def mkdir_p(dir)
-        debug(Rainbow("Creating Directory: #{dir}").foreground(:green))
+        debug "Creating Directory: #{dir}"
         ::FileUtils.mkdir_p dir
         assert File.directory?(dir), "mkdir_p: #{dir} failed"
       end
 
       def rm(path)
-        debug(Rainbow("Removing: #{path}").foreground(:red))
+        debug "Removing: #{path}"
         ::FileUtils.rm(path)
         assert !File.file?(path), "rm: #{path} failed"
       end
 
       def rm_rf(path)
-        debug(Rainbow("Removing: #{path}").foreground(:red))
+        debug "Removing: #{path}"
         ::FileUtils.rm_rf(path)
         assert !File.directory?(path), "rm_rf: #{path} failed"
       end
 
       def cd(path, &block)
-        debug(Rainbow("Entering: #{path}").foreground(:yellow))
+        debug "Entering: #{path}"
         Dir.chdir(path, &block)
       end
 
@@ -33,7 +33,7 @@ module CompassRails
       end
 
       def touch(file)
-        debug(Rainbow("Touching File: #{file}").foreground(:green))
+        debug "Touching File: #{file}"
         ::FileUtils.touch(file)
       end
 

@@ -43,7 +43,7 @@ module CompassRails
       BUNDLER_COMMAND = 'bundle'
 
       def run_command(command, gemfile=nil)
-        debug(Rainbow("Running: #{command} with gemfile: #{gemfile}").foreground(:cyan))
+        debug "Running: #{command} with gemfile: #{gemfile}"
         capture_all_output { CompassRails::Test::CommandRunner.new(command, gemfile).run }
       end
 

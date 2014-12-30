@@ -30,7 +30,7 @@ module CompassRails
         GENERATOR_COMMAND = Hash.new("new")
 
     def rails_command(options)
-      debug(Rainbow("Running Rails command with: rails #{options.join(' ')}").foreground(:cyan))
+      debug "Running Rails command with: rails #{options.join(' ')}"
       run_command("rails #{options.join(' ')}", GEMFILES[rails_version])
     end
 
