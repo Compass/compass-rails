@@ -7,7 +7,6 @@ gem "ruby_gntp", :require => false
 gem "guard"
 gem "guard-test"
 gem "rails", "~> 4.2.0"
-gem "railties", "~> 4.2.0"
 gem "sass-rails", "~> 5.0"
 
 group :assets do
