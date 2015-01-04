@@ -7,20 +7,13 @@ module CompassRails
       include RailsHelpers
       include Kernal::Captures
 
-
-      GEMFILE = 'Gemfile'
-      GEMFILE_LOCK = 'Gemfile.lock'
-      ENVIRONMENT = 'config/environment.rb'
-      COMPASS_CONFIG = 'config/compass.rb'
       APPLICATION_FILE = 'config/application.rb'
-      BOOT_FILE = 'config/boot.rb'
 
-      attr_reader :directory, :version, :asset_pipeline_enabled
+      attr_reader :directory, :version
 
-      def initialize(directory, version, asset_pipeline_enabled = true)
+      def initialize(directory, version)
         @directory = Pathname.new(directory)
         @version = version
-        @asset_pipeline_enabled = asset_pipeline_enabled
       end
 
       ## FILE METHODS
@@ -37,35 +30,7 @@ module CompassRails
         directory.join(path)
       end
 
-      def has_file?(file)
-        File.exist? directory.join(file)
-      end
-
-      def screen_file
-        if asset_pipeline_enabled
-          return directory.join('app', 'assets', 'stylesheets', 'screen.css.scss')
-        else
-          return directory.join('app', 'assets', 'stylesheets','screen.scss')
-        end
-      end
-
-      def has_screen_file?
-        screen_file.exist?
-      end
-
-      def has_compass_import?
-        File.read(screen_file).include?("compass/reset")
-      end
-
-      def has_config?
-        directory.join('config', 'compass.rb').exist?
-      end
-
       # RAILS METHODS
-
-      def rails3?
-        directory.join(APPLICATION_FILE).exist?
-      end
 
       def boots?
         rails_property("compass.project_type") == "rails"
@@ -94,39 +59,11 @@ module CompassRails
         rails_command(['runner', "'puts Rails.application.config.#{key}'"]).chomp
       end
 
-      # COMPASS METHODS
-
-      def run_compass(command)
-        run_command("compass #{command}", GEMFILES[version])
-      end
-
-      def set_compass(property, value)
-        file = directory.join(COMPASS_CONFIG)
-        unless file.exist?
-          touch file
-        end
-        inject_at_bottom(file, "#{property} = '#{value}'")
-      end
-
       def set_rails(property, value)
         value = "\n    config.#{property} = #{value.inspect}\n"
         inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
       end
 
-    private
-
-      ## GEM METHODS
-
-      def add_to_gemfile(name, requirements)
-        gemfile = directory.join(GEMFILE)
-        debug "Adding gem #{name} to file: #{gemfile}"
-        if requirements
-          gem_string = "  gem '#{name}', #{requirements}\n"
-        else
-          gem_string = "  gem '#{name}'\n"
-        end
-        inject_at_bottom(gemfile, gem_string)
-      end
     end
   end
 end
