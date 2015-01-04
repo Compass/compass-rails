@@ -11,7 +11,7 @@ module CompassRails
 
       def rm(path)
         debug "Removing: #{path}"
-        ::FileUtils.rm(path)
+        ::FileUtils.rm(path, force: true)
         assert !File.file?(path), "rm: #{path} failed"
       end
 
