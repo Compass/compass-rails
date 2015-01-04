@@ -9,7 +9,8 @@ end
 
 group :test do
   gem 'mocha'
-  gem "appraisal"
+  gem 'appraisal'
+  gem 'minitest'
 end
 
 unless ENV["CI"]
