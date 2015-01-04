@@ -4,9 +4,6 @@ module CompassRails
     initializer "compass.initialize_rails", :group => :all do |app|
       require 'compass'
       require 'compass-rails/patches/4_0'
-      # Configure compass for use within rails, and provide the project configuration
-      # that came via the rails boot process.
-      CompassRails.check_for_double_boot!
       Compass.discover_extensions!
       CompassRails.configure_rails!(app)
     end

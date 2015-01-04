@@ -10,27 +10,6 @@ module CompassRails
 
     extend self
 
-    def load_rails
-      return true if rails_loaded?
-      return if defined?(::Rails) && ::Rails.respond_to?(:application) && !::Rails.application.nil?
-
-      rails_path = Dir.pwd
-      if File.exists?(File.join(rails_path, 'config', 'application.rb'))
-        raise 'Rails application not found' if rails_config_path == '/'
-        rails_config_path = File.join(rails_config_path, '..')
-        #load the rails config
-        require "#{rails_config_path}/config/application.rb"
-        require 'sass-rails'
-        require 'sprockets/railtie'
-        @app ||= ::Rails.application.initialize!
-        require 'rails/engine'
-        return true
-      end
-
-      false
-    end
-
-
     def setup_fake_rails_env_paths(sprockets_env)
       return unless rails_loaded?
       keys = ['app/assets', 'lib/assets', 'vendor/assets']
@@ -46,17 +25,14 @@ module CompassRails
     end
 
     def sass_config
-      load_rails
       ::Rails.application.config.sass
     end
 
     def sprockets
-      load_rails
       @sprockets ||= ::Rails.application.assets
     end
 
     def context
-      load_rails
       @context ||= begin
         sprockets.version = ::Rails.env + "-#{sprockets.version}"
         setup_fake_rails_env_paths(sprockets)
@@ -68,10 +44,6 @@ module CompassRails
 
         context
       end
-    end
-
-    def installer(*args)
-      CompassRails::Installer.new(*args)
     end
 
     def rails_loaded?
@@ -100,23 +72,10 @@ module CompassRails
     end
 
     def version_match(version)
-      if (rails_version =~ version).nil?
-        return false
-      end
-
-      true
-    end
-
-    def booted!
-      CompassRails.const_set(:BOOTED, true)
-    end
-
-    def booted?
-      defined?(CompassRails::BOOTED) && CompassRails::BOOTED
+      !(rails_version =~ version).nil?
     end
 
     def configuration
-      load_rails
       config = Compass::Configuration::Data.new('rails')
       config.extend(CompassRails::Configuration)
       config
@@ -124,50 +83,6 @@ module CompassRails
 
     def prefix
       ::Rails.application.config.assets.prefix
-    end
-
-    def env_production?
-      if defined?(::Rails) && ::Rails.respond_to?(:env)
-        ::Rails.env.production?
-      elsif defined?(RAILS_ENV)
-        RAILS_ENV == "production"
-      end
-    end
-
-    def root
-      @root ||= begin
-        if defined?(::Rails) && ::Rails.respond_to?(:root)
-          ::Rails.root
-        elsif defined?(RAILS_ROOT)
-          Pathname.new(RAILS_ROOT)
-        else
-          Pathname.new(Dir.pwd)
-        end
-      end
-    end
-
-    def check_for_double_boot!
-      if booted?
-        Compass::Util.compass_warn("Warning: Compass was booted twice. Compass-rails has got your back; please remove your compass initializer.")
-      else
-        booted!
-      end
-    end
-
-    def sass_plugin_enabled?
-      unless rails31?
-        defined?(Sass::Plugin) && !Sass::Plugin.options[:never_update]
-      end
-    end
-
-    # Rails projects without asset pipeline use this in their compass initializer.
-    def initialize!(config = nil)
-      check_for_double_boot!
-      config ||= Compass.detect_configuration_file(root)
-      Compass.add_project_configuration(config, :project_type => :rails)
-      Compass.discover_extensions!
-      Compass.configure_sass_plugin!
-      Compass.handle_configuration_change! if sass_plugin_enabled?
     end
 
     def configure_rails!(app)
@@ -207,16 +122,6 @@ module CompassRails
       end
     end
 
-  def asset_pipeline_enabled?
-    return false unless rails_loaded? && ::Rails.respond_to?(:application) && !::Rails.application.nil?
-    rails_config = ::Rails.application.config
-    if rails_config.respond_to?(:assets)
-      rails_config.assets.enabled != false
-    else
-      false
-    end
-  end
-
   private
 
     # sets the sass config value only if the corresponding compass-based setting
@@ -235,6 +140,5 @@ if defined?(::Rails)
 
   require "compass-rails/patches"
   require "compass-rails/railties"
-  require "compass-rails/installer"
 end
 
