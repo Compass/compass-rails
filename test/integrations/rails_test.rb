@@ -30,8 +30,9 @@ class RailsTest < Test::Unit::TestCase
 
       project.compiled_stylesheet('public/assets/application*.css') do |css|
         assert_false css.empty?
-        assert_match('body container {', css)
-        assert_match("background-image: url('data:image/svg", css)
+        assert_match('body container', css)
+        assert_match("-webkit-linear-gradient", css)
+        assert_match("-moz-border-radius", css)
       end
     end
   end
