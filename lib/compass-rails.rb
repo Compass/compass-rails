@@ -70,10 +70,6 @@ module CompassRails
       end
     end
 
-    def installer(*args)
-      CompassRails::Installer.new(*args)
-    end
-
     def rails_loaded?
       defined?(::Rails)
     end
@@ -235,6 +231,5 @@ if defined?(::Rails)
 
   require "compass-rails/patches"
   require "compass-rails/railties"
-  require "compass-rails/installer"
 end
 
