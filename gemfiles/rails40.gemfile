@@ -16,6 +16,7 @@ end
 group :test do
   gem "mocha"
   gem "appraisal"
+  gem "minitest"
 end
 
 gemspec :path => "../"

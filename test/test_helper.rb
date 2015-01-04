@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'minitest/autorun'
 require 'compass-rails'
 
 module CompassRails
@@ -12,3 +12,4 @@ end
 end
 
 require File.join(File.expand_path('../', __FILE__), 'helpers', "rails_project")
+

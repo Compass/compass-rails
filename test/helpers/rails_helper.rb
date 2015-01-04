@@ -25,39 +25,37 @@ module CompassRails
           RAILS_3_1 => GEMFILES_DIR.join("rails31.gemfile").to_s
         }
 
-        GENERATOR_OPTIONS = Hash.new(['-q', '-G', '-O', '--skip-bundle'])
+        GENERATOR_OPTIONS = ['-q', '-G', '-O', '--skip-bundle']
 
-        GENERATOR_COMMAND = Hash.new("new")
-
-    def rails_command(options)
-      debug "Running Rails command with: rails #{options.join(' ')}"
-      run_command("rails #{options.join(' ')}", GEMFILES[rails_version])
-    end
-
-    def rails_version
-      @rails_version ||= VERSION_LOOKUP.detect { |version, regex| CompassRails.version_match(regex) }.first
-    end
-
-    # Generate a rails application without polluting our current set of requires
-    # with the rails libraries. This will allow testing against multiple versions of rails
-    # by manipulating the load path.
-    def generate_rails_app(name, options=[])
-      options += GENERATOR_OPTIONS[rails_version]
-      rails_command([GENERATOR_COMMAND[rails_version], name, *options])
-    end
-
-    def within_rails_app(named, asset_pipeline_enabled = true, &block)
-      dir = "#{named}-#{rails_version}"
-      rm_rf File.join(WORKING_DIR, dir)
-      mkdir_p WORKING_DIR
-      cd(WORKING_DIR) do
-        generate_rails_app(dir, asset_pipeline_enabled ? [] : ["-S"])
-        cd(dir) do
-          yield RailsProject.new(File.join(WORKING_DIR, dir), rails_version, asset_pipeline_enabled)
-        end
+      def rails_command(options)
+        debug cmd = "rails #{options.join(' ')}"
+        run_command(cmd, GEMFILES[rails_version])
       end
-      rm_rf File.join(WORKING_DIR, dir)
-    end
+
+      def rails_version
+        @rails_version ||= VERSION_LOOKUP.detect { |version, regex| CompassRails.version_match(regex) }.first
+      end
+
+      # Generate a rails application without polluting our current set of requires
+      # with the rails libraries. This will allow testing against multiple versions of rails
+      # by manipulating the load path.
+      def generate_rails_app(name, options = [])
+        options += GENERATOR_OPTIONS
+        rails_command(['new', name, *options])
+      end
+
+      def within_rails_app(named, &block)
+        dir = "#{named}-#{rails_version}"
+        rm_rf File.join(WORKING_DIR, dir)
+        mkdir_p WORKING_DIR
+        cd(WORKING_DIR) do
+          generate_rails_app(dir, [])
+          cd(dir) do
+            yield RailsProject.new(File.join(WORKING_DIR, dir), rails_version)
+          end
+        end
+        rm_rf File.join(WORKING_DIR, dir)
+      end
 
     end
   end

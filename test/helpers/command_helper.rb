@@ -75,14 +75,10 @@ class CompassRails::Test::CommandRunner
   end
 
   def run
-    announce
-    with_clean_env do
-      %x{#{@command}}
-    end
+    with_clean_env { %x{#{@command}} }
   end
 
   def exec
-    announce
     with_clean_env { Kernel.exec(@command) }
   end
 
@@ -94,15 +90,6 @@ class CompassRails::Test::CommandRunner
     yield
   ensure
     restore_env
-  end
-
-  def announce
-    return
-    if @gemfile
-      puts ">> BUNDLE_GEMFILE=#{@gemfile} #{@command}"
-    else
-      puts ">> #{@command}"
-    end
   end
 
   def unset_bundler_env_vars
