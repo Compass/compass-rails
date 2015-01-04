@@ -2,7 +2,7 @@
 
 ## 2.0.2 - 2015-01-03
 
-- Fixed test suite to test against Rails 3.1, 3.2, 4.0, 4.2 on Ruby 1.9.3, 2.0.0, 2.1.0, 2.2.0 and jruby-head.
+- Fixed test suite to test against Rails 3.1, 3.2, 4.0, 4.2 on Ruby 1.9.3, 2.0.0, 2.1.0, 2.2.0 and jruby-head. Issue #206
 - Support up to sass-rails 5.0.1. Issue #198
 - Fix sass_importer patches having incorrect method signatures. Issue #195
 - Fixed incorrect path generation for sprites in Rails 4. Issue #190
