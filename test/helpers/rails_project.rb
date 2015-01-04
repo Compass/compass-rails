@@ -71,9 +71,23 @@ module CompassRails
         rails_property("compass.project_type") == "rails"
       end
 
-      def precompiles?
+      def precompile!
         run_command("rake assets:precompile", GEMFILES[version])
-        !Dir[file("public/assets/application*.css")].empty?
+      end
+
+      def precompiled?(path)
+        !Dir[asset_path(path)].empty?
+      end
+
+      def compiled_stylesheet(path, &block)
+        File.open(asset_path(path)).read.tap do |css|
+          debug(css)
+          yield css if block_given?
+        end
+      end
+
+      def asset_path(path_pattern)
+        Dir[file(path_pattern)].first
       end
 
       def rails_property(key)

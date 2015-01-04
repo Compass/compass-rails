@@ -1,5 +1,16 @@
 require 'test_helper'
 
+BASIC_COMPASS_SCSS = <<-SCSS
+@import 'compass';
+
+body{
+  @include background-image(linear-gradient(white, #aaaaaa));
+  container{
+    @include border-radius(4px, 4px);
+  }
+}
+SCSS
+
 class RailsTest < Test::Unit::TestCase
   include CompassRails::Test::RailsHelpers
 
@@ -11,10 +22,17 @@ class RailsTest < Test::Unit::TestCase
 
   def test_rails_assets_precompile
     within_rails_app('test_railtie') do |project|
-      rm(project.file("app/assets/javascripts/application.js"))
-      rm(project.file("app/assets/stylesheets/application.css"))
-      touch(project.file("app/assets/stylesheets/application.css.sass"))
-      assert project.precompiles?, "Missing compiled css after assets:precompile"
+      rm project.file("app/assets/javascripts/application.js")
+      rm project.file("app/assets/stylesheets/application.css")
+      touch project.file("app/assets/stylesheets/application.css.scss")
+      inject_at_bottom project.file("app/assets/stylesheets/application.css.scss"), BASIC_COMPASS_SCSS
+      project.precompile!
+
+      project.compiled_stylesheet('public/assets/application*.css') do |css|
+        assert_false css.empty?
+        assert_match('body container {', css)
+        assert_match("background-image: url('data:image/svg", css)
+      end
     end
   end
 
