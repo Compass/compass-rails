@@ -57,7 +57,9 @@ module CompassRails
       end
 
       def asset_path(path_pattern)
-        Dir[file(path_pattern)].first
+        Dir[file(path_pattern)].first.tap do |asset|
+          raise 'Asset not found' if asset.nil?
+        end
       end
 
       def rails_property(key)
