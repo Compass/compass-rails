@@ -16,6 +16,8 @@ describe CompassRails do
         assert_match 'body container', css
         assert_match "-webkit-linear-gradient", css
         assert_match "-moz-border-radius", css
+        assert_match '.numbers-sprite-1', css
+        assert_match '.numbers-sprite-2', css
       end
     end
   end
