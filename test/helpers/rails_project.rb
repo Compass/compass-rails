@@ -40,6 +40,11 @@ module CompassRails
         run_command("rake assets:precompile", GEMFILES[version])
       end
 
+      def setup_asset_fixtures!
+        rm_rf file("app/assets")
+        cp_r CompassRails::Test.root.join('test', 'fixtures', 'assets'), file("app")
+      end
+
       def precompiled?(path)
         !Dir[asset_path(path)].empty?
       end
