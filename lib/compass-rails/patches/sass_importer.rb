@@ -34,7 +34,8 @@ klass.class_eval do
     engine = ::Sass::Engine.new(data, options)
 
     engine.dependencies.map do |dependency|
-      context.depend_on(dependency.options[:filename])
+      filename = dependency.options[:filename]
+      context.depend_on(filename) unless filename.include?('*')
     end
 
     engine.render

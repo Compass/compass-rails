@@ -1,7 +1,7 @@
 @import "compass";
-@import "images/sprite-*.png";
+@import "numbers/sprite-*.png";
 
-@include all-images-sprites;
+@include all-numbers-sprites;
 
 body{
   @include background-image(linear-gradient(white, #aaaaaa));
