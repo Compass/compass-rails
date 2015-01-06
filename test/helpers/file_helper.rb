@@ -3,23 +3,7 @@ module CompassRails
     module FileHelper
       include DebugHelper
 
-      def mkdir_p(dir)
-        debug "Creating Directory: #{dir}"
-        ::FileUtils.mkdir_p dir
-        assert File.directory?(dir), "mkdir_p: #{dir} failed"
-      end
-
-      def rm(path)
-        debug "Removing: #{path}"
-        ::FileUtils.rm(path)
-        assert !File.file?(path), "rm: #{path} failed"
-      end
-
-      def rm_rf(path)
-        debug "Removing: #{path}"
-        ::FileUtils.rm_rf(path)
-        assert !File.directory?(path), "rm_rf: #{path} failed"
-      end
+      delegate :mkdir_p, :rm, :rm_rf, :cp_r, :touch, to: ::FileUtils
 
       def cd(path, &block)
         debug "Entering: #{path}"
@@ -30,11 +14,6 @@ module CompassRails
         content = File.read(file_name)
         content = "#{content}#{string}"
         File.open(file_name, 'w') { |file| file << content }
-      end
-
-      def touch(file)
-        debug "Touching File: #{file}"
-        ::FileUtils.touch(file)
       end
 
       def inject_into_file(file_name, replacement, position, anchor)
