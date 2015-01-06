@@ -31,5 +31,5 @@ describe CompassRails do
       assert_equal "sass", project.rails_property("sass.preferred_syntax")
       assert_equal "public/stylesheets", project.rails_property("compass.css_dir")
     end
-  end
+  end unless ENV['DEBUG_COMPILE']
 end

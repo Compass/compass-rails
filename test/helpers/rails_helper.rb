@@ -54,7 +54,7 @@ module CompassRails
             yield RailsProject.new(File.join(WORKING_DIR, dir), rails_version)
           end
         end
-        rm_rf File.join(WORKING_DIR, dir)
+        rm_rf File.join(WORKING_DIR, dir) unless ENV['DEBUG_COMPILE']
       end
 
     end
