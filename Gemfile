@@ -3,10 +3,6 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in compass-rails.gemspec
 gemspec
 
-group :assets do
-  gem 'compass-blueprint'
-end
-
 group :test do
   gem 'mocha'
   gem 'appraisal'

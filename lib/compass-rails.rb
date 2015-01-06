@@ -107,21 +107,6 @@ module CompassRails
       end
     end
 
-    def boot_config
-      config = begin
-        if (config_file = Compass.detect_configuration_file) &&
-            (config_data = Compass.configuration_for(config_file))
-          config_data
-        else
-          Compass::Configuration::Data.new("compass_rails_boot")
-        end
-      end
-
-      config.tap do |c|
-        c.top_level.project_type = :rails
-      end
-    end
-
   private
 
     # sets the sass config value only if the corresponding compass-based setting
@@ -136,8 +121,6 @@ end
 
 if defined?(::Rails)
   Compass::AppIntegration.register(:rails, "::CompassRails")
-  Compass.add_configuration(CompassRails.boot_config)
-
   require "compass-rails/patches"
   require "compass-rails/railties"
 end

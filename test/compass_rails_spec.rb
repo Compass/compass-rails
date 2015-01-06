@@ -5,19 +5,7 @@ describe CompassRails do
 
   it "compiles a basic compass stylesheet" do
     within_rails_app('test_railtie') do |project|
-      rm project.file("app/assets/javascripts/application.js")
-      rm project.file("app/assets/stylesheets/application.css")
-      touch project.file("app/assets/stylesheets/application.css.scss")
-      inject_at_bottom project.file("app/assets/stylesheets/application.css.scss"), <<-SCSS
-        @import 'compass';
-
-        body{
-          @include background-image(linear-gradient(white, #aaaaaa));
-          container{
-            @include border-radius(4px, 4px);
-          }
-        }
-      SCSS
+      project.setup_asset_fixtures!
 
       assert project.boots?
 
@@ -28,6 +16,8 @@ describe CompassRails do
         assert_match 'body container', css
         assert_match "-webkit-linear-gradient", css
         assert_match "-moz-border-radius", css
+        assert_match '.numbers-sprite-1', css
+        assert_match '.numbers-sprite-2', css
       end
     end
   end
@@ -43,5 +33,5 @@ describe CompassRails do
       assert_equal "sass", project.rails_property("sass.preferred_syntax")
       assert_equal "public/stylesheets", project.rails_property("compass.css_dir")
     end
-  end
+  end unless ENV['DEBUG_COMPILE']
 end

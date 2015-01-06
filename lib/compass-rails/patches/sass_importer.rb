@@ -32,12 +32,14 @@ klass.class_eval do
     })
 
     engine = ::Sass::Engine.new(data, options)
+    css = engine.render
 
     engine.dependencies.map do |dependency|
-      context.depend_on(dependency.options[:filename])
+      filename = dependency.options[:filename]
+      context.depend_on(filename) unless filename.include?('*')
     end
 
-    engine.render
+    css    
   rescue ::Sass::SyntaxError => e
     # Annotates exception message with parse line number
     context.__LINE__ = e.sass_backtrace.first[:line]
@@ -57,7 +59,7 @@ klass.class_eval do
       self.class.parent::SassImporter.new(path)
     else
       self.class.parent::SassImporter.new(context, path)
-    end 
+    end
   end
 
   def sprockets_cache_store

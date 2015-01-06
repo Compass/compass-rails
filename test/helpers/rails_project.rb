@@ -40,6 +40,11 @@ module CompassRails
         run_command("rake assets:precompile", GEMFILES[version])
       end
 
+      def setup_asset_fixtures!
+        rm_rf file("app/assets")
+        cp_r CompassRails::Test.root.join('test', 'fixtures', 'assets'), file("app")
+      end
+
       def precompiled?(path)
         !Dir[asset_path(path)].empty?
       end
@@ -52,7 +57,9 @@ module CompassRails
       end
 
       def asset_path(path_pattern)
-        Dir[file(path_pattern)].first
+        Dir[file(path_pattern)].first.tap do |asset|
+          raise 'Asset not found' if asset.nil?
+        end
       end
 
       def rails_property(key)

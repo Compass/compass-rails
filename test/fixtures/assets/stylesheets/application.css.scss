@@ -1,0 +1,11 @@
+@import "compass";
+@import "numbers/sprite-*.png";
+
+@include all-numbers-sprites;
+
+body{
+  @include background-image(linear-gradient(white, #aaaaaa));
+  container{
+    @include border-radius(4px, 4px);
+  }
+}
