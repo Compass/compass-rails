@@ -24,6 +24,12 @@ describe CompassRails do
     end
   end
 
+  it "tests a jruby failure" do
+    "letters/*.png" =~ %r{((.+/)?([^\*.]+))/(.+?)\.png}
+    assert $1
+    assert $3
+  end
+
   it "supports rails config arguments" do
     within_rails_app('test_railtie') do |project|
       assert_equal "scss", project.rails_property("sass.preferred_syntax")
