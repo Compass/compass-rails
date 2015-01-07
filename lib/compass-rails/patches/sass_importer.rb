@@ -14,7 +14,7 @@ klass.class_eval do
         Sprockets::SassProcessor::CacheStore.new(sprockets_cache_store, context.environment)
       end
 
-    paths  = context.environment.paths.map { |path| CompassRails::SpriteImporter.new(context, path) }
+    paths  = context.environment.paths.map { |path| CompassRails::SpriteImporter.new(path) }
     paths += context.environment.paths.map { |path| sass_importer(context, path) }
     paths += ::Rails.application.config.sass.load_paths
 

@@ -5,8 +5,7 @@ module CompassRails
   class SpriteImporter < Compass::SpriteImporter
     attr_reader :context, :root
 
-    def initialize(context, root)
-      @context = context
+    def initialize(root)
       @root = root
     end
 
@@ -15,6 +14,7 @@ module CompassRails
         self.class.files(uri).each do |file|
           relative_path = Pathname.new(file).relative_path_from(Pathname.new(root))
           begin
+            context = options[:sprockets][:context]
             pathname = context.resolve(relative_path)
             context.depend_on_asset(pathname)
           rescue Sprockets::FileNotFound
