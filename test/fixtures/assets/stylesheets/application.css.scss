@@ -4,7 +4,11 @@
 // Glob import SCSS partials
 @import "partials/*";
 
-// Import Sprites and Inline them to save
+// Import Sprites
+@import "letters/*.png"
+@include all-letters-sprites;
+
+// Inline Sprites
 $numbers-inline: true;
 @import "numbers/sprite-*.png";
 @include all-numbers-sprites;
