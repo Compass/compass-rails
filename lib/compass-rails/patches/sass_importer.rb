@@ -32,14 +32,20 @@ klass.class_eval do
     })
 
     engine = ::Sass::Engine.new(data, options)
-    css = engine.render
 
     engine.dependencies.map do |dependency|
       filename = dependency.options[:filename]
-      context.depend_on(filename) unless filename.include?('*')
+      if filename.include?('*') # Handle sprite globs
+        image_path = Rails.root.join(Compass.configuration.images_dir).to_s
+        Dir[File.join(image_path, filename)].each do |f|
+          context.depend_on(f)
+        end
+      else
+        context.depend_on(filename)
+      end
     end
 
-    css    
+    engine.render
   rescue ::Sass::SyntaxError => e
     # Annotates exception message with parse line number
     context.__LINE__ = e.sass_backtrace.first[:line]
