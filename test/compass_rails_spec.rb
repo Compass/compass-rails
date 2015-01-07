@@ -18,6 +18,8 @@ describe CompassRails do
         assert_match "-moz-border-radius", css
         assert_match '.numbers-sprite-1', css
         assert_match '.numbers-sprite-2', css
+        assert_match '.letters-a', css
+        assert_match '.letters-a', css
       end
     end
   end
