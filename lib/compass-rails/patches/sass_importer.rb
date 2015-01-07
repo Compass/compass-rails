@@ -64,12 +64,12 @@ klass.class_eval do
 
   def sprockets_cache_store
     case Rails.application.config.assets.cache_store
-      when :null_store
-        Sprockets::Cache::NullStore.new
-      when :memory_store, :mem_cache_store
-        Sprockets::Cache::MemoryStore.new
-      else
-        Sprockets::Cache::FileStore.new(Dir::tmpdir)
+    when :null_store
+      Sprockets::Cache::NullStore.new
+    when :memory_store, :mem_cache_store
+      Sprockets::Cache::MemoryStore.new
+    else
+      Sprockets::Cache::FileStore.new(Dir::tmpdir)
     end
   end
 end    
