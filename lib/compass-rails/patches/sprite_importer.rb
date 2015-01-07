@@ -25,5 +25,13 @@ module CompassRails
 
       old
     end
+
+   def self.path_and_name(uri)
+      if match = SPRITE_IMPORTER_REGEX.match(uri)
+        [match[1], match[3]]
+      else
+        raise Compass::Error, "invalid sprite path"
+      end
+    end
   end
 end
