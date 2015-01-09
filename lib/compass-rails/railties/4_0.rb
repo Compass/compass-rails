@@ -23,6 +23,12 @@ module CompassRails
               caller.grep(%r{/sprockets/rails/task.rb}).any? && #OMG HAX - check if we're being precompiled
               Compass.configuration.generated_images_path[Compass.configuration.images_path.to_s] # if the generated images path is not in the assets images directory, we don't have to do these backflips
 
+            # Clear entries in Hike::Index for this sprite's directory.
+            # This makes sure the asset can be found by find_assets
+            index = Rails.application.assets.send(:trail).index
+            index.instance_variable_get(:@entries).delete(File.dirname(filename))
+            index.instance_variable_get(:@stats).delete(filename)
+
             pathname      = Pathname.new(filename)
             logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path))
             asset         = Rails.application.assets.find_asset(logical_path)
