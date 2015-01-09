@@ -21,9 +21,6 @@ describe CompassRails do
         assert_match '.letters-a', css
         assert_match '.letters-a', css
       end
-
-      # No warnings printed to the log
-      assert_equal 0, File.size(project.file('log/development.log'))
     end
   end
 
