@@ -3,15 +3,15 @@ require 'compass/sprite_importer'
 
 module CompassRails
   class SpriteImporter < Compass::SpriteImporter
-    attr_reader :context, :root
+    attr_reader :root
 
-    def initialize(context, root)
-      @context = context
+    def initialize(root)
       @root = root
     end
 
     def find(uri, options)
       if old = super(uri, options)
+        context = options[:sprockets][:context]
         self.class.files(uri).each do |file|
           relative_path = Pathname.new(file).relative_path_from(Pathname.new(root))
           begin
