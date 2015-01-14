@@ -4,7 +4,6 @@ require "compass-rails/configuration"
 
 module CompassRails
 
-    RAILS_4 = %r{^4.[0|1|2]}
     RAILS_32 = %r{^3.2}
     RAILS_31 = %r{^3.1}
 
@@ -64,11 +63,6 @@ module CompassRails
     def rails32?
       return false unless defined?(::Rails)
       version_match RAILS_32
-    end
-
-    def rails4?
-      return false unless defined?(::Rails)
-      version_match RAILS_4
     end
 
     def version_match(version)
