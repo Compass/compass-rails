@@ -55,7 +55,7 @@ klass.class_eval do
   private
 
   def sass_importer_artiy
-    @sass_importer_artiy ||= self.class.parent::SassImporter.instance_method(:initialize).arity
+    @sass_importer_artiy ||= Sprockets::SassImporter.instance_method(:initialize).arity
   end
 
 
