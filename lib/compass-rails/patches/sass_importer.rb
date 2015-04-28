@@ -72,9 +72,9 @@ klass.class_eval do
     @sass_importer_class ||= if defined?(self.class.parent::SassImporter)
                                self.class.parent::SassImporter
                              elsif defined?(Sass::Rails::SassTemplate)
-                               Sass::Rails::SassTemplate
+                               Sass::Rails::SassImporter
                              else
-                               Sprockets::SassTemplate
+                               Sprockets::SassImporter
                              end
   end
 
