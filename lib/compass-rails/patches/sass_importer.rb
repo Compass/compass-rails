@@ -55,17 +55,27 @@ klass.class_eval do
   private
 
   def sass_importer_artiy
-    @sass_importer_artiy ||= self.class.parent::SassImporter.instance_method(:initialize).arity
+    @sass_importer_artiy ||= sass_importer_class.instance_method(:initialize).arity
   end
-
 
   def sass_importer(context, path)
     case sass_importer_artiy.abs
     when 1
-      self.class.parent::SassImporter.new(path)
+      sass_importer_class.new(path)
     else
-      self.class.parent::SassImporter.new(context, path)
+      sass_importer_class.new(context, path)
     end
+  end
+
+  # if using haml-rails, self.class.parent = Haml::Filters (which doesn't have an implementation)
+  def sass_importer_class
+    @sass_importer_class ||= if defined?(self.class.parent::SassImporter)
+                               self.class.parent::SassImporter
+                             elsif defined?(Sass::Rails::SassTemplate)
+                               Sass::Rails::SassImporter
+                             else
+                               Sprockets::SassImporter
+                             end
   end
 
   def sprockets_cache_store
