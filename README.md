@@ -72,7 +72,7 @@ For example, if you want to use susy.
 ```ruby
 # Gemfile
 gem 'compass-rails'
-gem 'compass-susy-plugin'
+gem 'susy'
 ```
 
 then run:
