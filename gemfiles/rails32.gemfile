@@ -9,10 +9,6 @@ gem "guard-test"
 gem "rails", "~> 3.2"
 gem "sass-rails"
 
-group :assets do
-  gem "compass-blueprint"
-end
-
 group :test do
   gem "mocha"
   gem "appraisal"
