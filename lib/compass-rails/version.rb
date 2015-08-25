@@ -1,5 +1,3 @@
 module CompassRails
-  unless defined?(::CompassRails::VERSION)
-    VERSION = "2.0.5"
-  end
+  VERSION = '3.0.0' unless defined?(::CompassRails::VERSION)
 end
