@@ -13,21 +13,23 @@ Compass::Core::SassExtensions::Functions::Urls::GeneratedImageUrl.module_eval do
     generated_images_dir = Rails.root.join(generated_images_dir)
 
     sprockets_env     = options[:sprockets][:environment]
-    sprockets_trail   = sprockets_env.send(:trail)
-    sprockets_entries = sprockets_trail.instance_variable_get(:@entries) || {}
-    sprockets_stats   = sprockets_trail.instance_variable_get(:@stats) || {}
+    if sprockets_env.respond_to?(:trail, true)
+      sprockets_trail   = sprockets_env.send(:trail)
+      sprockets_entries = sprockets_trail.instance_variable_get(:@entries) || {}
+      sprockets_stats   = sprockets_trail.instance_variable_get(:@stats) || {}
 
-    if sprockets_entries.key?(generated_images_dir.to_s)
-      path = path.value
-      dir  = File.dirname(path)
+      if sprockets_entries.key?(generated_images_dir.to_s)
+        path = path.value
+        dir  = File.dirname(path)
 
-      # Delete the entries (directories) which cache the files/dirs in a directory
-      entry = generated_images_dir.join(dir).to_s
-      sprockets_entries.delete(entry)
+        # Delete the entries (directories) which cache the files/dirs in a directory
+        entry = generated_images_dir.join(dir).to_s
+        sprockets_entries.delete(entry)
 
-      # Delete the stats (file/dir info) which cache the what kind of file/dir each image is
-      stat = generated_images_dir.join(path).to_s
-      sprockets_stats.delete(stat)
+        # Delete the stats (file/dir info) which cache the what kind of file/dir each image is
+        stat = generated_images_dir.join(path).to_s
+        sprockets_stats.delete(stat)
+      end
     end
   end
 end
