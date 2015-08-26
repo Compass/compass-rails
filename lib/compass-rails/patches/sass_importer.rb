@@ -7,11 +7,11 @@ end
 klass.class_eval do
   def evaluate(context, locals, &block)
     # Use custom importer that knows about Sprockets Caching
-    cache_store = 
-      if defined?(Sprockets::SassCacheStore)
-        Sprockets::SassCacheStore.new(context.environment)
-      else
+    cache_store =
+      if defined?(Sprockets::SassProcessor::CacheStore)
         Sprockets::SassProcessor::CacheStore.new(sprockets_cache_store, context.environment)
+      else
+        Sprockets::SassCacheStore.new(context.environment)
       end
 
     paths  = context.environment.paths.map { |path| CompassRails::SpriteImporter.new(path) }
@@ -79,14 +79,15 @@ klass.class_eval do
   end
 
   def sprockets_cache_store
-    case Rails.application.config.assets.cache_store
-    when :null_store
-      Sprockets::Cache::NullStore.new
-    when :memory_store, :mem_cache_store
-      Sprockets::Cache::MemoryStore.new
-    else
-      Sprockets::Cache::FileStore.new(Dir::tmpdir)
-    end
-  end
-end    
+    cache = case Rails.application.config.assets.cache_store
+            when :null_store
+              Sprockets::Cache::NullStore.new
+            when :memory_store, :mem_cache_store
+              Sprockets::Cache::MemoryStore.new
+            else
+              Sprockets::Cache::FileStore.new(Dir::tmpdir)
+            end
 
+    Sprockets::Cache.new(cache, Rails.logger)
+  end
+end
