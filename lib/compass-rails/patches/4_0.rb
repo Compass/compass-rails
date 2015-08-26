@@ -14,7 +14,7 @@ Compass::Core::SassExtensions::Functions::Urls::GeneratedImageUrl.module_eval do
 
     sprockets_env = options[:sprockets][:environment]
 
-    if sprockets_env.respond_to?(:trail)
+    if sprockets_env.respond_to?(:trail, true)
       sprockets_trail = sprockets_env.send(:trail)
     else
       sprockets_trail = sprockets_env.index

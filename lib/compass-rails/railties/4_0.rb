@@ -25,7 +25,7 @@ module CompassRails
 
             # Clear entries in Hike::Index for this sprite's directory.
             # This makes sure the asset can be found by find_assets
-            if Rails.application.assets.respond_to?(:trail)
+            if Rails.application.assets.respond_to?(:trail, true)
               index = Rails.application.assets.send(:trail).index
             else
               index = Rails.application.assets.index

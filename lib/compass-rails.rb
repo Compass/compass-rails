@@ -12,7 +12,7 @@ module CompassRails
     def setup_fake_rails_env_paths(sprockets_env)
       return unless rails_loaded?
 
-      if sprockets_env.respond_to?(:trail)
+      if sprockets_env.respond_to?(:trail, true)
         sprockets_trail = sprockets_env.send(:trail)
       else
         sprockets_trail = sprockets_env.index
