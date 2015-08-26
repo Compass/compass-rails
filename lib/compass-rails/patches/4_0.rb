@@ -12,8 +12,14 @@ Compass::Core::SassExtensions::Functions::Urls::GeneratedImageUrl.module_eval do
     generated_images_dir = Compass.configuration.generated_images_dir
     generated_images_dir = Rails.root.join(generated_images_dir)
 
-    sprockets_env     = options[:sprockets][:environment]
-    sprockets_trail   = sprockets_env.send(:trail)
+    sprockets_env = options[:sprockets][:environment]
+
+    if sprockets_env.respond_to?(:trail)
+      sprockets_trail = sprockets_env.send(:trail)
+    else
+      sprockets_trail = sprockets_env.index
+    end
+
     sprockets_entries = sprockets_trail.instance_variable_get(:@entries) || {}
     sprockets_stats   = sprockets_trail.instance_variable_get(:@stats) || {}
 

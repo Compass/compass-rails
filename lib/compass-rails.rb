@@ -11,14 +11,21 @@ module CompassRails
 
     def setup_fake_rails_env_paths(sprockets_env)
       return unless rails_loaded?
+
+      if sprockets_env.respond_to?(:trail)
+        sprockets_trail = sprockets_env.send(:trail)
+      else
+        sprockets_trail = sprockets_env.index
+      end
+
       keys = ['app/assets', 'lib/assets', 'vendor/assets']
       local = keys.map {|path| ::Rails.root.join(path) }.map { |path| [File.join(path, 'images'), File.join(path, 'stylesheets')] }.flatten!
-      sprockets_env.send(:trail).paths.unshift(*local)
+      sprockets_trail.paths.unshift(*local)
       paths = []
       ::Rails::Engine.subclasses.each do |subclass|
         paths = subclass.paths
         keys.each do |key|
-          sprockets_env.send(:trail).paths.unshift(*paths[key].existent_directories)
+          sprockets_trail.paths.unshift(*paths[key].existent_directories)
         end
       end
     end
