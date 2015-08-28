@@ -79,14 +79,17 @@ klass.class_eval do
   end
 
   def sprockets_cache_store
-    cache = case Rails.application.config.assets.cache_store
-            when :null_store
-              Sprockets::Cache::NullStore.new
-            when :memory_store, :mem_cache_store
-              Sprockets::Cache::MemoryStore.new
-            else
-              Sprockets::Cache::FileStore.new(Dir::tmpdir)
-            end
+    cache =
+      case Rails.application.config.assets.cache_store
+      when :null_store
+        Sprockets::Cache::NullStore.new
+      when :memory_store, :mem_cache_store
+        Sprockets::Cache::MemoryStore.new
+      else
+        path = "#{Rails.application.config.root}/tmp/cache/assets/#{Rails.env}"
+
+        Sprockets::Cache::FileStore.new(path)
+      end
 
     Sprockets::Cache.new(cache, Rails.logger)
   end
