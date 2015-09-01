@@ -1,10 +1,14 @@
 # Change log
 
 ## 3.0.0 - Unreleased
-- Added Sprockets 3 support
+### Added
+- Added Sprockets 3 support. Issue #232, #236, #244.
+
+### Fixed
+- Sprockets cache files are no longer saved to /tmp and now use the app-level tmp folder instead.
 
 ## 2.0.2 - 2015-01-03
-
+### Fixed
 - Fixed test suite to test against Rails 3.1, 3.2, 4.0, 4.2 on Ruby 1.9.3, 2.0.0, 2.1.0, 2.2.0 and jruby-head. Issue #206
 - Support up to sass-rails 5.0.1. Issue #198
 - Fix sass_importer patches having incorrect method signatures. Issue #195
