@@ -15,7 +15,7 @@ module CompassRails
         self.class.files(uri).each do |file|
           relative_path = Pathname.new(file).relative_path_from(Pathname.new(root))
           begin
-            pathname = context.resolve(relative_path)
+            pathname = context.resolve(relative_path.to_s)
             context.depend_on_asset(pathname)
           rescue Sprockets::FileNotFound
 
