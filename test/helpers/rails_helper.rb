@@ -4,6 +4,7 @@ module CompassRails
       include FileHelper
       include DebugHelper
       include CommandHelper
+        RAILS_5_0   = "5.0"
         RAILS_4_2   = "4.2"
         RAILS_4_0   = "4.0"
         RAILS_3_2   = "3.2"
@@ -12,6 +13,7 @@ module CompassRails
         WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
 
         VERSION_LOOKUP = {
+          RAILS_5_0 => %r{^5\.0\.},
           RAILS_4_2 => %r{^4\.2\.},
           RAILS_4_0 => %r{^4\.0\.},
           RAILS_3_2 => %r{^3\.2\.},
@@ -19,6 +21,7 @@ module CompassRails
         }
 
         GEMFILES = {
+          RAILS_5_0 => GEMFILES_DIR.join("rails50.gemfile").to_s,
           RAILS_4_2 => GEMFILES_DIR.join("rails42.gemfile").to_s,
           RAILS_4_0 => GEMFILES_DIR.join("rails40.gemfile").to_s,
           RAILS_3_2 => GEMFILES_DIR.join("rails32.gemfile").to_s,

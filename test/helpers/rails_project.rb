@@ -14,6 +14,7 @@ module CompassRails
       def initialize(directory, version)
         @directory = Pathname.new(directory)
         @version = version
+        disable_cookies! if version == '3.1'
       end
 
       ## FILE METHODS
@@ -68,6 +69,11 @@ module CompassRails
 
       def set_rails(property, value)
         value = "\n    config.#{property} = #{value.inspect}\n"
+        inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
+      end
+
+      def disable_cookies!
+        value = "\n    config.middleware.delete 'ActionDispatch::Session::CookieStore'\n"
         inject_into_file(directory.join(APPLICATION_FILE), value, :after, 'class Application < Rails::Application')
       end
 
