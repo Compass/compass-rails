@@ -7,6 +7,7 @@ gem "ruby_gntp", :require => false
 gem "guard"
 gem "guard-test"
 gem "rails", "~> 4.2.0"
+gem "sprockets", "< 2.13"
 gem "sass-rails", "~> 5.0"
 
 group :test do

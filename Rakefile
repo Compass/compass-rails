@@ -1,21 +1,9 @@
 #!/usr/bin/env rake
-require 'rubygems'
-require 'bundler'
-Bundler.setup
-require 'rake/dsl_definition'
-
-require "bundler/gem_tasks"
-require 'appraisal'
-require 'compass'
-
-# ----- Default: Testing ------
-
-task :default => [:test]
-
+require 'bundler/gem_tasks'
 require 'rake/testtask'
-require 'fileutils'
 
 Rake::TestTask.new :test do |t|
+  require 'fileutils'
   t.libs << 'lib'
   t.libs << 'test'
   test_files = FileList['test/**/*_{test,spec}.rb']
@@ -23,3 +11,5 @@ Rake::TestTask.new :test do |t|
   t.test_files = test_files
   t.verbose = true
 end
+
+task :default => [:test]
