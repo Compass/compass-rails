@@ -18,7 +18,7 @@ end
 
 appraise "rails42" do
   gem "rails", "~> 4.2.0"
-  gem "sprockets", "< 2.13"
+  gem "sprockets", "< 4.0"
   gem "sass-rails", "~> 5.0"
 end
 
