@@ -35,7 +35,7 @@ module CompassRails
     end
 
     def sprockets
-      @sprockets ||= ::Rails.application.assets
+      @sprockets ||= ::Rails.application.assets || ::Rails.application.config.assets
     end
 
     def context
