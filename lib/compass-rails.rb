@@ -35,14 +35,14 @@ module CompassRails
     end
 
     def sprockets
-      @sprockets ||= ::Rails.application.assets
+      @sprockets ||= ::Rails.application.assets || ::Rails.application.config.assets
     end
 
     def context
       @context ||= begin
         sprockets.version = ::Rails.env + "-#{sprockets.version}"
         setup_fake_rails_env_paths(sprockets)
-        context = ::Rails.application.assets.context_class
+        context = sprockets.context_class
         context.extend(::Sprockets::Helpers::IsolatedHelper)
         context.extend(::Sprockets::Helpers::RailsHelper)
         context.extend(::Sass::Rails::Railtie::SassContext)
