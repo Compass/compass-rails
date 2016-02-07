@@ -1,6 +1,10 @@
 # Change log
 
-## 3.0.0 - Unreleased
+## 3.0.1 - 2016-2
+### Fixed
+- Fix running rake assts:precompile to be run in production mode. Issue #257.
+
+## 3.0.0 - 2016-01-23
 ### Added
 - Added Sprockets 3 support. Issue #232, #236, #244.
 
