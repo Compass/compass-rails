@@ -25,11 +25,11 @@ module CompassRails
 
             # Clear entries in Hike::Index for this sprite's directory.
             # This makes sure the asset can be found by find_assets
-            Rails.application.assets.send(:trail).instance_variable_get(:@entries).delete(File.dirname(filename))
+            CompassRails.sprockets.send(:trail).instance_variable_get(:@entries).delete(File.dirname(filename))
 
             pathname      = Pathname.new(filename)
             logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path))
-            asset         = Rails.application.assets.find_asset(logical_path)
+            asset         = CompassRails.sprockets.find_asset(logical_path)
             target        = File.join(Rails.public_path, Rails.application.config.assets.prefix, asset.digest_path)
 
             # Adds the asset to the manifest file.
