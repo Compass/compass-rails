@@ -36,4 +36,23 @@ describe CompassRails do
       assert_equal "public/stylesheets", project.rails_property("compass.css_dir")
     end
   end unless ENV['DEBUG_COMPILE']
+
+  it "compiles when in production mode" do
+    within_rails_app('test_railtie') do |project|
+      project.setup_asset_fixtures!
+
+      # Mimic Rails production mode
+      project.set_rails('assets.compile', false)
+
+      assert project.boots?
+
+      project.precompile!
+
+      project.compiled_stylesheet 'public/assets/application*.css' do |css|
+        refute css.empty?
+        assert_match 'body container', css
+        assert_match '.numbers-sprite-1', css
+      end
+    end
+  end
 end
