@@ -2,10 +2,10 @@
 
 **We Take Pull Requests!**
 
-[![Build Status](https://travis-ci.org/Compass/compass-rails.png?branch=master)](https://travis-ci.org/Compass/compass-rails)
-[![Code Climate](https://codeclimate.com/github/Compass/compass-rails.png)](https://codeclimate.com/github/Compass/compass-rails)
+[![Build Status](https://travis-ci.org/Compass/compass-rails.svg?branch=master)](https://travis-ci.org/Compass/compass-rails)
+[![Code Climate](https://codeclimate.com/github/Compass/compass-rails.svg)](https://codeclimate.com/github/Compass/compass-rails)
 [![Gem Version](https://badge.fury.io/rb/compass-rails.svg)](http://badge.fury.io/rb/compass-rails)
-[![Coverage Status](https://coveralls.io/repos/Compass/compass-rails/badge.png)](https://coveralls.io/r/Compass/compass-rails)
+[![Coverage Status](https://coveralls.io/repos/Compass/compass-rails/badge.svg)](https://coveralls.io/r/Compass/compass-rails)
 
 Compass rails is an adapter for the [Compass Stylesheet Authoring
 Framework](http://compass-style.org) for [Ruby on Rails](http://rubyonrails.org/).
