@@ -35,14 +35,14 @@ module CompassRails
             index.instance_variable_get(:@stats).delete(filename)
 
             pathname      = Pathname.new(filename)
-            logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path))
+            logical_path  = pathname.relative_path_from(Pathname.new(Compass.configuration.images_path)).to_s
             asset         = CompassRails.sprockets.find_asset(logical_path)
             target        = File.join(Rails.public_path, Rails.application.config.assets.prefix, asset.digest_path)
 
             # Adds the asset to the manifest file.
 
             manifest = ActionView::Base.assets_manifest
-            manifest.assets[logical_path.to_s] = asset.digest_path
+            manifest.assets[logical_path] = asset.digest_path
 
 
             # Adds the fingerprinted asset to the public directory
