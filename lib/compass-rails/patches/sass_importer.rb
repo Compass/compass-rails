@@ -41,7 +41,7 @@ klass.class_eval do
           context.depend_on(f)
         end
       else
-        context.depend_on(filename)
+        context.depend_on(filename) if File.exist?(filename)
       end
     end
 
