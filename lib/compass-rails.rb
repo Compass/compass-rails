@@ -75,7 +75,7 @@ module CompassRails
     end
 
     def rails_loaded?
-      defined?(::Rails)
+      defined?(::Rails) && Rails.application
     end
 
     def rails_version
