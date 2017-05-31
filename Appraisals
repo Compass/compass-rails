@@ -27,3 +27,18 @@ appraise "rails50" do
   gem "sprockets", "< 4.0"
   gem "sass-rails", "~> 5.0"
 end
+
+appraise "rails51" do
+  gem "rails", "~> 5.1.0"
+  gem "sprockets", "< 4.0"
+  gem "sass-rails", "~> 5.0"
+end
+
+appraise "rails_edge" do
+  git 'git://github.com/rails/rails.git' do
+    gem "rails"
+  end
+
+  gem "sprockets", "< 4.0"
+  gem "sass-rails", "~> 5.0"
+end

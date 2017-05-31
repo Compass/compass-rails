@@ -12,8 +12,11 @@ gemfile:
   - gemfiles/rails40.gemfile
   - gemfiles/rails42.gemfile
   - gemfiles/rails50.gemfile
+  - gemfiles/rails51.gemfile
+  - gemfiles/rails_edge.gemfile
 matrix:
   fast_finish: true
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
+    - gemfile: gemfiles/rails_edge.gemfile
