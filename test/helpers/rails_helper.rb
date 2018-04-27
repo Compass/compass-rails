@@ -42,7 +42,9 @@ module CompassRails
       end
 
       def rails_version
-        @rails_version ||= VERSION_LOOKUP.detect { |version, regex| CompassRails.version_match(regex) }.first
+        @rails_version ||=
+          VERSION_LOOKUP.detect { |version, regex| CompassRails.version_match(regex) }.try(&:first) ||
+          CompassRails.rails_version
       end
 
       # Generate a rails application without polluting our current set of requires
