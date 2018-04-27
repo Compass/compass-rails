@@ -2,11 +2,11 @@
 
 source "https://rubygems.org"
 
-gem "rb-fsevent", :require => false
-gem "ruby_gntp", :require => false
+gem "rb-fsevent", require: false
+gem "ruby_gntp", require: false
 gem "guard"
 gem "guard-test"
-gem "rails", ">= 5.0.0.alpha", "< 5.1"
+gem "rails", "~> 5.0.0"
 gem "sprockets", "< 4.0"
 gem "sass-rails", "~> 5.0"
 
@@ -16,4 +16,4 @@ group :test do
   gem "minitest"
 end
 
-gemspec :path => "../"
+gemspec path: "../"

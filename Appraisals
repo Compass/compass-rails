@@ -23,7 +23,7 @@ appraise "rails42" do
 end
 
 appraise "rails50" do
-  gem "rails", ">= 5.0.0.alpha", "< 5.1"
+  gem "rails", "~> 5.0.0"
   gem "sprockets", "< 4.0"
   gem "sass-rails", "~> 5.0"
 end
