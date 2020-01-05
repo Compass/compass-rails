@@ -2,16 +2,15 @@
 
 source "https://rubygems.org"
 
-git "git://github.com/rails/rails.git" do
-  gem "rails"
-end
-
 gem "rb-fsevent", require: false
 gem "ruby_gntp", require: false
 gem "guard"
 gem "guard-test"
+gem "rails", git: "https://github.com/rails/rails.git"
 gem "sprockets", "< 4.0"
 gem "sass-rails", "~> 5.0"
+gem "webpacker", "~> 4.0"
+gem "bootsnap", ">= 1.4.2", require: false
 
 group :test do
   gem "mocha"
