@@ -14,7 +14,7 @@ Framework](http://compass-style.org) for [Ruby on Rails](http://rubyonrails.org/
 
 Since Compass v0.12.0, this is the only way to use compass with your rails application.
 
-Supports Rails 4.2, 5.x and 6.x releases.
+Supports Rails 5.2 and 6.x releases.
 
 ## Installation
 

@@ -7,9 +7,6 @@ module CompassRails
         RAILS_6_1   = "6.1"
         RAILS_6_0   = "6.0"
         RAILS_5_2   = "5.2"
-        RAILS_5_1   = "5.1"
-        RAILS_5_0   = "5.0"
-        RAILS_4_2   = "4.2"
 
         WORKING_DIR = File.join(ROOT_PATH, 'rails-temp')
 
@@ -17,18 +14,12 @@ module CompassRails
           RAILS_6_1 => %r{^6\.1\.},
           RAILS_6_0 => %r{^6\.0\.},
           RAILS_5_2 => %r{^5\.2\.},
-          RAILS_5_1 => %r{^5\.1\.},
-          RAILS_5_0 => %r{^5\.0\.},
-          RAILS_4_2 => %r{^4\.2\.},
         }
 
         GEMFILES = {
           RAILS_6_1 => GEMFILES_DIR.join("rails_edge.gemfile").to_s,
           RAILS_6_0 => GEMFILES_DIR.join("rails60.gemfile").to_s,
           RAILS_5_2 => GEMFILES_DIR.join("rails52.gemfile").to_s,
-          RAILS_5_1 => GEMFILES_DIR.join("rails51.gemfile").to_s,
-          RAILS_5_0 => GEMFILES_DIR.join("rails50.gemfile").to_s,
-          RAILS_4_2 => GEMFILES_DIR.join("rails42.gemfile").to_s,
         }
 
         GENERATOR_OPTIONS = ['-q', '-G', '-O', '--skip-bundle']
