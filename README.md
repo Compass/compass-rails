@@ -1,8 +1,6 @@
-# compass-rails
+# Deprecated - compass-rails
 
 **Don't start new projects with compass, it is no longer supported, see the [compass statement](https://github.com/Compass/compass/pull/2094)**
-
-**We Take Pull Requests!**
 
 [![Build Status](https://travis-ci.org/Compass/compass-rails.svg?branch=master)](https://travis-ci.org/Compass/compass-rails)
 [![Code Climate](https://codeclimate.com/github/Compass/compass-rails.svg)](https://codeclimate.com/github/Compass/compass-rails)
