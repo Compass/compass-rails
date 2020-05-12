@@ -67,10 +67,10 @@ klass.class_eval do
     end
   end
 
-  # if using haml-rails, self.class.parent = Haml::Filters (which doesn't have an implementation)
+  # if using haml-rails, self.class.module_parent = Haml::Filters (which doesn't have an implementation)
   def sass_importer_class
-    @sass_importer_class ||= if defined?(self.class.parent::SassImporter)
-                               self.class.parent::SassImporter
+    @sass_importer_class ||= if defined?(self.class.module_parent::SassImporter)
+                               self.class.module_parent::SassImporter
                              elsif defined?(Sass::Rails::SassTemplate)
                                Sass::Rails::SassImporter
                              else
