@@ -1,4 +1,4 @@
-# ENO OF LIFE - compass-rails
+# END OF LIFE - compass-rails
 
 **Don't use compass, it is no longer supported, see the [compass statement](https://github.com/Compass/compass/pull/2094)**
 
